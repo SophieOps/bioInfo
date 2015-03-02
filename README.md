@@ -1,2 +1,5 @@
 # bioInfo
-projet de bioinformatique
+Projet de bioinformatique
+Réalisé par : 
+- Opsommer Sophie
+- Watillon Thibaut
