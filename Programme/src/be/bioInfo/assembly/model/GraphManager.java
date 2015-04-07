@@ -18,15 +18,15 @@ public class GraphManager
 			{
 				if(nodeList.get(i).getComplementaryNode() != nodeList.get(j))
 				{
-					int weight = alignmentAlgo.computeAlignmentMax(nodeList.get(i).getData(), nodeList.get(j).getData());
-					Edge edge = new Edge(nodeList.get(i), nodeList.get(j), weight);
-					Edge edgeBis = new Edge(nodeList.get(j), nodeList.get(i), weight);
+					alignmentAlgo.computeAlignmentMax(nodeList.get(i).getData(), nodeList.get(j).getData());
+					Edge edge = new Edge(nodeList.get(i), nodeList.get(j), alignmentAlgo.getMaxValueRow());
+					Edge edgeBis = new Edge(nodeList.get(j), nodeList.get(i), alignmentAlgo.getMaxValueColumn());
 					edgeList.add(edge);
 					edgeList.add(edgeBis);
 				
 				}
-				
 			}
+			
 		}
 		
 

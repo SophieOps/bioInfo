@@ -10,6 +10,12 @@ import be.bioInfo.assembly.model.Node;
 public class GreedyAlgo 
 {
 
+	/**
+	 * Exécution de l'algo
+	 * @param graph le graph 
+	 * @return liste des arcs choisit
+	 * @throws GreedyException
+	 */
 	public ArrayList<Edge> execute(Graph graph) throws GreedyException
 	{
 		ArrayList<ArrayList<Node>> set = new ArrayList();
@@ -41,6 +47,10 @@ public class GreedyAlgo
 		return choosenEdge;
 	}
 
+	/**
+	 * Mise à jour des arcs choisit et des complémentaires
+	 * @param edge arc choisit
+	 */
 	private void updateEdge(Edge edge) {
 		edge.getSource().setOut(true);
 		edge.getDestination().setIn(true);
@@ -50,6 +60,13 @@ public class GreedyAlgo
 		edge.getDestination().getComplementaryNode().setOut(true);
 	}
 	
+	/**
+	 * Vérifie que le noeud 1 et 2 n'appartienent pas au même ensemble
+	 * @param node1 noeud 1
+	 * @param node2 noeud 2
+	 * @param set ensemble des noeuds 
+	 * @return true si le noeud 1 et 2 appartiennent au même ensemble
+	 */
 	private boolean checkSet(Node node1, Node node2, ArrayList<ArrayList<Node>> set)
 	{
 		for(ArrayList<Node> nodeSet : set)
@@ -60,6 +77,13 @@ public class GreedyAlgo
 		return false;
 	}
 	
+	/**
+	 * Recherche les ensembles contenant les noeud 1 et 2 et leur complémentaire
+	 * @param set liste contenant les ensembles
+	 * @param node1 noeud 1 
+	 * @param node2 noeud 2
+	 * @throws GreedyException
+	 */
 	private void unionSet(ArrayList<ArrayList<Node>> set, Node node1, Node node2) throws GreedyException
 	{
 		int indexNodeSet1 = 0, indexNodeSet2 = 0, indexComplementaryNode1 = 0, indexComplementaryNode2 = 0;
@@ -79,49 +103,63 @@ public class GreedyAlgo
 		if(indexNodeSet1 == indexNodeSet2)
 			throw new GreedyException("Problème dans le déroulement du Greedy");
 		
-		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
-		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
-		ArrayList<Node> complementaryNodeSet1 = set.get(indexComplementaryNode1);
-		ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
 		
-		
+
 		applyUnion(set, indexNodeSet1, indexNodeSet2, indexComplementaryNode1,
-				indexComplementaryNode2, nodeSet1, nodeSet2,
-				complementaryNodeSet1, complementaryNodeSet2);
+				indexComplementaryNode2);
 		
 	
 
 	}
 
+	/**
+	 * Applique l'union sur les ensembles contenant les noeud 1 et 2 et leur complémentaire
+	 * @param set la liste des ensembles
+	 * @param indexNodeSet1 indice de l'ensemble contenant le noeud 1
+	 * @param indexNodeSet2 indice de l'ensemble contenant le noeud 2
+	 * @param indexComplementaryNode1 indice de l'ensemble contenant le complémentaire du noeud 1
+	 * @param indexComplementaryNode2 indice de l'ensemble contenant le complémentaire du noeud 2
+	 */
 	private void applyUnion(ArrayList<ArrayList<Node>> set, int indexNodeSet1,
 			int indexNodeSet2, int indexComplementaryNode1,
-			int indexComplementaryNode2, ArrayList<Node> nodeSet1,
-			ArrayList<Node> nodeSet2, ArrayList<Node> complementaryNodeSet1,
-			ArrayList<Node> complementaryNodeSet2) {
+			int indexComplementaryNode2) {
 		
+		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
+		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
+		ArrayList<Node> complementaryNodeSet1 = set.get(indexComplementaryNode1);
+		ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
+		
+		//ajout des données de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)
 		{
 			nodeSet1.add(nodeSet2.get(i));
 		}
 		
+		//si l'ensemble contenant le complémentaire du noeud 1 est différent de l'ensemble contenant le noeud 1
 		if(indexNodeSet1 != indexComplementaryNode1)
 		{
+			//ajout des données de l'ensemble contenant le complémentaire du noeud 1 dans l'ensemble du noeud 1
 			for(int i = 0; i < complementaryNodeSet1.size(); i++)
 			{
 				nodeSet1.add(complementaryNodeSet1.get(i));
 			}
+			//supprimer l'ensemble du complémentaire
 			set.remove(complementaryNodeSet1);
 		}
 		
+		//si l'ensemble contenant le complémentaire du noeud 2 est différent de l'ensemble contenant le noeud 2
 		if(indexNodeSet2 != indexComplementaryNode2)
 		{
+			//ajout des données de l'ensemble contenant le complémentaire du noeud 2 dans l'ensemble du noeud 1
 			for(int i = 0; i < complementaryNodeSet2.size(); i++)
 			{
 				nodeSet1.add(complementaryNodeSet2.get(i));
 			}
+			//supprimer l'ensemble du complémentaire
 			set.remove(complementaryNodeSet2);
 		}
 		
+		//supprimer l'ensemble du noeud 2
 		set.remove(nodeSet2);
 	}
 }

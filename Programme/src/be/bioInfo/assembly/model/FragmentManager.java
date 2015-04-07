@@ -28,7 +28,7 @@ public class FragmentManager
         
         lineScan = new Scanner(line);
         lineScan.useLocale(Locale.FRENCH);  
-        
+   
 	    fileScan = new Scanner(selectedFile);
 	    line = fileScan.nextLine();
 	    
@@ -40,16 +40,14 @@ public class FragmentManager
 	        	createFragmentNode(code, nodeList, node, complementaryNode);
 
 	        	node = new Node();
-	        	complementaryNode = new Node();
-	        		
-	        	code ="";
-	        		 
+	        	complementaryNode = new Node();	
+	        	code ="";		 
 	        }
 	        else
 	        {
 	        	lineScan = new Scanner(line);
 		        lineScan.useLocale(Locale.FRENCH);
-		        code+=lineScan.next();
+		        code+=line;
 		    }
 	    }
 	    createFragmentNode(code, nodeList, node, complementaryNode);

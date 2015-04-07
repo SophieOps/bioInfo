@@ -43,11 +43,24 @@ public class MainFrame extends JFrame
 			try
 			{
 				ArrayList<Node> nodeList = fragmentManager.readFile(fc.getSelectedFile());
+				
+				/*for(int i = 0; i < nodeList.size(); i++)
+				{
+					System.out.println(nodeList.get(i).getData().getCode());
+				}*/
+				
 				ArrayList<Edge> edgeList = new ArrayList<Edge>();
 				Graph graph;
 				
 				graph = graphManager.constructGraph(nodeList);
+
+				/*for(int i = 0; i < graph.getEdgeList().size(); i++)
+				{
+					System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" à "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
+				}*/
+				
 				edgeList = greedyAlgo.execute(graph);
+				
 				
 				for(int i = 0; i < edgeList.size(); i++)
 				{
