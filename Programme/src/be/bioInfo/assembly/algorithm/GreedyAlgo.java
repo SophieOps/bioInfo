@@ -8,7 +8,7 @@ import be.bioInfo.assembly.model.Graph;
 import be.bioInfo.assembly.model.Node;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class GreedyAlgo 
@@ -29,12 +29,12 @@ public class GreedyAlgo
 		ArrayList<ArrayList<Node>> set = new ArrayList();
 		ArrayList<Edge> choosenEdge = new ArrayList<Edge>();
 		
-		//tel qu'elle est la, la boucle ajoute les listes de noeud tel que chacune ne contient que 1 noeud ????
+		//Au départ, un seul noeud par liste
 		for(int i = 0; i < graph.getNodeList().size(); i++)
 		{
 			ArrayList<Node> nodeSet = new ArrayList<Node>();
 			nodeSet.add(graph.getNodeList().get(i));
-			set.add(nodeSet); // ????? il ne devrait pas se trouver à l'extérieur de la boucle for ?
+			set.add(nodeSet);
 		}
 		
 		for(Edge edge: graph.getEdgeList())
@@ -49,14 +49,14 @@ public class GreedyAlgo
 			}
 			if(set.size() == 1)
 				break;
-
-				
 		}
-		
 		return choosenEdge;
 	}
 
-	//pourquoi avoir 2 variables (in et out) si elles ont toujoursles mêmes vameurs ?
+	/**
+	 * Update the source and the destination of the edge.
+	 * @param edge
+	 */
 	private void updateEdge(Edge edge) {
 		edge.getSource().setOut(true);
 		edge.getDestination().setIn(true);
@@ -66,7 +66,14 @@ public class GreedyAlgo
 		edge.getDestination().getComplementaryNode().setOut(true);
 	}
 	
-	//permet de vérifié qu'un arc n'as pas la même source et la même destination ?????
+	/**
+	 * Check if the 2 node don't are in the same list
+	 * To evoid cycles
+	 * @param node1
+	 * @param node2
+	 * @param set
+	 * @return
+	 */
 	private boolean checkSet(Node node1, Node node2, ArrayList<ArrayList<Node>> set)
 	{
 		for(ArrayList<Node> nodeSet : set)
@@ -101,14 +108,9 @@ public class GreedyAlgo
 		ArrayList<Node> complementaryNodeSet1 = set.get(indexComplementaryNode1);
 		ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
 		
-		
 		applyUnion(set, indexNodeSet1, indexNodeSet2, indexComplementaryNode1,
 				indexComplementaryNode2, nodeSet1, nodeSet2,
 				complementaryNodeSet1, complementaryNodeSet2);
-		
-	// ????? après il devient quoi "nodeSet1" parce que il contient l'union des 2 fragment relié par l'arc...
-		//parce que ça ne sort pas de la fonction unionSet.
-
 	}
 
 	private void applyUnion(ArrayList<ArrayList<Node>> set, int indexNodeSet1,

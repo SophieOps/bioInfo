@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class GraphManager 
@@ -45,7 +45,7 @@ public class GraphManager
 				}
 			}
 		}
-		Graph graph = new Graph(nodeList, edgeList);//besoin de retourner les deux ?????
+		Graph graph = new Graph(nodeList, edgeList);
 		return graph;
 		
 	}

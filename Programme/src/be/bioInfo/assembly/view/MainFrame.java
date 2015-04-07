@@ -24,7 +24,8 @@ import be.bioInfo.assembly.model.GraphManager;
 import be.bioInfo.assembly.model.Node;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+ * 
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class MainFrame extends JFrame
@@ -50,8 +51,6 @@ public class MainFrame extends JFrame
 			try
 			{
 				ArrayList<Node> nodeList = fragmentManager.readFile(fc.getSelectedFile());
-				//ArrayList<Edge> edgeList = new ArrayList<Edge>();
-				//Graph graph;
 				
 				Graph graph = graphManager.constructGraph(nodeList);
 				ArrayList<Edge> edgeList = greedyAlgo.execute(graph);

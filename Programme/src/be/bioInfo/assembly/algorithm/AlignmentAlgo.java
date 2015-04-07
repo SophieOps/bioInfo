@@ -3,7 +3,7 @@ package be.bioInfo.assembly.algorithm;
 import be.bioInfo.assembly.model.Fragment;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class AlignmentAlgo
@@ -67,7 +67,6 @@ public class AlignmentAlgo
 
 	private void maxValue() {
 		//maxValueInRow = false;
-	
 		if(maxValueRow > maxValueColumn)
 		{
 			//Valeur max dans la dernière ligne
@@ -188,7 +187,6 @@ public class AlignmentAlgo
 		
 	}
 	
-	//????
 	private int alignmentMax(int i, int j, Fragment f1, Fragment f2, int matrix[][])
 	{
 		int cptAlignment = 0;
@@ -220,12 +218,7 @@ public class AlignmentAlgo
 			}			
 			cptAlignment++;
 		}
-
 		//System.out.println(cptAlignment);
 		return cptAlignment;
-		
-	}
-	
-	
-	
+	}	
 }

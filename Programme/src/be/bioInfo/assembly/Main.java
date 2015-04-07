@@ -4,7 +4,7 @@ import be.bioInfo.assembly.view.MainFrame;
 /**
  * The main user interface for jpacman.
  * 
- * @author 
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  */
 public class Main {
 

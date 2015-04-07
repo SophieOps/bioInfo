@@ -15,7 +15,7 @@ import be.bioInfo.assembly.exception.FragmentException;
  * Read the input file and create an arrayList of Node with all 
  * fragments and the complementary of the fragment.
  * 
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class FragmentManager
@@ -53,14 +53,14 @@ public class FragmentManager
 	    	line = fileScan.nextLine();
 	        if(line.contains(">"))
 	        {
-	        	//if(code.length() == 0){
-	        	createFragmentNode(code, nodeList, node, complementaryNode);
-	        	
-	        	node = new Node();
-	        	complementaryNode = new Node();
-	        		
-	        	code ="";
-	        	//} 
+	        	if(code.length() != 0){
+	        		createFragmentNode(code, nodeList, node, complementaryNode);
+
+	        		node = new Node();
+	        		complementaryNode = new Node();
+
+	        		code ="";
+	        	} 
 	        }
 	        else
 	        {
@@ -90,11 +90,9 @@ public class FragmentManager
 		
 		node.setComplementaryNode(complementaryNode);
 		complementaryNode.setComplementaryNode(node); 
-		//node.getComplementaryNode().setComplementaryNode(node); // pas sur que dans ce cas-là, le noeud complémentaire relié à node soit changé aussi.
-		
+
 		nodeList.add(node);
 		nodeList.add(complementaryNode);
-
 	}
 	
 	private String computeComplementaryCode(String code) throws FragmentException
@@ -116,8 +114,6 @@ public class FragmentManager
 				default : throw new FragmentException("Illégal caractère dans le fragment");
 			}
 		}
-		
 		return complementaryCode;
 	}
-
 }

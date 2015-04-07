@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+ * 
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Graph 
 {
-
 	private ArrayList<Node> nodeList;
 	private ArrayList<Edge> edgeList;
 
@@ -65,12 +65,6 @@ public class Graph
              public int compare(Edge e1, Edge e2) {
                  return e1.CompareTo(e2);
              }
-          
          });
     }
-
-
-	
-	
-	
 }

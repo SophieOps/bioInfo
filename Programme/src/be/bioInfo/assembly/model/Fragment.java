@@ -4,7 +4,7 @@ package be.bioInfo.assembly.model;
 import be.bioInfo.assembly.exception.FragmentException;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Fragment

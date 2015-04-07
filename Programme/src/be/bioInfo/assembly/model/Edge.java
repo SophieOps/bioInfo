@@ -1,7 +1,7 @@
 package be.bioInfo.assembly.model;
 
 /**
- * @author Cambier Robin & Opsommer Sophie, 2015
+  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Edge 
