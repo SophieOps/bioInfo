@@ -28,22 +28,22 @@ public class GraphManager
 	{
 		ArrayList<Edge> edgeList = new ArrayList<Edge>();
 		
-		for(int i = 0; i < nodeList.size(); i++)//parcour toute la liste des fragments complÃ©mentaires
+		//Pour chaque noeud, on construit ses arcs
+		for(int i = 0; i < nodeList.size(); i++)
 		{
-			for(int j = i+1; j < nodeList.size(); j++)//parcour toute la liste des fragments initiaux
+			//On ne construit pas les arcs entre le noeud i et les noeuds qui se trouvent avant car ils ont déjà été traités avant
+			for(int j = i+1; j < nodeList.size(); j++)
 			{
-				if(nodeList.get(i).getComplementaryNode() != nodeList.get(j) )
-						//&& (!(nodeList.get(i).getData().getCode().contains((nodeList.get(j).getData().getCode())))) 
-						//&& (!(nodeList.get(j).getData().getCode().contains((nodeList.get(i).getData().getCode())))) ) 
-						// ????? pour les fragments inclus
+				if(nodeList.get(i).getComplementaryNode() != nodeList.get(j) )	//Si le noeud à traiter n'est pas le complémentaire du noeud courant
 				{
-					int weight = alignmentAlgo.computeAlignmentMax(nodeList.get(i).getData(), nodeList.get(j).getData());
-					Edge edge = new Edge(nodeList.get(i), nodeList.get(j), weight);
-					Edge edgeBis = new Edge(nodeList.get(j), nodeList.get(i), weight); //????????? 
+					alignmentAlgo.computeAlignmentMax(nodeList.get(i).getData(), nodeList.get(j).getData());
+					Edge edge = new Edge(nodeList.get(i), nodeList.get(j), alignmentAlgo.getMaxValueRow());//poids = valeur max de la dernière ligne
+					Edge edgeBis = new Edge(nodeList.get(j), nodeList.get(i), alignmentAlgo.getMaxValueColumn());//poids = valeur max de la dernière colonne
 					edgeList.add(edge);
-					edgeList.add(edgeBis); //????????????
+					edgeList.add(edgeBis);
 				}
 			}
+			
 		}
 		Graph graph = new Graph(nodeList, edgeList);
 		return graph;

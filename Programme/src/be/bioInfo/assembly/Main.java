@@ -2,9 +2,9 @@ package be.bioInfo.assembly;
 
 import be.bioInfo.assembly.view.MainFrame;
 /**
- * The main user interface for jpacman.
+ * The main user interface for the project.
  * 
-  * @author Watillon Thibaut & Opsommer Sophie, 2015
+ * @author Watillon Thibaut & Opsommer Sophie, 2015
  */
 public class Main {
 

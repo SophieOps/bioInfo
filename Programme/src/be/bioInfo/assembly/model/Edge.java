@@ -1,7 +1,7 @@
 package be.bioInfo.assembly.model;
 
 /**
-  * @author Watillon Thibaut & Opsommer Sophie, 2015
+ * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Edge 
@@ -11,33 +11,33 @@ public class Edge
 	private int weight;
 	
 	/**
-	 * @param src
-	 * @param dest
-	 * @param weight1
+	 * @param src the node source of the edge
+	 * @param dest the node destination of the edge
+	 * @param weight1 the weight of the edge
 	 */
-	public Edge(Node src, Node dest, int weight1)
+	public Edge(Node src, Node dest, int weight)
 	{
 		this.source = src;
 		this.destination = dest;
-		this.weight = weight1;
+		this.weight = weight;
 	}
 
 	/**
-	 * @return
+	 * @return the node source of the edge
 	 */
 	public Node getSource() {
 		return source;
 	}
 
 	/**
-	 * @param src
+	 * @param src 
 	 */
 	public void setSource(Node src) {
 		this.source = src;
 	}
 
 	/**
-	 * @return
+	 * @return the node destination of the edge
 	 */
 	public Node getDestination() {
 		return destination;
@@ -51,7 +51,7 @@ public class Edge
 	}
 
 	/**
-	 * @return
+	 * @return the weight of the edge
 	 */
 	public int getWeight() {
 		return weight;
@@ -60,8 +60,8 @@ public class Edge
 	/**
 	 * @param weight1
 	 */
-	public void setWeight(int weight1) {
-		this.weight = weight1;
+	public void setWeight(int weight) {
+		this.weight = weight;
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class Edge
        int resultat = 0;
 
        if (this.weight > edge.getWeight()) {
-            resultat = -11;
+            resultat = -1;
         }
        if (this.weight < edge.getWeight()) {
             resultat = 1;

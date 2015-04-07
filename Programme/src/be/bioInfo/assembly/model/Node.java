@@ -8,8 +8,8 @@ public class Node
 {
 	private Fragment data;
 	private Node complementaryNode;
-	private boolean in = false;  // ?????
-	private boolean out = false;  // ?????
+	private boolean in = false;  
+	private boolean out = false;  
 	
 	/**
 	 * @return

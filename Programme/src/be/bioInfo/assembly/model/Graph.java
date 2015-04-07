@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 /**
  * 
-  * @author Watillon Thibaut & Opsommer Sophie, 2015
+ * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Graph 
@@ -52,11 +52,7 @@ public class Graph
 		this.nodeList = nodeList;
 		this.edgeList = edgeList;
 		sortList();
-		
-	    /*for(int i = 0; i < edgeList.size(); i++)
-		{
-			System.out.println("Arc de "+edgeList.get(i).getSource().getData().getCode()+" � "+edgeList.get(i).getDestination().getData().getCode()+" poids = "+edgeList.get(i).getWeight());
-		}*/
+
 	}
 	
 	private void sortList() {
