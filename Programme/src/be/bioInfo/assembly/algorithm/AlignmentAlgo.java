@@ -1,7 +1,11 @@
-package be.bioInfo.assembly.algorith;
+package be.bioInfo.assembly.algorithm;
 
 import be.bioInfo.assembly.model.Fragment;
 
+/**
+ * @author Cambier Robin & Opsommer Sophie, 2015
+ *
+ */
 public class AlignmentAlgo
 {
 	private static final int G = -2;
@@ -9,20 +13,22 @@ public class AlignmentAlgo
 	private int maxValueColumn = Integer.MIN_VALUE, maxIndexColumn = -1, maxValueRow = Integer.MIN_VALUE,  maxIndexRow = -1, maxValue, maxIndex;
 	private boolean maxValueInRow = false;
 	
+	/**
+	 * Constructor.
+	 * Do nothing, simple implementation.
+	 */
+	public AlignmentAlgo() {}
+	
+	/**
+	 * Calculate metrics of the matrice "matrix" while compare char by char the similarity
+	 * @param f1
+	 * @param f2
+	 * @param matrix
+	 */
 	private void execute(Fragment f1, Fragment f2, int matrix[][])
 	{
 		//System.out.println(f1.getCode()+" "+f2.getCode());
 		//ALGO
-		for(int i = 0; i < f1.getCode().length()+1; i++)
-		{
-			matrix[i][0] = 0;
-		}
-		
-		for(int j = 0; j < f2.getCode().length()+1; j++)
-		{
-			matrix[0][j] = 0;
-		}
-		
 		for(int i = 1; i < f1.getCode().length()+1; i++)
 		{
 			for(int j = 1; j < f2.getCode().length()+1; j++)
@@ -31,7 +37,6 @@ public class AlignmentAlgo
 				matrix[i][j] = max(matrix[i-1][j]+G, matrix[i-1][j-1]+p,matrix[i][j-1]+G);
 			}
 		}
-		
 		//AFFICHAGE MATRICE
 		/*for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
@@ -46,43 +51,49 @@ public class AlignmentAlgo
 		
 	}
 
+	/**
+	 * Calculate the max value
+	 * @param f1
+	 * @param f2
+	 * @param matrix
+	 */
 	private void computeMaxValue(Fragment f1, Fragment f2, int[][] matrix)
 	{
-		//CALCUL DE LA VALEUR MAXIMALE
-		
 		maxValueColumn(f1, f2, matrix);
-		
 		maxValueRow(f1, f2, matrix);
-		
 		maxValue();
-		
-		//AFFICHAGE VALEUR MAXIMALE
 		//System.out.println(maxValue+" "+maxIndex);
 	}
 
 	private void maxValue() {
-		maxValueInRow = false;
+		//maxValueInRow = false;
 	
 		if(maxValueRow > maxValueColumn)
 		{
-			//Valeur max dans la dernière ligne
+			//Valeur max dans la derniÃ¨re ligne
 			maxValue = maxValueRow;
 			maxIndex = maxIndexRow;
 			maxValueInRow = true;
 		}
 		else
 		{
-			//Valeur max dans la dernière colonne
+			//Valeur max dans la derniÃ¨re colonne
 			maxValue = maxValueColumn;
 			maxIndex = maxIndexColumn;
+			maxValueInRow = false;
 		}
 	}
 
+	/**
+	 * Look at the max value in the last row
+	 * @param f1
+	 * @param f2
+	 * @param matrix
+	 */
 	private void maxValueRow(Fragment f1, Fragment f2, int[][] matrix) {
 		maxValueRow = Integer.MIN_VALUE;
 		maxIndexRow = -1;
 		
-		//Regarde dans la dernière ligne
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
 			if(matrix[f1.getCode().length()][j] > maxValueRow)
@@ -93,11 +104,16 @@ public class AlignmentAlgo
 		}
 	}
 
+	/**
+	 * Look at the max value in the last column
+	 * @param f1
+	 * @param f2
+	 * @param matrix
+	 */
 	private void maxValueColumn(Fragment f1, Fragment f2, int[][] matrix) {
 		maxValueColumn = Integer.MIN_VALUE;
 		maxIndexColumn = -1;
 		
-		//Regarde dans la dernière colonne
 		for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
 			if(matrix[i][f2.getCode().length()] > maxValueColumn)
@@ -108,12 +124,17 @@ public class AlignmentAlgo
 		}
 	}
 	
+	/**
+	 * calculate the similarity between 2 char
+	 * @param c1 char from fragment 1
+	 * @param c2 char from an other fragment
+	 * @return p if c1 equals c2
+	 */
 	private int score(char c1, char c2)
 	{
 		if(c1 == c2)
 			return P;
-		else
-			return -P;
+		return -P;
 	}
 
 	private int max(int a, int b, int c)
@@ -129,6 +150,12 @@ public class AlignmentAlgo
 		return maximum;	
 	}
 	
+	/**
+	 * Calcul how much moves are between the start of two fragments
+	 * @param f1
+	 * @param f2
+	 * @return the number of moves between the start of two fragments
+	 */
 	public int computeAlignmentMax(Fragment f1, Fragment f2)
 	{
 		int matrix [][] = new int[f1.getCode().length()+1][f2.getCode().length()+1];
@@ -142,7 +169,6 @@ public class AlignmentAlgo
 	
 	private int computeAlignment(Fragment f1, Fragment f2, int matrix[][])
 	{
-		
 		int i = 0;
 		int j = 0;
 		
@@ -162,16 +188,15 @@ public class AlignmentAlgo
 		
 	}
 	
+	//????
 	private int alignmentMax(int i, int j, Fragment f1, Fragment f2, int matrix[][])
 	{
 		int cptAlignment = 0;
-		
 		//System.out.println(f1.getCode()+" "+f2.getCode());
 		
 		while(i != 0 && j != 0)
 		{
 			int p = score(f1.getCode().charAt(i-1),f2.getCode().charAt(j-1));
-			
 			//System.out.println(f1.getCode().charAt(i-1)+" "+f2.getCode().charAt(j-1));
 			
 			if(matrix[i-1][j-1]+p == matrix[i][j])
@@ -192,9 +217,7 @@ public class AlignmentAlgo
 					i = i-1;
 					j = j;
 				}
-			}
-			
-			
+			}			
 			cptAlignment++;
 		}
 

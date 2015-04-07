@@ -11,8 +11,29 @@ import java.util.Scanner;
 
 import be.bioInfo.assembly.exception.FragmentException;
 
+/**
+ * Read the input file and create an arrayList of Node with all 
+ * fragments and the complementary of the fragment.
+ * 
+ * @author Cambier Robin & Opsommer Sophie, 2015
+ *
+ */
 public class FragmentManager
 {
+	
+	
+	/**
+	 * Constructor.
+	 * Do nothing, simple implementation.
+	 */
+	public FragmentManager() {}
+
+	/**
+	 * @param selectedFile
+	 * @return
+	 * @throws FragmentException
+	 * @throws FileNotFoundException
+	 */
 	public ArrayList<Node> readFile(File selectedFile) throws FragmentException, FileNotFoundException
 	{
         String code = "" ;
@@ -23,36 +44,35 @@ public class FragmentManager
 		Scanner fileScan = null;
     	fileScan = new Scanner(selectedFile);
     	
-    	String line = fileScan.nextLine();
-        Scanner lineScan;
+    	String line = fileScan.nextLine(); // contient la première ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
+        //Scanner lineScan = new Scanner(line);
+        //lineScan.useLocale(Locale.FRENCH);  
         
-        lineScan = new Scanner(line);
-        lineScan.useLocale(Locale.FRENCH);  
-        
-	    fileScan = new Scanner(selectedFile);
-	    line = fileScan.nextLine();
-	    
 	    while(fileScan.hasNextLine())
 	    {
 	    	line = fileScan.nextLine();
 	        if(line.contains(">"))
 	        {
+	        	//if(code.length() == 0){
 	        	createFragmentNode(code, nodeList, node, complementaryNode);
-
+	        	
 	        	node = new Node();
 	        	complementaryNode = new Node();
 	        		
 	        	code ="";
-	        		 
+	        	//} 
 	        }
 	        else
 	        {
-	        	lineScan = new Scanner(line);
+	        	Scanner lineScan = new Scanner(line);
 		        lineScan.useLocale(Locale.FRENCH);
 		        code+=lineScan.next();
+		        lineScan.close();
 		    }
 	    }
 	    createFragmentNode(code, nodeList, node, complementaryNode);
+	    //fermeture des Scanner
+	    fileScan.close();
 	    
 	    return nodeList;
 	}
@@ -69,7 +89,8 @@ public class FragmentManager
 		complementaryNode.setData(complementaryFragment);
 		
 		node.setComplementaryNode(complementaryNode);
-		complementaryNode.setComplementaryNode(node);
+		complementaryNode.setComplementaryNode(node); 
+		//node.getComplementaryNode().setComplementaryNode(node); // pas sur que dans ce cas-là, le noeud complémentaire relié à node soit changé aussi.
 		
 		nodeList.add(node);
 		nodeList.add(complementaryNode);
@@ -92,7 +113,7 @@ public class FragmentManager
 					break;	
 				case 'G' : complementaryCode+= 'C';
 					break;
-				default : throw new FragmentException("Ill�gal caract�re dans le fragment");
+				default : throw new FragmentException("Illégal caractère dans le fragment");
 			}
 		}
 		

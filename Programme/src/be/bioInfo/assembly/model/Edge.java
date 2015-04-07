@@ -1,42 +1,73 @@
 package be.bioInfo.assembly.model;
 
+/**
+ * @author Cambier Robin & Opsommer Sophie, 2015
+ *
+ */
 public class Edge 
 {
 	private Node source;
 	private Node destination;
 	private int weight;
 	
-	public Edge(Node source, Node destination, int weight)
+	/**
+	 * @param src
+	 * @param dest
+	 * @param weight1
+	 */
+	public Edge(Node src, Node dest, int weight1)
 	{
-		this.source = source;
-		this.destination = destination;
-		this.weight = weight;
+		this.source = src;
+		this.destination = dest;
+		this.weight = weight1;
 	}
 
+	/**
+	 * @return
+	 */
 	public Node getSource() {
 		return source;
 	}
 
-	public void setSource(Node source) {
-		this.source = source;
+	/**
+	 * @param src
+	 */
+	public void setSource(Node src) {
+		this.source = src;
 	}
 
+	/**
+	 * @return
+	 */
 	public Node getDestination() {
 		return destination;
 	}
 
-	public void setDestination(Node destination) {
-		this.destination = destination;
+	/**
+	 * @param dest
+	 */
+	public void setDestination(Node dest) {
+		this.destination = dest;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
-		this.weight = weight;
+	/**
+	 * @param weight1
+	 */
+	public void setWeight(int weight1) {
+		this.weight = weight1;
 	}
 	
+	/**
+	 * @param edge
+	 * @return
+	 */
 	public int CompareTo(Edge edge)
     {
        int resultat = 0;

@@ -1,4 +1,4 @@
-package be.bioInfo.assembly.algorith;
+package be.bioInfo.assembly.algorithm;
 
 import java.util.ArrayList;
 
@@ -7,19 +7,34 @@ import be.bioInfo.assembly.model.Edge;
 import be.bioInfo.assembly.model.Graph;
 import be.bioInfo.assembly.model.Node;
 
+/**
+ * @author Cambier Robin & Opsommer Sophie, 2015
+ *
+ */
 public class GreedyAlgo 
 {
+	/**
+	 * Constructor.
+	 * Do nothing, simple implementation.
+	 */
+	public GreedyAlgo() {}
 
+	/**
+	 * @param graph
+	 * @return
+	 * @throws GreedyException
+	 */
 	public ArrayList<Edge> execute(Graph graph) throws GreedyException
 	{
 		ArrayList<ArrayList<Node>> set = new ArrayList();
 		ArrayList<Edge> choosenEdge = new ArrayList<Edge>();
 		
+		//tel qu'elle est la, la boucle ajoute les listes de noeud tel que chacune ne contient que 1 noeud ????
 		for(int i = 0; i < graph.getNodeList().size(); i++)
 		{
 			ArrayList<Node> nodeSet = new ArrayList<Node>();
 			nodeSet.add(graph.getNodeList().get(i));
-			set.add(nodeSet);
+			set.add(nodeSet); // ????? il ne devrait pas se trouver à l'extérieur de la boucle for ?
 		}
 		
 		for(Edge edge: graph.getEdgeList())
@@ -41,6 +56,7 @@ public class GreedyAlgo
 		return choosenEdge;
 	}
 
+	//pourquoi avoir 2 variables (in et out) si elles ont toujoursles mêmes vameurs ?
 	private void updateEdge(Edge edge) {
 		edge.getSource().setOut(true);
 		edge.getDestination().setIn(true);
@@ -50,6 +66,7 @@ public class GreedyAlgo
 		edge.getDestination().getComplementaryNode().setOut(true);
 	}
 	
+	//permet de vérifié qu'un arc n'as pas la même source et la même destination ?????
 	private boolean checkSet(Node node1, Node node2, ArrayList<ArrayList<Node>> set)
 	{
 		for(ArrayList<Node> nodeSet : set)
@@ -77,7 +94,7 @@ public class GreedyAlgo
 		}
 		
 		if(indexNodeSet1 == indexNodeSet2)
-			throw new GreedyException("Probl�me dans le d�roulement du Greedy");
+			throw new GreedyException("Problème dans le déroulement du Greedy");
 		
 		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
 		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
@@ -89,7 +106,8 @@ public class GreedyAlgo
 				indexComplementaryNode2, nodeSet1, nodeSet2,
 				complementaryNodeSet1, complementaryNodeSet2);
 		
-	
+	// ????? après il devient quoi "nodeSet1" parce que il contient l'union des 2 fragment relié par l'arc...
+		//parce que ça ne sort pas de la fonction unionSet.
 
 	}
 
