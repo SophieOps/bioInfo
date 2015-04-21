@@ -1,6 +1,8 @@
 package be.bioInfo.assembly.model;
 
 
+import java.util.ArrayList;
+
 import be.bioInfo.assembly.exception.FragmentException;
 
 /**
@@ -10,7 +12,8 @@ import be.bioInfo.assembly.exception.FragmentException;
 public class Fragment
 {
 	private String code;
-
+	private ArrayList<Fragment> fragmentInclu;
+	
 	/**
 	 * @return
 	 */
@@ -27,10 +30,17 @@ public class Fragment
 	
 	}
 	
+	public ArrayList<Fragment> getFragmentInclu() {
+		return fragmentInclu;
+	}
+	
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
 	 */
-	public Fragment() {}
+	public Fragment()
+	{
+		this.fragmentInclu = new ArrayList<Fragment>();
+	}
 	
 }

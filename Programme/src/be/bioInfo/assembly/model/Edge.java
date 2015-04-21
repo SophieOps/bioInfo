@@ -9,17 +9,19 @@ public class Edge
 	private Node source;
 	private Node destination;
 	private int weight;
-	
+	private String sourceAlignment, destinationAlignment;
+	private int inclusion;
 	/**
 	 * @param src the node source of the edge
 	 * @param dest the node destination of the edge
-	 * @param weight1 the weight of the edge
+	 * @param weight the weight of the edge
 	 */
-	public Edge(Node src, Node dest, int weight)
+	public Edge(Node src, Node dest, int weight, int inclusion)
 	{
 		this.source = src;
 		this.destination = dest;
 		this.weight = weight;
+		this.inclusion = inclusion;
 	}
 
 	/**
@@ -58,12 +60,34 @@ public class Edge
 	}
 
 	/**
-	 * @param weight1
+	 * @param weight
 	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 	
+	
+	public String getSourceAlignment() {
+		return sourceAlignment;
+	}
+
+	public void setSourceAlignment(String sourceAlignment) {
+		this.sourceAlignment = sourceAlignment;
+	}
+
+	public String getDestinationAlignment() {
+		return destinationAlignment;
+	}
+
+	public void setDestinationAlignment(String destinationAlignment) {
+		this.destinationAlignment = destinationAlignment;
+	}
+
+	
+	public int getInclusion() {
+		return inclusion;
+	}
+
 	/**
 	 * @param edge
 	 * @return

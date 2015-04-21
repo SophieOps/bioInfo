@@ -1,5 +1,7 @@
 package be.bioInfo.assembly.model;
 
+import java.util.ArrayList;
+
 /**
   * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
@@ -10,6 +12,7 @@ public class Node
 	private Node complementaryNode;
 	private boolean in = false;  
 	private boolean out = false;  
+
 	
 	/**
 	 * @return
@@ -67,11 +70,15 @@ public class Node
 		this.out = out;
 	}
 	
+
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
 	 */
-	public Node() {}
+	public Node() 
+	{
+		
+	}
 	
 	
 	

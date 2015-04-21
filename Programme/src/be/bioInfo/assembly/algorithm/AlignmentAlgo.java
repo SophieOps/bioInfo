@@ -1,6 +1,9 @@
 package be.bioInfo.assembly.algorithm;
 
+import java.util.ArrayList;
+
 import be.bioInfo.assembly.model.Fragment;
+
 
 /**
 * @author Watillon Thibaut & Opsommer Sophie, 2015
@@ -11,6 +14,8 @@ public class AlignmentAlgo
 	private static final int G = -2;
 	private static final int P = 1;
 	private int maxValueColumn = Integer.MIN_VALUE, maxIndexColumn = -1, maxValueRow = Integer.MIN_VALUE,  maxIndexRow = -1;
+	private ArrayList<String> alignmentList;
+	private int inclusion;
 	
 	/**
 	 * Execute the semi-global alignment algorithm.
@@ -33,14 +38,14 @@ public class AlignmentAlgo
 		}
 		
 		//AFFICHAGE MATRICE
-		for(int i = 0; i < f1.getCode().length()+1; i++)
+		/*for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
 			for(int j = 0; j < f2.getCode().length()+1; j++)
 			{
 				System.out.print(matrix[i][j]+" ");
 			}
 			System.out.print("\n");
-		}
+		}*/
 	}
 
 	/**
@@ -136,12 +141,66 @@ public class AlignmentAlgo
 	}
 
 	/**
-	 * Compute the maximum value of the last row and column and reconstrution of the alignment
+	 * Compute the maximum value of the last row and column and reconstruction of the alignment
 	 * @param f1 a fragment
 	 * @param f2 a second fragment
 	 */
 	public void computeAlignmentMax(Fragment f1, Fragment f2)
 	{
+		inclusion = 0;
+		
+		int matrix [][] = new int[f1.getCode().length()+1][f2.getCode().length()+1];
+		
+		execute(f1,f2, matrix);
+		
+		computeMaxValue(f1, f2, matrix);
+		
+		//buildAlignment(f1, f2);
+
+		manageInclusion(f1, f2);
+		
+	}
+
+	/**
+	 * Look if the fragments are included to each other
+	 * @param f1 a fragment
+	 * @param f2 a secon  fragment
+	 */
+	private void manageInclusion(Fragment f1, Fragment f2) {
+		
+		
+		if(f1.getCode().length() <= f2.getCode().length())//f1 peut être inclu à f2
+		{
+			if(maxValueRow >= maxValueColumn) 
+			{
+				if(maxIndexRow >= f1.getCode().length())
+				{
+					inclusion = 1;
+					/*System.out.println("f1 inclus à f2");
+					System.out.println(alignmentList.get(0));
+					System.out.println(alignmentList.get(1));*/
+				}
+			}
+		}
+		else //f2 peut être inclu à f1
+		{
+			if(maxValueColumn >= maxValueRow)
+			{
+				if(maxIndexColumn>=f2.getCode().length())
+				{
+					inclusion = -1;
+					/*System.out.println("f2 inclus à f1");
+					System.out.println(alignmentList.get(0));
+					System.out.println(alignmentList.get(1));*/
+				}
+			}
+		}
+	}
+	
+	public void buildAlignment(Fragment f1, Fragment f2)
+	{
+		alignmentList = new ArrayList<String>();
+		
 		int matrix [][] = new int[f1.getCode().length()+1][f2.getCode().length()+1];
 		
 		execute(f1,f2, matrix);
@@ -149,7 +208,6 @@ public class AlignmentAlgo
 		computeMaxValue(f1, f2, matrix);
 		
 		alignment(f1, f2, matrix);
-
 	}
 	
 	/**
@@ -165,17 +223,17 @@ public class AlignmentAlgo
 		int j = 0;
 		
 		//Calcul de l'alignement de f1->f2
-		i = f1.getCode().length();
-		j = maxIndexRow;
-		
+		if(maxValueRow>=maxValueColumn)
+		{
+			i = f1.getCode().length();
+			j = maxIndexRow;
+		}
+		else
+		{
+			j = f2.getCode().length();
+			i = maxIndexColumn;
+		}
 		alignmentConstructor(i, j, f1, f2, matrix);
-	
-		//Calcul de l'alignement de f2->f1
-		j = f2.getCode().length();
-		i = maxIndexColumn;
-		
-		alignmentConstructor(i, j, f1, f2, matrix);
-
 	}
 	
 	/**
@@ -282,6 +340,9 @@ public class AlignmentAlgo
 			reconstructorF2+=f2.getCode().charAt(d);
 		}
 		
+		
+		alignmentList.add(reconstructorF1);
+		alignmentList.add(reconstructorF2);
 		/*System.out.println(reconstructorF1);
 		System.out.println(reconstructorF2);*/
 	}
@@ -293,7 +354,16 @@ public class AlignmentAlgo
 	public int getMaxValueRow() {
 		return maxValueRow;
 	}
-	
+
+	//le premier élément de la liste contient l'alignement de f1 et le deuxième élément l'alignement de f2
+	public ArrayList<String> getAlignmentList() {
+		return alignmentList;
+	}
+
+	public int getInclusion() {
+		return inclusion;
+	}
+
 	
 	
 }
