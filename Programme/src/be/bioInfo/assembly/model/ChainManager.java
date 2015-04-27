@@ -14,14 +14,16 @@ public class ChainManager
 	private AlignmentAlgo alignmentAlgo;
 	private ArrayList<String> alignmentList;
 	private int saveFatherAlignment;
-	private File file;
+	private File fileDetail;
+	private File fileSuperChaine;
 	private PrintWriter pw;
 	
 	public ChainManager()
 	{
 		alignmentAlgo = new AlignmentAlgo();
 		alignmentList = new ArrayList<String>();
-		file = new File("chaine.txt");
+		fileDetail = new File("detailChaine.FASTA");
+		fileSuperChaine = new File("superChaine.FASTA");
 		
 	}
 
@@ -30,8 +32,8 @@ public class ChainManager
 	{
 		try 
 		{
-			pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-			
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(fileDetail)));
+			pw.println(">Result");
 			//traiter chaque arc
 			while(edgeList.size() != 0)
 			{
@@ -52,9 +54,17 @@ public class ChainManager
 				constructAlignment(edgeList.get(i).getSource().getData(), edgeList.get(i).getDestination().getData());
 				edgeList.remove(i);
 			}
-			pw.println("##################################################################");
+			//pw.println("##################################################################");
+			//pw.println(constructor());
+			pw.close();
+			
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(fileSuperChaine)));
+			pw.println(">Result");
 			pw.println(constructor());
 			pw.close();
+			
+			
+			
 		} 
 		catch (IOException e) 
 		{
@@ -109,7 +119,7 @@ public class ChainManager
 			alignmentList.add(alignment+alignmentAlgo.getAlignmentList().get(0));
 		}
 
-		//On construit les alignement des fragments inclus à f1 avec f1
+		//On construit les alignement des fragments inclus ï¿½ f1 avec f1
 		for(int i = 0; i < f1.getFragmentInclu().size(); i++)
 		{
 			
@@ -136,7 +146,7 @@ public class ChainManager
 			alignment+=" ";
 		}
 		
-		//On construit les alignements des fragments inclus à f2 avec f2
+		//On construit les alignements des fragments inclus ï¿½ f2 avec f2
 		for(int i = 0; i < f2.getFragmentInclu().size(); i++)
 		{
 			alignmentAlgo.buildAlignment(f2, f2.getFragmentInclu().get(i));
@@ -164,7 +174,7 @@ public class ChainManager
 			nbGap = 0;
 			cptEnd = 0;
 			
-			//On regarde le caractère apparaissant le + de fois à la position i. ce sera le caractère de la super chaine à la position i
+			//On regarde le caractï¿½re apparaissant le + de fois ï¿½ la position i. ce sera le caractï¿½re de la super chaine ï¿½ la position i
 			for(int j = 0; j < alignmentList.size(); j++)
 			{
 				if(alignmentList.get(j).length() > i)

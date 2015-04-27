@@ -72,12 +72,12 @@ public class MainFrame extends JFrame
 				System.out.println("Greedy");
 				ArrayList<Edge> edgeList = greedyAlgo.execute(graph);
 
-				/*for(int i = 0; i < edgeList.size(); i++)
+				for(int i = 0; i < edgeList.size(); i++)
 				{
 					System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
 					System.out.println("A la destination " + edgeList.get(i).getDestination().getId() + " : " + edgeList.get(i).getDestination().getData().getCode());
 					System.out.println("De poids : "+edgeList.get(i).getWeight());
-				}*/
+				}
 				System.out.println("construct chain");
 				chainManager.constructChain(edgeList);	
 			}
