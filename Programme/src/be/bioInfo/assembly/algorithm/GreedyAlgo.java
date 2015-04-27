@@ -36,20 +36,98 @@ public class GreedyAlgo
 		for(Edge edge: graph.getEdgeList())
 		{
 			boolean sameSet = checkSet(edge.getSource(), edge.getDestination(), set);
-			
-			if(edge.getDestination().isIn() == false && edge.getSource().isOut() == false && sameSet == false)
+		
+			if(edge.getInclusion() == 1 || edge.getInclusion() == -1)//traitement différent pour les arcs où un fragment est inclu à l'autre
 			{
-				updateEdge(edge);
-				choosenEdge.add(edge);
-				unionSet(set, edge.getSource(), edge.getDestination());
+				//EX :
+				//seq:  AAAAATTCGCGCGCGCGCGCTTCAAAAA
+				//f1: AAAAATTCGCGCGCGC
+				//f2: ATTC
+				//f3: TTCAAAAA
+				//f4: GCGCTTCAA
+				//f2 inclus a f1
+				//f1 > f4 > f3 pour reformer la sequence
+				//si l'algo choisi l' arc suivant
+				//f1 > f2
+				//il peut plus choisir f1 > f4 car f1 est deja pris. Donc il va choisir
+				//f2 > f3
+				//Et f3>f4 car c'est le seul qu'il reste
+				//Donc on a
+				//f1 >f2 > f3 > f4 et c'est pas bon car on a pris un arc où un frag est inclu à un autre
+				inclusionManagement(set, edge, sameSet);
+				
 			}
+			else
+			{
+				if(edge.getDestination().isIn() == false && edge.getSource().isOut() == false && sameSet == false)
+				{
+					updateEdge(edge);
+					choosenEdge.add(edge);
+					unionSet(set, edge.getSource(), edge.getDestination());	
+				}
+			}
+		
 			if(set.size() == 1)
 				break;
 
-				
 		}
-		
+		if(choosenEdge.isEmpty())
+			choosenEdge.add(graph.getEdgeList().get(0));
 		return choosenEdge;
+	}
+
+	private void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge,
+			boolean sameSet) {
+		if(sameSet == false)
+		{
+			
+			if(edge.getInclusion() == 1)//f1 inclus à f2
+			{
+				f1IncluTof2(set, edge);
+			}
+			else
+			{
+				//f2 inclus à f1
+				
+				f2IncluTof1(set, edge);
+			}
+			
+
+		}
+	}
+
+	private void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge) {
+		//f2 ne peut plus être choisi donc in et out à true
+		edge.getDestination().setIn(true);
+		edge.getDestination().setOut(true);
+		//IDEM pour le complémentaire
+		edge.getDestination().getComplementaryNode().setIn(true);
+		edge.getDestination().getComplementaryNode().setOut(true);
+		
+		//On ajoute f2 à la liste de fragments inclus à f1
+		if(!edge.getSource().getData().getFragmentInclu().contains(edge.getDestination().getData()))
+		{
+			edge.getSource().getData().getFragmentInclu().add(edge.getDestination().getData());
+			//on mets f2 dans l'ensemble de f1
+			unionInclu(set,edge.getSource(), edge.getDestination());
+		}
+	}
+
+	private void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge) {
+		//f1 ne peut plus être choisi donc in et out mis à true 
+		edge.getSource().setIn(true);
+		edge.getSource().setOut(true);
+		//IDEM pour le complémentaire
+		edge.getSource().getComplementaryNode().setIn(true);
+		edge.getSource().getComplementaryNode().setOut(true);
+		
+		//On ajoute f1 à la liste de fragments inclus à f2
+		if(!edge.getDestination().getData().getFragmentInclu().contains(edge.getSource().getData()))
+		{
+			edge.getDestination().getData().getFragmentInclu().add(edge.getSource().getData());
+			//on mets f1 dans l'ensemble de f2
+			unionInclu(set, edge.getDestination(), edge.getSource());
+		}
 	}
 
 	/**
@@ -74,11 +152,14 @@ public class GreedyAlgo
 	 */
 	private boolean checkSet(Node node1, Node node2, ArrayList<ArrayList<Node>> set)
 	{
+		boolean check = false;
 		for(ArrayList<Node> nodeSet : set)
 		{
 			if(nodeSet.contains(node1) && nodeSet.contains(node2))
 				return true;
 		}
+		
+		
 		return false;
 	}
 	
@@ -113,8 +194,6 @@ public class GreedyAlgo
 		applyUnion(set, indexNodeSet1, indexNodeSet2, indexComplementaryNode1,
 				indexComplementaryNode2);
 		
-	
-
 	}
 
 	/**
@@ -137,7 +216,8 @@ public class GreedyAlgo
 		//ajout des données de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)
 		{
-			nodeSet1.add(nodeSet2.get(i));
+			if(!nodeSet1.contains(nodeSet2.get(i)))
+				nodeSet1.add(nodeSet2.get(i));
 		}
 		
 		//si l'ensemble contenant le complémentaire du noeud 1 est différent de l'ensemble contenant le noeud 1
@@ -146,7 +226,8 @@ public class GreedyAlgo
 			//ajout des données de l'ensemble contenant le complémentaire du noeud 1 dans l'ensemble du noeud 1
 			for(int i = 0; i < complementaryNodeSet1.size(); i++)
 			{
-				nodeSet1.add(complementaryNodeSet1.get(i));
+				if(!nodeSet1.contains(complementaryNodeSet1.get(i)))
+					nodeSet1.add(complementaryNodeSet1.get(i));
 			}
 			//supprimer l'ensemble du complémentaire
 			set.remove(complementaryNodeSet1);
@@ -158,7 +239,8 @@ public class GreedyAlgo
 			//ajout des données de l'ensemble contenant le complémentaire du noeud 2 dans l'ensemble du noeud 1
 			for(int i = 0; i < complementaryNodeSet2.size(); i++)
 			{
-				nodeSet1.add(complementaryNodeSet2.get(i));
+				if(!nodeSet1.contains(complementaryNodeSet2.get(i)))
+					nodeSet1.add(complementaryNodeSet2.get(i));
 			}
 			//supprimer l'ensemble du complémentaire
 			set.remove(complementaryNodeSet2);
@@ -167,4 +249,47 @@ public class GreedyAlgo
 		//supprimer l'ensemble du noeud 2
 		set.remove(nodeSet2);
 	}
+	
+	private void unionInclu(ArrayList<ArrayList<Node>> set, Node node1, Node node2)
+	{
+		int indexNodeSet1 = 0, indexNodeSet2 = 0, indexComplementaryNode2 = 0;
+		
+		for(ArrayList<Node> nodeSet : set)
+		{
+			if(nodeSet.contains(node1))
+				indexNodeSet1 = set.indexOf(nodeSet);
+			if(nodeSet.contains(node2))
+				indexNodeSet2 = set.indexOf(nodeSet);
+			if(nodeSet.contains(node2.getComplementaryNode()))
+				indexComplementaryNode2 = set.indexOf(nodeSet);
+		}
+		
+		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
+		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
+		ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
+
+		//ajout des données de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
+		for(int i = 0; i < nodeSet2.size(); i++)
+		{
+			if(!nodeSet1.contains(nodeSet2.get(i)))
+				nodeSet1.add(nodeSet2.get(i));
+		}
+		
+		//si l'ensemble contenant le complémentaire du noeud 2 est différent de l'ensemble contenant le noeud 2
+		if(indexNodeSet2 != indexComplementaryNode2)
+		{
+			//ajout des données de l'ensemble contenant le complémentaire du noeud 2 dans l'ensemble du noeud 1
+			for(int i = 0; i < complementaryNodeSet2.size(); i++)
+			{
+				if(!nodeSet1.contains(complementaryNodeSet2.get(i)))
+					nodeSet1.add(complementaryNodeSet2.get(i));
+			}
+			//supprimer l'ensemble du complémentaire
+			set.remove(complementaryNodeSet2);
+		}
+				
+		//supprimer l'ensemble du noeud 2
+		set.remove(nodeSet2);
+	}
+			
 }

@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import be.bioInfo.assembly.algorithm.GreedyAlgo;
 import be.bioInfo.assembly.exception.FragmentException;
 import be.bioInfo.assembly.exception.GreedyException;
+import be.bioInfo.assembly.model.ChainManager;
 import be.bioInfo.assembly.model.Edge;
 import be.bioInfo.assembly.model.Fragment;
 import be.bioInfo.assembly.model.FragmentManager;
@@ -33,6 +34,7 @@ public class MainFrame extends JFrame
 	private FragmentManager fragmentManager;
 	private GraphManager graphManager;
 	private GreedyAlgo greedyAlgo;
+	private ChainManager chainManager;
 	
 	/**
 	 * 
@@ -42,6 +44,7 @@ public class MainFrame extends JFrame
 		fragmentManager = new FragmentManager();
 		graphManager = new GraphManager();
 		greedyAlgo = new GreedyAlgo();
+		chainManager = new ChainManager();
 		
 		JFileChooser fc = new JFileChooser();
 		int result = fc.showOpenDialog(this);
@@ -50,34 +53,33 @@ public class MainFrame extends JFrame
 		{
 			try
 			{
+				System.out.println("read file");
 				ArrayList<Node> nodeList = fragmentManager.readFile(fc.getSelectedFile());
-
+				
 				
 				/*for(int i = 0; i < nodeList.size(); i++)
 				{
 					System.out.println(nodeList.get(i).getData().getCode());
 				}*/
 				
+				System.out.println("construct graph");
 				Graph graph = graphManager.constructGraph(nodeList);
 
 				/*for(int i = 0; i < graph.getEdgeList().size(); i++)
 				{
 					System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" � "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
 				}*/
-				
+				System.out.println("Greedy");
 				ArrayList<Edge> edgeList = greedyAlgo.execute(graph);
 
-				
-				
-				for(int i = 0; i < edgeList.size(); i++)
+				/*for(int i = 0; i < edgeList.size(); i++)
 				{
 					System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
 					System.out.println("A la destination " + edgeList.get(i).getDestination().getId() + " : " + edgeList.get(i).getDestination().getData().getCode());
 					System.out.println("De poids : "+edgeList.get(i).getWeight());
-					
-				}
-				
-				
+				}*/
+				System.out.println("construct chain");
+				chainManager.constructChain(edgeList);	
 			}
 			catch(FragmentException e)
 			{
@@ -91,10 +93,7 @@ public class MainFrame extends JFrame
 			{
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le Greedy", JOptionPane.ERROR_MESSAGE);
 			}
-			catch (Exception e)
-			{
-				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le constructeur de MainFrame", JOptionPane.ERROR_MESSAGE);
-			}
+
 		}
 		System.exit(0);
 		return;

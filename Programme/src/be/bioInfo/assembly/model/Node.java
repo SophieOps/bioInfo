@@ -1,5 +1,7 @@
 package be.bioInfo.assembly.model;
 
+import java.util.ArrayList;
+
 /**
   * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
@@ -69,6 +71,7 @@ public class Node
 		this.out = out;
 	}
 	
+
 	/**
 	 * @return the id
 	 */
@@ -91,6 +94,7 @@ public class Node
 		this.id = this.counter;
 		this.counter++;
 	}
+	
 	
 	
 	

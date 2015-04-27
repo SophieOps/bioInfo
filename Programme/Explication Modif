@@ -1,0 +1,90 @@
+Changement dans greedy pour gérer les arcs dans lesquels un fragment est inclu à un autre.
+
+Si on a f1->f2 où f1 est inclu à f2, on empêche de prendre f1 et son complémentaire et on mets f1 dans une liste appartenant à f2 qui contient tout les fragments inclus à f2.
+
+On laisse f2 de disponible.
+
+
+Si on a f1->f2 où f2 est inclu à f1, on mets f2 dans la liste des fragments inclus à f1 et on empêche de prendre f2 et son complémentaire. On laisse f1 disponible.
+
+On fait ça car on peut avoir ce problème :
+
+seq:  AAAAATTCGCGCGCGCGCGCTTCAAAAA
+f1: AAAAATTCGCGCGCGC
+f2: ATTC
+f3: TTCAAAAA
+f4: GCGCTTCAA
+f2 inclus a f1
+f1 > f4 > f3 pour reformer la sequence
+si l'algo choisi l' arc suivant
+f1 > f2
+il peut plus choisir f1 > f4 car f1 est deja pris. Donc il va choisir
+f2 > f3
+Et f3>f4 car c'est le seul qu'il reste
+Donc on a f1 >f2 > f3 > f4 et c'est pas bon car on a pris un arc où un frag est inclu à un autre
+
+A cause de ça il y a un changement dans l'algo d'alignement.
+Il faut détecter si un fragment est inclu à un autre.
+Fait via méthode private void manageInclusion(Fragment f1, Fragment f2)
+
+retourne 1 si f1 inclu à f2
+-1 si f2 inclu à f1
+
+Dans la Classe ChainManager il y a la construction de la super chaine.
+
+C'est mis dans un fichier txt à enregistré à la racine de l'appli
+
+En gros on cherche parmi les arcs celui dont le fragment source n'apparait pas comme fragment destination d'un autre arc.
+
+Cet arc contient les 2 premiers fragments de la chaine.  On traite cet arc en calculant l'alignement entre le fragment source et destination via la méthode buildAlignement public void buildAlignment(Fragment f1, Fragment f2) dans la classe AlignmentAlgo
+
+On affiche dans le fichier l'alignemeent de f1 puis on va calculer l'alignement de f1 avec les fragments qui lui sont inclu et qui se trouve dans une liste
+
+On affiche ces alignements.
+
+Ensuite on affiche l'alignement de f2
+
+Puis on affiche les alignement des fragments inclu à f2
+
+Dans le fichier tu peux voir ce que ça donne.
+
+Le problème c'est que c'eest pas correct car les gaps sont pas pris en compte :(
+
+
+//EX 1:
+//GCCA
+//  C-GTTA
+
+//CGTTA
+//CGTTACC
+
+//On devrait avoir ça
+//GCCA
+//  C-GTTA
+//  C-GTTACC
+//mais avec ce que j'ai fait on a :
+//GCCA
+//  C-GTTA
+//  CGTTACC
+	
+//Ex2 :
+//GCCA
+//  CAGTTA
+
+//C-AGTTA
+//CCAGTTAA
+
+//On devrait avoir ça : 
+//GCC-A
+//  C-AGTTA
+//  CCAGTTAA
+//mais on a : 
+GCCA
+  CAGTTA
+  C-AGTTA
+  CCAGTTAA
+  
+ La méthode private String constructor() elle regarde le caractère apparaissant le + de fois à la position i donc si on voit les alignements comme une matrice, elle regarde colonne par colonne
+ 
+    
+
