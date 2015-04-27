@@ -10,6 +10,8 @@ public class Node
 	private Node complementaryNode;
 	private boolean in = false;  
 	private boolean out = false;  
+	private static int counter = 0;
+	private int id;
 	
 	/**
 	 * @return
@@ -68,10 +70,27 @@ public class Node
 	}
 	
 	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
 	 */
-	public Node() {}
+	public Node() {
+		this.id = this.counter;
+		this.counter++;
+	}
 	
 	
 	

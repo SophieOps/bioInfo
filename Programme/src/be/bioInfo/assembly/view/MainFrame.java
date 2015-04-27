@@ -62,7 +62,7 @@ public class MainFrame extends JFrame
 
 				/*for(int i = 0; i < graph.getEdgeList().size(); i++)
 				{
-					System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" à "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
+					System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" ï¿½ "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
 				}*/
 				
 				ArrayList<Edge> edgeList = greedyAlgo.execute(graph);
@@ -71,8 +71,12 @@ public class MainFrame extends JFrame
 				
 				for(int i = 0; i < edgeList.size(); i++)
 				{
-					System.out.println("Arc de "+edgeList.get(i).getSource().getData().getCode()+" ï¿½ "+edgeList.get(i).getDestination().getData().getCode()+" "+edgeList.get(i).getWeight());
+					System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
+					System.out.println("A la destination " + edgeList.get(i).getDestination().getId() + " : " + edgeList.get(i).getDestination().getData().getCode());
+					System.out.println("De poids : "+edgeList.get(i).getWeight());
+					
 				}
+				
 				
 			}
 			catch(FragmentException e)
@@ -92,5 +96,7 @@ public class MainFrame extends JFrame
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le constructeur de MainFrame", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		System.exit(0);
+		return;
 	}
 }

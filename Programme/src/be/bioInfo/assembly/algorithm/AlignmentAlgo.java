@@ -33,28 +33,28 @@ public class AlignmentAlgo
 		}
 		
 		//AFFICHAGE MATRICE
-		for(int i = 0; i < f1.getCode().length()+1; i++)
-		{
-			for(int j = 0; j < f2.getCode().length()+1; j++)
-			{
-				System.out.print(matrix[i][j]+" ");
-			}
-			System.out.print("\n");
-		}
+//		System.out.println("Affichage de la matrice d'alignement");
+//		for(int i = 0; i < f1.getCode().length()+1; i++)
+//		{
+//			for(int j = 0; j < f2.getCode().length()+1; j++)
+//			{
+//				System.out.print(matrix[i][j]+" ");
+//			}
+//			System.out.print("\n");
+//		}
 	}
 
 	/**
 	 * Calculate the similarity between 2 char
 	 * @param c1 the charactere of f1 at  i-1
-	 * @param c2 the charactere of f2 at j-1ème
+	 * @param c2 the charactere of f2 at j-1ï¿½me
 	 * @return The similarity value
 	 */
 	private int score(char c1, char c2)
 	{
 		if(c1 == c2)
 			return P;
-		else
-			return -P;
+		return -P;
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class AlignmentAlgo
 		maxValueRow = Integer.MIN_VALUE;
 		maxIndexRow = -1;
 		
-		//Regarde dans la dernière ligne
+		//Regarde dans la derniï¿½re ligne
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
 			if(matrix[f1.getCode().length()][j] >= maxValueRow)
@@ -108,7 +108,7 @@ public class AlignmentAlgo
 		maxValueColumn = Integer.MIN_VALUE;
 		maxIndexColumn = -1;
 		
-		//Regarde dans la dernière colonne
+		//Regarde dans la derniï¿½re colonne
 		for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
 			if(matrix[i][f2.getCode().length()] >= maxValueColumn)
@@ -247,14 +247,14 @@ public class AlignmentAlgo
 		
 		//System.out.println("fragment : "+f1.getCode()+" "+f2.getCode());
 		
-		//On recopie tout les caractères avant i de f1 et on mets des " " pour f2
+		//On recopie tout les caractï¿½res avant i de f1 et on mets des " " pour f2
 		for(int a = 0; a < i; a++)
 		{
 			reconstructorF1+=String.valueOf(f1.getCode().charAt(a));
 			reconstructorF2+=" ";
 		}
 
-		//On recopie tout les caractères avant j de f2 et on mets des " " pour f1
+		//On recopie tout les caractï¿½res avant j de f2 et on mets des " " pour f1
 		for(int b = 0; b < j; b++)
 		{
 			reconstructorF2+=String.valueOf(f2.getCode().charAt(b));
@@ -263,20 +263,20 @@ public class AlignmentAlgo
 	
 		int alignmentLength = alignmentF1.length();
 		
-		//On ajoute l'alignement calculé précédemment
+		//On ajoute l'alignement calculï¿½ prï¿½cï¿½demment
 		for(int c = alignmentLength; c > 0; c--)
 		{
 			reconstructorF1+=alignmentF1.charAt(c-1);
 			reconstructorF2+=alignmentF2.charAt(c-1);
 		}
 
-		//On ajoute ce qui se trouve après l'alignement pour f1
+		//On ajoute ce qui se trouve aprï¿½s l'alignement pour f1
 		for(int d = savei; d<f1.getCode().length(); d++)
 		{
 			reconstructorF1+=f1.getCode().charAt(d);
 		}
 		
-		//On ajoute ce qui se trouve après l'alignement pour f2
+		//On ajoute ce qui se trouve aprï¿½s l'alignement pour f2
 		for(int d = savej; d<f2.getCode().length(); d++)
 		{
 			reconstructorF2+=f2.getCode().charAt(d);
