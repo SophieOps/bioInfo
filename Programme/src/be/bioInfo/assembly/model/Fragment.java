@@ -1,46 +1,41 @@
 package be.bioInfo.assembly.model;
 
 
-import java.util.ArrayList;
 
+import java.util.regex.Pattern;
 import be.bioInfo.assembly.exception.FragmentException;
 
 /**
+ * Class of a fragment
+ * 
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Fragment
 {
+	//Pattern to check if we have valid DNA
+	private static Pattern validCode =Pattern.compile("^[atcgATCG]+$");
+	//The charactere in the fragment
 	private String code;
-	private ArrayList<Fragment> fragmentInclu;
-	
+
 	/**
-	 * @return
+	 * @return The charactere in the fragment
 	 */
 	public String getCode() {
 		return code;
 	}
-
+	
 	/**
-	 * @param code
+	 * Constructor of the fragment
+	 * @param code : The charactere in the fragment
 	 * @throws FragmentException
 	 */
-	public void setCode(String code) throws FragmentException {
-		this.code = code.toUpperCase();
-	
-	}
-	
-	public ArrayList<Fragment> getFragmentInclu() {
-		return fragmentInclu;
-	}
-	
-	/**
-	 * Constructor.
-	 * Do nothing, simple implementation.
-	 */
-	public Fragment()
+	public Fragment(String code) throws FragmentException
 	{
-		this.fragmentInclu = new ArrayList<Fragment>();
+		if (!validCode.matcher(code).matches()) {
+            throw new FragmentException(code +" invalide");
+        }
+		this.code = code.toUpperCase();
 	}
 	
 }
