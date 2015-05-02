@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 
 
+
 import be.bioInfo.assembly.exception.FragmentException;
+import be.bioInfo.assembly.graph.Node;
 
 /**
  * Read the input file and create an arrayList of Node with all 
@@ -21,21 +23,17 @@ import be.bioInfo.assembly.exception.FragmentException;
 public class FragmentManager
 {
 	
-	
-	/**
-	 * Constructor.
-	 * Do nothing, simple implementation.
-	 */
 	public FragmentManager() {}
 
 	/**
-	 * Read the file and create the fragments, the nodes and compute their complementary
-	 * @param selectedFile the file to read
-	 * @return the list of the nodes for the creation of the graph
+	 * Read the file and create the fragments, the nodes and compute their complementary or not
+	 * @param selectedFile : The file to read
+	 * @param computeComplementary : Boolean to know if we need to compute complementary 
+	 * @return : List of nodes
 	 * @throws FragmentException
 	 * @throws FileNotFoundException
 	 */
-	public ArrayList<Node> readFile(File selectedFile) throws FragmentException, FileNotFoundException
+	public static ArrayList<Node> readFile(File selectedFile, boolean computeComplementary) throws FragmentException, FileNotFoundException
 	{
         String code = "" ;
         ArrayList<Node> nodeList = new ArrayList<>();
@@ -45,7 +43,7 @@ public class FragmentManager
 		Scanner fileScan = null;
     	fileScan = new Scanner(selectedFile);
     	
-    	String line = fileScan.nextLine(); // contient la première ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
+    	String line = fileScan.nextLine(); // contient la premiere ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
  
 	    while(fileScan.hasNextLine())
 	    {
@@ -53,7 +51,10 @@ public class FragmentManager
 	    	
 	        if(line.contains(">"))
 	        {
-	        	createFragmentNode(code, nodeList, node, complementaryNode);
+	        	if(computeComplementary == true)
+	        		createFragmentNode(code, nodeList, node, complementaryNode);
+	        	else
+	        		createFragmentNode(code, nodeList, node);
 
 	        	node = new Node();
 	        	complementaryNode = new Node();
@@ -68,7 +69,11 @@ public class FragmentManager
 		        lineScan.close();
 		    }
 	    }
-	    createFragmentNode(code, nodeList, node, complementaryNode);
+	    
+	    if(computeComplementary == true)
+    		createFragmentNode(code, nodeList, node, complementaryNode);
+    	else
+    		createFragmentNode(code, nodeList, node);
 	    //fermeture des Scanner
 	    fileScan.close();
 	    
@@ -76,24 +81,23 @@ public class FragmentManager
 	}
 
 	/**
-	 * Create the fragments and the nodes
-	 * @param code the code of the fragment
-	 * @param nodeList the list of the nodes
-	 * @param node a node
-	 * @param complementaryNode
+	 * Create the fragments, nodes and their complementary
+	 * @param code : The code read from the file
+	 * @param nodeList : The list of nodes
+	 * @param node : The node to create
+	 * @param complementaryNode : The complementary Node to create
 	 * @throws FragmentException
 	 */
-	private void createFragmentNode(String code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
+	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
 	{
-		Fragment fragment = new Fragment();
-		fragment.setCode(code);
-		
-		Fragment complementaryFragment = new Fragment();
-		complementaryFragment.setCode(computeComplementaryCode(code));
-		
-		node.setData(fragment);
+		Fragment fragment = new Fragment(code);
+
+		Fragment complementaryFragment = new Fragment(computeComplementaryCode(code));
+
 		complementaryNode.setData(complementaryFragment);
 		
+		node.setData(fragment);
+	
 		node.setComplementaryNode(complementaryNode);
 		complementaryNode.setComplementaryNode(node); 
 
@@ -102,12 +106,28 @@ public class FragmentManager
 	}
 	
 	/**
-	 * Compute the complementary of a fragment
-	 * @param code
-	 * @return
+	 * Create the fragments and the nodes
+	 * @param code : The code read from the file
+	 * @param nodeList : The list of nodes
+	 * @param node : The node to create
 	 * @throws FragmentException
 	 */
-	private String computeComplementaryCode(String code) throws FragmentException
+	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node) throws FragmentException 
+	{
+		Fragment fragment = new Fragment(code);
+
+		node.setData(fragment);
+
+		nodeList.add(node);
+	}
+	
+	/**
+	 * Compute the complementary of a fragment
+	 * @param code : The code read from the file
+	 * @return The complementary of the code
+	 * @throws FragmentException
+	 */
+	private static String computeComplementaryCode(String code)
 	{
 		String complementaryCode="";
 		code = code.toUpperCase();
@@ -121,9 +141,8 @@ public class FragmentManager
 					break;
 				case 'C' : complementaryCode+= 'G';
 					break;	
-				case 'G' : complementaryCode+= 'C';
+				default : complementaryCode+= 'C';
 					break;
-				default : throw new FragmentException("Illégal caractère dans le fragment");
 			}
 		}
 		return complementaryCode;

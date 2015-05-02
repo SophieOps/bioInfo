@@ -55,17 +55,21 @@ Le problème c'est que c'eest pas correct car les gaps sont pas pris en compte :(
 //GCCA
 //  C-GTTA
 
-//CGTTA
-//CGTTACC
+//C-GTTA
+//C GTTACC
 
+//C GTTACC
+//TACCAT
 //On devrait avoir ça
 //GCCA
 //  C-GTTA
-//  C-GTTACC
+//  CGTTACC
 //mais avec ce que j'ai fait on a :
 //GCCA
 //  C-GTTA
-//  CGTTACC
+//  C GTTACC
+
+
 	
 //Ex2 :
 //GCCA

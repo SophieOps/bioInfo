@@ -1,65 +1,53 @@
-package be.bioInfo.assembly.model;
+package be.bioInfo.assembly.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 /**
- * 
+ * The data of the graph
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Graph 
 {
+	//The list of the nodes
 	private ArrayList<Node> nodeList;
+	//The list of the edges
 	private ArrayList<Edge> edgeList;
 
-	/**
-	 * @return the list with all the node of the graph.
-	 */
 	public ArrayList<Node> getNodeList() {
 		return nodeList;
 	}
 
-	/**
-	 * @param nodeList
-	 */
 	public void setNodeList(ArrayList<Node> nodeList) {
 		this.nodeList = nodeList;
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList<Edge> getEdgeList() {
 		return edgeList;
 	}
 
-	/**
-	 * @param edgeList
-	 */
 	public void setEdgeList(ArrayList<Edge> edgeList) {
 		this.edgeList = edgeList;
 	}
 	
 	/**
-	 * Constructor.
-	 * @param nodeList
-	 * @param edgeList
+	 * Constructor
 	 */
-	public Graph(ArrayList<Node> nodeList, ArrayList<Edge> edgeList)
+	public Graph()
 	{
-		this.nodeList = nodeList;
-		this.edgeList = edgeList;
-		sortList();
-
+		edgeList = new ArrayList<Edge>();
 	}
 	
-	private void sortList() {
+	/**
+	 * Sort the list in descending order of the cost of the alignment
+	 */
+	public void sortList() {
         Collections.sort(this.edgeList, new Comparator<Edge>() {
              @Override
              public int compare(Edge e1, Edge e2) {
-                 return e1.CompareTo(e2);
+                 return e2.getAlignment().getCost()-e1.getAlignment().getCost();
              }
          });
     }
