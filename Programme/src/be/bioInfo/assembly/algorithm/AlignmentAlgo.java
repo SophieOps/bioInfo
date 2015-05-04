@@ -71,7 +71,7 @@ public class AlignmentAlgo
 		maxValueColumn = Integer.MIN_VALUE;
 		maxIndexColumn = -1;
 
-		//Regarde dans la dernière ligne la colonne avec la + grande valeur
+		//Regarde dans la derniï¿½re ligne la colonne avec la + grande valeur
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
 			if(matrix[f1.getCode().length()][j] > maxValueColumn)
@@ -89,7 +89,7 @@ public class AlignmentAlgo
 		maxValueRow = Integer.MIN_VALUE;
 		maxIndexRow = -1;
 
-		//Regarde dans la dernière colonne la ligne avec la + grande valeur
+		//Regarde dans la derniï¿½re colonne la ligne avec la + grande valeur
 
 		for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
@@ -235,10 +235,10 @@ public class AlignmentAlgo
 		alignmentF1.reverse();
 		alignmentF2.reverse();
 		
-		//on traite f1->f2 et f2->f1 avec la même matrice.
-		//Quand isSuffixe est à true, on traite f1->f2 donc on a : alignement f1 --------
+		//on traite f1->f2 et f2->f1 avec la mÃªme matrice.
+		//Quand isSuffixe est  Ã  true, on traite f1->f2 donc on a : alignement f1 --------
 		//														   alignement f2      --------
-		//Quand isSuffixe est à false, on traite f2->f1 mais on obtient : alignement f1         ---------
+		//Quand isSuffixe est  Ã  false, on traite f2->f1 mais on obtient : alignement f1         ---------
 		//																  alignement f2     --------
 		//On inverse donc pour avoir alignement f2 -------------
 		//							 alignement f1        -------------
