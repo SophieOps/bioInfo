@@ -2,7 +2,7 @@ package be.bioInfo.assembly;
 
 import be.bioInfo.assembly.view.MainFrame;
 /**
- * The main user interface for the project.
+ * Call the main user interface for the project.
  * 
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  */
