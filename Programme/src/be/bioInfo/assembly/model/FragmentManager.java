@@ -45,23 +45,20 @@ public class FragmentManager
 		
 		Scanner fileScan = null;
     	fileScan = new Scanner(selectedFile);
-    	
     	String line = fileScan.nextLine(); // contient la premiere ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
  
 	    while(fileScan.hasNextLine())
 	    {
 	    	line = fileScan.nextLine();
-	    	
 	        if(line.contains(">"))
 	        {
 	        	if(computeComplementary == true)
 	        		createFragmentNode(code, nodeList, node, complementaryNode);
 	        	else
 	        		createFragmentNode(code, nodeList, node);
-
+	        	
 	        	node = new Node();
 	        	complementaryNode = new Node();
-
 	        	code ="";	
 	        }
 	        else
@@ -120,31 +117,6 @@ public class FragmentManager
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * Associate the node with is complementary node
-	 * @param nodeList the list of the nodes
-	 * @throws FragmentException
-	 */
-	private void associateComplementaryNode(ArrayList<Node> nodeList) throws FragmentException{
-		for (Node node : nodeList){
-			for(Node nodeCompl : nodeList){
-				if((!node.equals(nodeCompl)) 
-						&& (computeComplementaryCode(node.getData().getCode()).equals(nodeCompl.getData().getCode()))){
-					node.setComplementaryNode(nodeCompl);
-					nodeCompl.setComplementaryNode(node); 
-				}
-			}
-		}
-		for(Node node : nodeList){
-			if(!node.getComplementaryNode().getComplementaryNode().equals(node)){
-				 JOptionPane.showMessageDialog(null, "Il y a un fragment non associé" + node.toString(), "InfoBox: Erreur lors de l'association des noeuds complémentaires inversé", JOptionPane.INFORMATION_MESSAGE);
-			}
-		}
-	}
-	
-	/**
-=======
->>>>>>> 6de79d8cd2180af4e091f08fcf1edbbc2f3e5d52
 	 * Compute the complementary of a fragment
 	 * @param code : The code read from the file
 	 * @return The complementary of the code
