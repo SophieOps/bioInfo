@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
 
+/**
+ * 
+ * @author Watillon Thibaut & Opsommer Sophie, 2015
+ *
+ */
 public class ChainManager 
 {
 	private AlignmentAlgo alignmentAlgo;
@@ -18,13 +23,17 @@ public class ChainManager
 	private File fileSuperChaine;
 	private PrintWriter pw;
 	
+	/**
+	 * Constructor
+	 * Create the final chain with all the caracters
+	 * Write the two files with the details and the summarize.
+	 */
 	public ChainManager()
 	{
 		alignmentAlgo = new AlignmentAlgo();
 		alignmentList = new ArrayList<String>();
-		fileDetail = new File("detailChaine.FASTA");
-		fileSuperChaine = new File("superChaine.FASTA");
-		
+		fileDetail = new File("detailChain.FASTA");
+		fileSuperChaine = new File("superChain.FASTA");		
 	}
 
 	//Fonctionne pas :(
