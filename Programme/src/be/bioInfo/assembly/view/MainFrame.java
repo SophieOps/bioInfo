@@ -1,21 +1,10 @@
 package be.bioInfo.assembly.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -25,18 +14,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
+import be.bioInfo.assembly.algorithm.ChainManager;
 import be.bioInfo.assembly.algorithm.GreedyAlgo;
 import be.bioInfo.assembly.exception.FragmentException;
 import be.bioInfo.assembly.exception.GreedyException;
-import be.bioInfo.assembly.model.ChainManager;
-import be.bioInfo.assembly.model.Edge;
-import be.bioInfo.assembly.model.Fragment;
+import be.bioInfo.assembly.graph.Edge;
+import be.bioInfo.assembly.graph.Graph;
+import be.bioInfo.assembly.graph.GraphManager;
+import be.bioInfo.assembly.graph.Node;
 import be.bioInfo.assembly.model.FragmentManager;
-import be.bioInfo.assembly.model.Graph;
-import be.bioInfo.assembly.model.GraphManager;
-import be.bioInfo.assembly.model.Node;
 
 /**
  * 
@@ -66,11 +52,6 @@ public class MainFrame extends JFrame implements ActionListener
 	 */
 	public MainFrame()
 	{
-		fragmentManager = new FragmentManager();
-		graphManager = new GraphManager();
-		greedyAlgo = new GreedyAlgo();
-		chainManager = new ChainManager();
-		
 		this.setTitle("Algorithmique et bioinformatique");
 		this.setSize(400, 200);
 		this.setLocationRelativeTo(null);               
@@ -121,11 +102,6 @@ public class MainFrame extends JFrame implements ActionListener
 		return;
 	}
 	
-    public static void infoBox(String infoMessage, String titleBar)
-    {
-        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-    }
-
 	//Méthode qui sera appelée lors d'un clic sur le bouton
 	public void actionPerformed(ActionEvent evt) {      
 		//Lorsque l'on clique sur le bouton, on met à jour le JLabel
@@ -143,34 +119,33 @@ public class MainFrame extends JFrame implements ActionListener
 			{
 				try
 				{
-					System.out.println("read file");
-
-					ArrayList<Node> nodeList = fragmentManager.readFile(fc.getSelectedFile(), withcompl);
-
-
+					System.out.println("Lecture du fichier");
+					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), withcompl);//booleen pour savoir si il faut calculer les compl�mentaires ou non
+					System.out.println("Fin lecture fichier");
 					/*for(int i = 0; i < nodeList.size(); i++)
 					{
 						System.out.println(nodeList.get(i).getData().getCode());
 					}*/
-
-					System.out.println("construct graph");
-					Graph graph = graphManager.constructGraph(nodeList);
+					System.out.println("Construction du graph");
+					Graph graph = GraphManager.constructGraph(nodeList, withcompl);
+					System.out.println("Fin construction du graph");
 
 					/*for(int i = 0; i < graph.getEdgeList().size(); i++)
 					{
 						System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" � "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
 					}*/
-					System.out.println("Greedy");
-					ArrayList<Edge> edgeList = greedyAlgo.execute(graph);
-
+					System.out.println("Lancement Greedy");
+					ArrayList<Edge> edgeList = GreedyAlgo.execute(graph);
+					System.out.println("Fin de greedy");
 					/*for(int i = 0; i < edgeList.size(); i++)
 					{
 						System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
 						System.out.println("A la destination " + edgeList.get(i).getDestination().getId() + " : " + edgeList.get(i).getDestination().getData().getCode());
 						System.out.println("De poids : "+edgeList.get(i).getWeight());
 					}*/
-					System.out.println("construct chain");
-					chainManager.constructChain(edgeList);
+					System.out.println("Construction super chaine");
+					ChainManager.constructChain(edgeList);	
+					System.out.println("Fin construction super chaine");
 				}
 				catch(FragmentException e)
 				{
@@ -178,14 +153,14 @@ public class MainFrame extends JFrame implements ActionListener
 				} 
 				catch (FileNotFoundException e) 
 				{
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur lors de la lecture du fichier", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Fichier introuvable", JOptionPane.ERROR_MESSAGE);
 				} 
 				catch (GreedyException e) 
 				{
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le Greedy", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			infoBox("Résultat trouvé", "Traitement fini");
+			JOptionPane.showMessageDialog(null, "Résultat trouvé", "InfoBox: Traitement fini", JOptionPane.INFORMATION_MESSAGE);
 			System.exit(0);
 		}
 	} 

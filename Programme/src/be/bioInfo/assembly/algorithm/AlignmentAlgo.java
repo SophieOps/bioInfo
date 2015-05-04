@@ -2,6 +2,8 @@ package be.bioInfo.assembly.algorithm;
 
 import java.util.ArrayList;
 
+import be.bioInfo.assembly.model.Alignment;
+import be.bioInfo.assembly.model.AlignmentType;
 import be.bioInfo.assembly.model.Fragment;
 
 
@@ -13,18 +15,19 @@ public class AlignmentAlgo
 {
 	private static final int G = -2;
 	private static final int P = 1;
-	private int maxValueColumn = Integer.MIN_VALUE, maxIndexColumn = -1, maxValueRow = Integer.MIN_VALUE,  maxIndexRow = -1;
-	private ArrayList<String> alignmentList;
-	private int inclusion;
+	private short[][] matrix;
+	private int maxValueColumn, maxIndexColumn, maxValueRow,  maxIndexRow;
+	private ArrayList<Alignment> alignmentList;
+	private Fragment f1;
+    private Fragment f2;
 	
-	/**
-	 * Execute the semi-global alignment algorithm.
-	 * Calculate metrics of the matrice "matrix" while compare char by char the similarity
-	 * @param f1 The first fragment
-	 * @param f2 The second fragment
-	 * @param matrix The matrix of the semi-global alignment
-	 */
-	private void execute(Fragment f1, Fragment f2, int matrix[][])
+	public AlignmentAlgo(Fragment f1, Fragment f2)
+	{
+		this.f1 = f1;
+		this.f2 = f2;
+	}
+
+	private void execute()
 	{
 		//System.out.println(f1.getCode()+" "+f2.getCode());
 		//ALGO
@@ -33,7 +36,7 @@ public class AlignmentAlgo
 			for(int j = 1; j < f2.getCode().length()+1; j++)
 			{
 				int p = score(f1.getCode().charAt(i-1),f2.getCode().charAt(j-1));
-				matrix[i][j] = max(matrix[i-1][j]+G, matrix[i-1][j-1]+p,matrix[i][j-1]+G);
+				matrix[i][j] = (short)Math.max(Math.max(matrix[i-1][j]+G,matrix[i][j-1]+G), matrix[i-1][j-1]+p);
 			}
 		}
 		
@@ -62,307 +65,218 @@ public class AlignmentAlgo
 	}
 
 	/**
-	 * Compute the maximum between the above neighbor, the diagonal neighbor and the left neighbor
-	 * @param a the value of the above neighbor+G
-	 * @param b the value of the diagonal neighbor+P
-	 * @param c the value of the left neighbor+G
-	 * @return the maximum
-	 */
-	private int max(int a, int b, int c)
-	{
-		int maximum = Integer.MIN_VALUE;
-		
-		if(a > maximum)
-			maximum = a;
-		if(b > maximum)
-			maximum = b;
-		if(c > maximum)
-			maximum = c;
-		return maximum;	
-	}
-	
-	/**
 	 * Compute the index and the value of the highest value of the last row
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
-	 * @param matrix the matrice
 	 */
-	private void maxValueRow(Fragment f1, Fragment f2, int[][] matrix) {
-		maxValueRow = Integer.MIN_VALUE;
-		maxIndexRow = -1;
-		
-		//Regarde dans la derniï¿½re ligne
+	private void computeSuffixLength() {
+		maxValueColumn = Integer.MIN_VALUE;
+		maxIndexColumn = -1;
+
+		//Regarde dans la dernière ligne la colonne avec la + grande valeur
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
-			if(matrix[f1.getCode().length()][j] >= maxValueRow)
+			if(matrix[f1.getCode().length()][j] > maxValueColumn)
 			{
-				maxValueRow = matrix[f1.getCode().length()][j];
-				maxIndexRow = j;
+				maxValueColumn = matrix[f1.getCode().length()][j];
+				maxIndexColumn = j;
 			}
 		}
 	}
 
 	/**
 	 * Compute the index and the value of the highest value of the last column
-	 * @param f1 un fragment
-	 * @param f2 un second fragment
-	 * @param matrix the semi-global alignment matrice
 	 */
-	private void maxValueColumn(Fragment f1, Fragment f2, int[][] matrix) {
-		maxValueColumn = Integer.MIN_VALUE;
-		maxIndexColumn = -1;
-		
-		//Regarde dans la derniï¿½re colonne
+	private void computePrefixLength() {
+		maxValueRow = Integer.MIN_VALUE;
+		maxIndexRow = -1;
+
+		//Regarde dans la dernière colonne la ligne avec la + grande valeur
+
 		for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
-			if(matrix[i][f2.getCode().length()] >= maxValueColumn)
+			if(matrix[i][f2.getCode().length()] > maxValueRow)
 			{
-				maxValueColumn = matrix[i][f2.getCode().length()];
-				maxIndexColumn = i;
+				maxValueRow = matrix[i][f2.getCode().length()];
+				maxIndexRow = i;
 			}
 		}
 	}
 	
 	/**
 	 * Compute the maximum value of the last row and column
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
-	 * @param matrix the semi-global alignment matrix
 	 */
-	private void computeMaxValue(Fragment f1, Fragment f2, int[][] matrix)
+	private void computePrefixAndSuffixLength()
 	{
 		//CALCUL DE LA VALEUR MAXIMALE
 		
-		maxValueColumn(f1, f2, matrix);
+		computePrefixLength();
 		
-		maxValueRow(f1, f2, matrix);
+		computeSuffixLength();
 
 	}
 
 	/**
-	 * Compute the maximum value of the last row and column and reconstruction of the alignment
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
+	 * Compute the maximum value of the last row and column and construction of the alignment
+	 * @return
 	 */
-	public void computeAlignmentMax(Fragment f1, Fragment f2)
+	public ArrayList<Alignment> computeAlignmentMax()
 	{
-		inclusion = 0;
+		alignmentList = new ArrayList<Alignment>();
 		
-		int matrix [][] = new int[f1.getCode().length()+1][f2.getCode().length()+1];
-		
-		execute(f1,f2, matrix);
-		
-		computeMaxValue(f1, f2, matrix);
-		
-		//buildAlignment(f1, f2);
+		matrix = new short[f1.getCode().length()+1][f2.getCode().length()+1];
+		execute();
 
-		manageInclusion(f1, f2);
+		computePrefixAndSuffixLength();
 		
-	}
+		buildAlignment();
 
-	/**
-	 * Look if the fragments are included to each other
-	 * @param f1 a fragment
-	 * @param f2 a secon  fragment
-	 */
-	private void manageInclusion(Fragment f1, Fragment f2) {
-		
-		
-		if(f1.getCode().length() <= f2.getCode().length())//f1 peut ï¿½tre inclu ï¿½ f2
-		{
-			if(maxValueRow >= maxValueColumn) 
-			{
-				if(maxIndexRow >= f1.getCode().length())
-				{
-					inclusion = 1;
-					/*System.out.println("f1 inclus ï¿½ f2");
-					System.out.println(alignmentList.get(0));
-					System.out.println(alignmentList.get(1));*/
-				}
-			}
-		}
-		else //f2 peut ï¿½tre inclu ï¿½ f1
-		{
-			if(maxValueColumn >= maxValueRow)
-			{
-				if(maxIndexColumn>=f2.getCode().length())
-				{
-					inclusion = -1;
-					/*System.out.println("f2 inclus ï¿½ f1");
-					System.out.println(alignmentList.get(0));
-					System.out.println(alignmentList.get(1));*/
-				}
-			}
-		}
+		return alignmentList;
 	}
 	
-	public void buildAlignment(Fragment f1, Fragment f2)
-	{
-		alignmentList = new ArrayList<String>();
-		
-		int matrix [][] = new int[f1.getCode().length()+1][f2.getCode().length()+1];
-		
-		execute(f1,f2, matrix);
-		
-		computeMaxValue(f1, f2, matrix);
-		
-		alignment(f1, f2, matrix);
-	}
-	
+
 	/**
-	 * Compute the fragments alignment
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
-	 * @param matrix the semi-global alignment matrix
+	 * Built the alignment
 	 */
-	private void alignment(Fragment f1, Fragment f2, int matrix[][])
+	private void buildAlignment()
+	{ 
+		int startRow = 0, startColumn = 0;
+		
+		//f1->f2
+		startRow = f1.getCode().length();
+		startColumn = maxIndexColumn;
+
+		alignmentConstructor(startRow, startColumn, true);
+		
+		//f2->f1
+		startRow = maxIndexRow;
+		startColumn = f2.getCode().length();
+		
+		alignmentConstructor(startRow, startColumn, false);
+	}
+
+	/**
+	 * Construction of the alignment
+	 * @param startRow : The index where start the alignment on the row
+	 * @param startColumn : The index where start the alignment on the column
+	 * @param isSuffixe : Boolean to knwo if we are treating a suffix or not.  
+	 */
+	private void alignmentConstructor(int startRow, int startColumn, boolean isSuffixe)
 	{
-		
-		int i = 0;
-		int j = 0;
-		
-		//Calcul de l'alignement de f1->f2
-		if(maxValueRow>=maxValueColumn)
+
+		StringBuilder alignmentF1 = new StringBuilder();
+        StringBuilder alignmentF2 = new StringBuilder();
+        int row = startRow, column = startColumn;
+
+		if(startColumn < f2.getCode().length())
 		{
-			i = f1.getCode().length();
-			j = maxIndexRow;
+			for(int i = 1; i <= f2.getCode().length()-startColumn; i++)
+			{
+				alignmentF1.append(Alignment.BORDER);
+				alignmentF2.append(f2.getCode().charAt(f2.getCode().length()-i));
+			}
 		}
 		else
 		{
-			j = f2.getCode().length();
-			i = maxIndexColumn;
+			for(int i = 1; i <= f1.getCode().length()-startRow; i++)
+			{
+				alignmentF1.append(f1.getCode().charAt(f1.getCode().length()-i));
+				alignmentF2.append(Alignment.BORDER);
+			}
 		}
-		alignmentConstructor(i, j, f1, f2, matrix);
-	}
-	
-	/**
-	 * Construction of the alignment
-	 * @param i index of the row where the alignment start or index of the last row
-	 * @param j index of the column where the alignment start or index of the last column
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
-	 * @param matrix the semi-global alignment matrix
-	 */
-	private void alignmentConstructor(int i, int j, Fragment f1, Fragment f2, int matrix[][])
-	{
-		String alignmentF1 = "", alignmentF2 = "";
-		int savei = i, savej = j;
-		
-		while(i != 0 && j != 0)
+				
+		while(row != 0 && column != 0)
 		{
-			int p = score(f1.getCode().charAt(i-1),f2.getCode().charAt(j-1));
-			
-			//System.out.println(f1.getCode().charAt(i-1)+" "+f2.getCode().charAt(j-1));
-			
-			if(matrix[i-1][j-1]+p == matrix[i][j])
+			int p = score(f1.getCode().charAt(row-1),f2.getCode().charAt(column-1));
+					
+
+			if(matrix[row-1][column-1]+p == matrix[row][column])
 			{
 				//On vient de la diagonal
-				i = i-1;
-				j = j-1;
-				alignmentF1+=f1.getCode().charAt(i);
-				alignmentF2+=f2.getCode().charAt(j);	
+				row--;
+				column--;
+				alignmentF1.append(f1.getCode().charAt(row));
+				alignmentF2.append(f2.getCode().charAt(column));	
 			}
 			else
 			{
-				if(matrix[i][j-1]+G == matrix[i][j])
+				if(matrix[row][column-1]+G == matrix[row][column])
 				{
 					//On vient de la gauche
-					j = j-1;
-					alignmentF2+=f2.getCode().charAt(j);
-					alignmentF1+="-";
-					
+					column--;
+					alignmentF2.append(f2.getCode().charAt(column));
+					alignmentF1.append(Alignment.GAP);
+							
 				}
 				else
 				{	//On vient d'en haut
-					//matrix[i-1][j]+G == matrix[i][j]
-					i = i-1;
-					alignmentF1+=f1.getCode().charAt(i);
-					alignmentF2+="-";
+					//matrix[row-1][column]+G == matrix[row][column]
+					row--;
+					alignmentF1.append(f1.getCode().charAt(row));
+					alignmentF2.append(Alignment.GAP);
 				}
-				
+						
 			}
 		}
-		
-		alignmentReconstructor(i, j, savei, savej, f1, f2, alignmentF1, alignmentF2);
-	}
-
-	/**
-	 * Well-done construction of the alignment
-	 * @param i index of the row where the alignment start or index of the last row
-	 * @param j index of the column where the alignment start or index of the last column
-	 * @param savei the index of the row saved
-	 * @param savej the index of the column saved
-	 * @param f1 a fragment
-	 * @param f2 a second fragment
-	 * @param alignmentF1 F1 alignment
-	 * @param alignmentF2 F2 alignment
-	 */
-	private void alignmentReconstructor(int i, int j, int savei, int savej, Fragment f1, Fragment f2,
-			String alignmentF1, String alignmentF2) {
-		
-		String reconstructorF1="", reconstructorF2="";
-		
-		//System.out.println("fragment : "+f1.getCode()+" "+f2.getCode());
-		
-		//On recopie tout les caractï¿½res avant i de f1 et on mets des " " pour f2
-		for(int a = 0; a < i; a++)
+		if(row != 0)
 		{
-			reconstructorF1+=String.valueOf(f1.getCode().charAt(a));
-			reconstructorF2+=" ";
+			for(int i  = row-1;i >=0;i--)
+			{
+				alignmentF1.append(f1.getCode().charAt(i));
+		        alignmentF2.append(Alignment.BORDER);
+		    }
 		}
-
-		//On recopie tout les caractï¿½res avant j de f2 et on mets des " " pour f1
-		for(int b = 0; b < j; b++)
+		else if(column != 0)
 		{
-			reconstructorF2+=String.valueOf(f2.getCode().charAt(b));
-			reconstructorF1+=" ";
+			for(int i  = column-1;i >=0;i--)
+		    {
+				alignmentF1.append(Alignment.BORDER);
+				alignmentF2.append(f2.getCode().charAt(i));
+			}
 		}
-	
-		int alignmentLength = alignmentF1.length();
+		alignmentF1.reverse();
+		alignmentF2.reverse();
 		
-		//On ajoute l'alignement calculï¿½ prï¿½cï¿½demment
-		for(int c = alignmentLength; c > 0; c--)
+		//on traite f1->f2 et f2->f1 avec la même matrice.
+		//Quand isSuffixe est à true, on traite f1->f2 donc on a : alignement f1 --------
+		//														   alignement f2      --------
+		//Quand isSuffixe est à false, on traite f2->f1 mais on obtient : alignement f1         ---------
+		//																  alignement f2     --------
+		//On inverse donc pour avoir alignement f2 -------------
+		//							 alignement f1        -------------
+		if(isSuffixe == false)
 		{
-			reconstructorF1+=alignmentF1.charAt(c-1);
-			reconstructorF2+=alignmentF2.charAt(c-1);
-		}
-
-		//On ajoute ce qui se trouve aprï¿½s l'alignement pour f1
-		for(int d = savei; d<f1.getCode().length(); d++)
-		{
-			reconstructorF1+=f1.getCode().charAt(d);
+			
+			StringBuilder temp = alignmentF1;
+			alignmentF1= alignmentF2;
+			alignmentF2 = temp;
 		}
 		
-		//On ajoute ce qui se trouve aprï¿½s l'alignement pour f2
-		for(int d = savej; d<f2.getCode().length(); d++)
-		{
-			reconstructorF2+=f2.getCode().charAt(d);
-		}
-		
-		
-		alignmentList.add(reconstructorF1);
-		alignmentList.add(reconstructorF2);
-		/*System.out.println(reconstructorF1);
-		System.out.println(reconstructorF2);*/
+		Alignment alignment = new Alignment();
+        alignment.setCost(matrix[startRow][startColumn]);
+        
+        int startIndex = 0;
+        
+        while(alignmentF2.charAt(startIndex) == Alignment.BORDER){
+            startIndex++;
+        }
+        alignment.setStartIndex(startIndex);
+
+        //Regarde le type d'alignement
+        if(alignmentF1.charAt(0) == Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) == Alignment.BORDER)
+            alignment.setType(AlignmentType.F1INCLUDEDTOF2);
+        else if(alignmentF1.charAt(0)== Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) != Alignment.BORDER)
+            alignment.setType(AlignmentType.OTHER);//PREFIXE
+        else if(alignmentF1.charAt(0)!= Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) == Alignment.BORDER)
+            alignment.setType(AlignmentType.OTHER);//SUFFIXE
+        else if(alignmentF2.charAt(0) == Alignment.BORDER || alignmentF2.charAt(alignmentF2.length() - 1) == Alignment.BORDER)
+            alignment.setType(AlignmentType.F2INCLUDEDTOF1);
+        else
+            alignment.setType(AlignmentType.OTHER);//EGAL
+
+       
+        alignment.setCode1(alignmentF1.toString());
+        alignment.setCode2(alignmentF2.toString());
+
+        alignmentList.add(alignment);
 	}
 
-	public int getMaxValueColumn() {
-		return maxValueColumn;
-	}
-
-	public int getMaxValueRow() {
-		return maxValueRow;
-	}
-
-	//le premier ï¿½lï¿½ment de la liste contient l'alignement de f1 et le deuxiï¿½me ï¿½lï¿½ment l'alignement de f2
-	public ArrayList<String> getAlignmentList() {
-		return alignmentList;
-	}
-
-	public int getInclusion() {
-		return inclusion;
-	}
-
-	
-	
 }

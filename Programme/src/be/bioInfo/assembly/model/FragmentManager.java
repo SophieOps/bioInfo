@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-
-
-
 import javax.swing.JOptionPane;
 
 import be.bioInfo.assembly.exception.FragmentException;
+import be.bioInfo.assembly.graph.Node;
 
 /**
  * Read the input file and create an arrayList of Node with all 
@@ -31,89 +29,76 @@ public class FragmentManager
 	public FragmentManager() {}
 
 	/**
-	 * Read the file and create the fragments, the nodes and compute their complementary
-	 * @param selectedFile the file to read
-	 * @param withcompl true if the file contains all the complementary fragment
-	 * @return the list of the nodes for the creation of the graph
+	 * Read the file and create the fragments, the nodes and compute their complementary or not
+	 * @param selectedFile : The file to read
+	 * @param computeComplementary : Boolean to know if we need to compute complementary 
+	 * @return : List of nodes
 	 * @throws FragmentException
 	 * @throws FileNotFoundException
 	 */
-	public ArrayList<Node> readFile(File selectedFile, boolean withCompl) throws FragmentException, FileNotFoundException
+	public static ArrayList<Node> readFile(File selectedFile, boolean computeComplementary) throws FragmentException, FileNotFoundException
 	{
-		ArrayList<Node> nodeList = new ArrayList<>();
-			String code = "" ;
-			Node node = new Node();
-			Scanner fileScan = null;
-			fileScan = new Scanner(selectedFile);
-			String line = fileScan.nextLine(); // contient la première ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
-		if (!withCompl){
-			Node complementaryNode = new Node();
-			while(fileScan.hasNextLine())
-			{
-				line = fileScan.nextLine();
-				if(line.contains(">"))
-				{
-					createFragmentNode(code, nodeList, node, complementaryNode);
-					node = new Node();
-					complementaryNode = new Node();
-					code ="";	
-				}
-				else
-				{
-					Scanner lineScan = new Scanner(line);
-					lineScan.useLocale(Locale.FRENCH);
-					code+=lineScan.next();
-					lineScan.close();
-				}
-			}
-			createFragmentNode(code, nodeList, node, complementaryNode);
-			//fermeture des Scanner
-			fileScan.close();
-		}else{
-			//TODO : Vérifié la gestion du withcompl pour le traitement des fichiers qui contiennent les fragments complémentaires. 
-			while(fileScan.hasNextLine())
-			{
-				line = fileScan.nextLine();
-				if(line.contains(">"))
-				{
-					createFragmentNode(code, nodeList, node);
-					node = new Node();
-					code ="";	
-				}
-				else
-				{
-					Scanner lineScan = new Scanner(line);
-					lineScan.useLocale(Locale.FRENCH);
-					code+=lineScan.next();
-					lineScan.close();
-				}
-			}
-			createFragmentNode(code, nodeList, node);
-			//fermeture des Scanner
-			fileScan.close();
-			
-			associateComplementaryNode(nodeList);
-		}
+        String code = "" ;
+        ArrayList<Node> nodeList = new ArrayList<>();
+        Node node = new Node();
+		Node complementaryNode = new Node();
+		
+		Scanner fileScan = null;
+    	fileScan = new Scanner(selectedFile);
+    	
+    	String line = fileScan.nextLine(); // contient la premiere ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
+ 
+	    while(fileScan.hasNextLine())
+	    {
+	    	line = fileScan.nextLine();
+	    	
+	        if(line.contains(">"))
+	        {
+	        	if(computeComplementary == true)
+	        		createFragmentNode(code, nodeList, node, complementaryNode);
+	        	else
+	        		createFragmentNode(code, nodeList, node);
 
-		return nodeList;
+	        	node = new Node();
+	        	complementaryNode = new Node();
+
+	        	code ="";	
+	        }
+	        else
+	        {
+	        	Scanner lineScan = new Scanner(line);
+		        lineScan.useLocale(Locale.FRENCH);
+		        code+=lineScan.next();
+		        lineScan.close();
+		    }
+	    }
+	    
+	    if(computeComplementary == true)
+    		createFragmentNode(code, nodeList, node, complementaryNode);
+    	else
+    		createFragmentNode(code, nodeList, node);
+	    //fermeture des Scanner
+	    fileScan.close();
+	    
+	    return nodeList;
 	}
 
 	/**
-	 * Create the fragments and the nodes
-	 * @param code the code of the fragment
-	 * @param nodeList the list of the nodes
-	 * @param node a node
-	 * @param complementaryNode
+	 * Create the fragments, nodes and their complementary
+	 * @param code : The code read from the file
+	 * @param nodeList : The list of nodes
+	 * @param node : The node to create
+	 * @param complementaryNode : The complementary Node to create
 	 * @throws FragmentException
 	 */
-	private void createFragmentNode(String code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
+	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
 	{
-		Fragment fragment = new Fragment();
-		fragment.setCode(code);
-		Fragment complementaryFragment = new Fragment();
-		complementaryFragment.setCode(computeComplementaryCode(code));
-		node.setData(fragment);
+		Fragment fragment = new Fragment(code);
+		Fragment complementaryFragment = new Fragment(computeComplementaryCode(code));
+
 		complementaryNode.setData(complementaryFragment);
+		node.setData(fragment);
+
 		node.setComplementaryNode(complementaryNode);
 		complementaryNode.setComplementaryNode(node);
 		nodeList.add(node);
@@ -121,23 +106,21 @@ public class FragmentManager
 	}
 	
 	/**
-	 * Create the fragment and the node
-	 * @param code the code of the fragment
-	 * @param nodeList the list of the nodes
-	 * @param node a node
+	 * Create the fragments and the nodes
+	 * @param code : The code read from the file
+	 * @param nodeList : The list of nodes
+	 * @param node : The node to create
 	 * @throws FragmentException
 	 */
-	private void createFragmentNode(String code, ArrayList<Node> nodeList, Node node) throws FragmentException 
+	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node) throws FragmentException 
 	{
-		Fragment fragment = new Fragment();
-		fragment.setCode(code);
-		Fragment complementaryFragment = new Fragment();
-		complementaryFragment.setCode(computeComplementaryCode(code));
+		Fragment fragment = new Fragment(code);
 		node.setData(fragment);
 		nodeList.add(node);
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Associate the node with is complementary node
 	 * @param nodeList the list of the nodes
 	 * @throws FragmentException
@@ -160,12 +143,14 @@ public class FragmentManager
 	}
 	
 	/**
+=======
+>>>>>>> 6de79d8cd2180af4e091f08fcf1edbbc2f3e5d52
 	 * Compute the complementary of a fragment
-	 * @param code
-	 * @return
+	 * @param code : The code read from the file
+	 * @return The complementary of the code
 	 * @throws FragmentException
 	 */
-	private String computeComplementaryCode(String code) throws FragmentException
+	private static String computeComplementaryCode(String code)
 	{
 		String complementaryCode="";
 		code = code.toUpperCase();
@@ -179,9 +164,8 @@ public class FragmentManager
 					break;
 				case 'C' : complementaryCode+= 'G';
 					break;	
-				case 'G' : complementaryCode+= 'C';
+				default : complementaryCode+= 'C';
 					break;
-				default : throw new FragmentException("Illégal caractère dans le fragment");
 			}
 		}
 		return complementaryCode;

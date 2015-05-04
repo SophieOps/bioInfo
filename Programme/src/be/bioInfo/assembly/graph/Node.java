@@ -1,100 +1,80 @@
-package be.bioInfo.assembly.model;
+package be.bioInfo.assembly.graph;
 
 import java.util.ArrayList;
 
+import be.bioInfo.assembly.model.Fragment;
+
 /**
-  * @author Watillon Thibaut & Opsommer Sophie, 2015
+ * Data of a node
+ * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
 public class Node
 {
+	//The fragment in the node
 	private Fragment data;
+	//The complementary node
 	private Node complementaryNode;
-	private boolean in = false;  
-	private boolean out = false;  
-	private static int counter = 0;
-	private int id;
-	
-	/**
-	 * @return
-	 */
+	//Boolean to know if we come in the node or not
+	private boolean in;  
+	////Boolean to know if we go out of the node or not
+	private boolean out;  
+	//List of the included node
+	private ArrayList<Node> includedNode;
+
+
 	public Fragment getData() {
 		return data;
 	}
 
-	/**
-	 * @param data
-	 */
+
 	public void setData(Fragment data) {
 		this.data = data;
 	}
 
-	/**
-	 * @return
-	 */
 	public Node getComplementaryNode() {
 		return complementaryNode;
 	}
 
-	/**
-	 * @param complementaryNode
-	 */
+
 	public void setComplementaryNode(Node complementaryNode) {
 		this.complementaryNode = complementaryNode;
 	}
 
-	/**
-	 * @return
-	 */
 	public boolean isIn() {
 		return in;
 	}
 
-	/**
-	 * @param in
-	 */
 	public void setIn(boolean in) {
 		this.in = in;
 	}
 
-	/**
-	 * @return
-	 */
 	public boolean isOut() {
 		return out;
 	}
 
-	/**
-	 * @param out
-	 */
 	public void setOut(boolean out) {
 		this.out = out;
 	}
 	
-
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
+	public ArrayList<Node> getIncludedNode() {
+		return includedNode;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setIncludedNode(ArrayList<Node> includedNode) {
+		this.includedNode = includedNode;
 	}
 
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
 	 */
-	public Node() {
-		this.id = this.counter;
-		this.counter++;
+	public Node() 
+	{
+		includedNode = new ArrayList<Node>();
+		in = false;  
+		out = false;
 	}
-	
 	
 	
 	
