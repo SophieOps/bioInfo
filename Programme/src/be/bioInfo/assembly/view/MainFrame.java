@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -14,8 +16,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import be.bioInfo.assembly.algorithm.ChainManager;
 import be.bioInfo.assembly.algorithm.GreedyAlgo;
@@ -39,9 +43,11 @@ public class MainFrame extends JFrame implements ActionListener
 	private JButton btCancel = new JButton("Cancel");
 	private JButton btFileChooser = new JButton("Parcourir");
 	private JTextArea txtFileChooser = new JTextArea("Fichier à importer : ");
-	private JTextArea txtComplementary = new JTextArea("Contient-il les fichiers complémentaires ?");
+	private JTextArea txtComplementary = new JTextArea("Le fichiet contient-il les fragments complémentaires inversés ?");
+	private JTextField filePath = new JTextField("");
 	private JRadioButton rbtwithCom = new JRadioButton("Oui");
 	private JRadioButton rbtwithoutCom = new JRadioButton("Non");
+	//static private JProgressBar bar;
 	private int result = -1;
 	private JFileChooser fc;
 
@@ -52,7 +58,7 @@ public class MainFrame extends JFrame implements ActionListener
 	public MainFrame()
 	{
 		this.setTitle("Algorithmique et bioinformatique");
-		this.setSize(400, 200);
+		this.setSize(500, 200);
 		this.setLocationRelativeTo(null);               
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -68,16 +74,25 @@ public class MainFrame extends JFrame implements ActionListener
 		rbtwithoutCom.setBackground(Color.WHITE);
 		group.add(rbtwithCom);
 		group.add(rbtwithoutCom);
+		
+//		bar  = new JProgressBar();
+//	    bar.setMaximum(1000);
+//	    bar.setMinimum(0);
+//	    bar.setStringPainted(true);
 
-		JPanel pan1 = new JPanel();
+		JPanel pan1bis = new JPanel();
 		//On définit le layout en lui indiquant qu'il travaillera en ligne
+		pan1bis.setLayout(new BoxLayout(pan1bis, BoxLayout.PAGE_AXIS));
+		pan1bis.setBackground(Color.WHITE);
+		pan1bis.add(txtFileChooser);
+		pan1bis.add(filePath);
+		JPanel pan1 = new JPanel();
 		pan1.setLayout(new BoxLayout(pan1, BoxLayout.LINE_AXIS));
 		pan1.setBackground(Color.WHITE);
-		pan1.add(txtFileChooser);
+		pan1.add(pan1bis);
 		pan1.add(btFileChooser);
 
 		JPanel pan2 = new JPanel();
-		//Idem pour cette ligne
 		pan2.setLayout(new BoxLayout(pan2, BoxLayout.LINE_AXIS));
 		pan2.setBackground(Color.WHITE);
 		pan2.add(txtComplementary);
@@ -85,32 +100,41 @@ public class MainFrame extends JFrame implements ActionListener
 		pan2.add(rbtwithoutCom);
 
 		JPanel pan3 = new JPanel();
-		//Idem pour cette ligne
 		pan3.setLayout(new BoxLayout(pan3, BoxLayout.LINE_AXIS));
 		pan3.setBackground(Color.WHITE);
 		pan3.add(btOK);
 		pan3.add(btCancel);
+		
+//		JPanel pan4 = new JPanel();
+//		pan4.setLayout(new BoxLayout(pan4, BoxLayout.LINE_AXIS));
+//		pan4.setBackground(Color.WHITE);
+//		pan4.add(bar);
 
 		//On positionne maintenant ces trois lignes en colonne
 		pan.setLayout(new BoxLayout(pan, BoxLayout.PAGE_AXIS));
 		pan.setBackground(Color.WHITE);
 		pan.add(pan1);
 		pan.add(pan2);
+		//pan.add(pan4);
 		pan.add(pan3);
 
 		this.getContentPane().add(pan);
 		this.setVisible(true);
 
-
 		return;
 	}
+	
+//	public static void setValueProgressBar(int value){
+//		bar.setValue(value);
+//	}
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		if(evt.getSource() == btFileChooser){
 			fc = new JFileChooser();
 			result = fc.showOpenDialog(this);
-			txtFileChooser.setText("Fichier choisi");
+			txtFileChooser.setText("Fichier choisi : ");
+			filePath.setText(fc.getSelectedFile().getPath());
 		}else if(evt.getSource() == btOK){
 			boolean withoutcompl = true;
 			if(rbtwithCom.isSelected()){
@@ -121,13 +145,13 @@ public class MainFrame extends JFrame implements ActionListener
 				try{
 					System.out.println("Lecture du fichier");
 					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), withoutcompl);//booleen pour savoir si il faut calculer les compl�mentaires ou non
-					System.out.println("Fin lecture fichier");
+					System.out.println("Fin lecture du fichier");
 					/*for(int i = 0; i < nodeList.size(); i++){
 						System.out.println(nodeList.get(i).getData().getCode());
 					}*/
-					System.out.println("Construction du graph");
+					System.out.println("Construction du graphe");
 					Graph graph = GraphManager.constructGraph(nodeList, withoutcompl);
-					System.out.println("Fin construction du graph");
+					System.out.println("Fin construction du graphe");
 
 					/*for(int i = 0; i < graph.getEdgeList().size(); i++){
 						System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" � "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
@@ -155,12 +179,16 @@ public class MainFrame extends JFrame implements ActionListener
 				{
 					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le Greedy", JOptionPane.ERROR_MESSAGE);
 					System.exit(0);
+				}catch (Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur inconnue", JOptionPane.ERROR_MESSAGE);
+					System.exit(0);
 				}
-				JOptionPane.showMessageDialog(null, "Résultat trouvé", "InfoBox: Traitement fini", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Traitement fini", "InfoBox: Traitement fini", JOptionPane.INFORMATION_MESSAGE);
 			}
 			System.exit(0);
 		}else if (evt.getSource() == btCancel){
 			System.exit(0);
 		}
-	} 
+	}
+
 }

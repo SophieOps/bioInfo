@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import observer.Observable;
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
+import be.bioInfo.assembly.view.MainFrame;
 
 /**
  * Construc the graph
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
-public class GraphManager 
+public class GraphManager implements Observable
 {
 	/**
 	 * Constructor.
@@ -54,7 +56,7 @@ public class GraphManager
         int size = graph.getNodeList().size();
         int nbEdge=0;
         if(computeComplementary == true)
-        	nbEdge = size * (size-2); //-1 pour soi et -1 pour son complémentaire
+        	nbEdge = size * (size-2); //-1 pour soi et -1 pour son complï¿½mentaire
         else
         	nbEdge = size*(size-1);//-1 pour soi
         EdgeManager[] edgeManager = new EdgeManager[nbThread];
@@ -80,7 +82,8 @@ public class GraphManager
                 nbDone += ec.getNbEdgeDone();
             }
             
-            System.out.println(nbDone+"/"+nbEdge+" arcs construit");
+            System.out.println(nbDone+"/"+nbEdge+" arcs construits");
+            MainFrame.setValueProgressBar((int)(nbDone/nbEdge)*1000);
         }
 	}
 
