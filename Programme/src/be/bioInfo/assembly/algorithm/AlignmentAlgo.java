@@ -8,6 +8,7 @@ import be.bioInfo.assembly.model.Fragment;
 
 
 /**
+ * Calculate the similarity between two fragments
 * @author Watillon Thibaut & Opsommer Sophie, 2015
 *
 */
@@ -21,16 +22,22 @@ public class AlignmentAlgo
 	private Fragment f1;
     private Fragment f2;
 	
+	/**
+	 * Constructor
+	 * @param f1 : fragment number 1
+	 * @param f2 : fragment number 2
+	 */
 	public AlignmentAlgo(Fragment f1, Fragment f2)
 	{
 		this.f1 = f1;
 		this.f2 = f2;
 	}
 
+	/**
+	 * Create the matrix of similarity
+	 */
 	private void execute()
 	{
-		//System.out.println(f1.getCode()+" "+f2.getCode());
-		//ALGO
 		for(int i = 1; i < f1.getCode().length()+1; i++)
 		{
 			for(int j = 1; j < f2.getCode().length()+1; j++)
@@ -38,8 +45,7 @@ public class AlignmentAlgo
 				int p = score(f1.getCode().charAt(i-1),f2.getCode().charAt(j-1));
 				matrix[i][j] = (short)Math.max(Math.max(matrix[i-1][j]+G,matrix[i][j-1]+G), matrix[i-1][j-1]+p);
 			}
-		}
-		
+		}		
 		//AFFICHAGE MATRICE
 		/*for(int i = 0; i < f1.getCode().length()+1; i++)
 		{
@@ -54,7 +60,7 @@ public class AlignmentAlgo
 	/**
 	 * Calculate the similarity between 2 char
 	 * @param c1 the charactere of f1 at  i-1
-	 * @param c2 the charactere of f2 at j-1�me
+	 * @param c2 the charactere of f2 at j-1eme
 	 * @return The similarity value
 	 */
 	private int score(char c1, char c2)
@@ -70,7 +76,6 @@ public class AlignmentAlgo
 	private void computeSuffixLength() {
 		maxValueColumn = Integer.MIN_VALUE;
 		maxIndexColumn = -1;
-
 		//Regarde dans la derniere ligne la colonne avec la + grande valeur
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
@@ -153,11 +158,10 @@ public class AlignmentAlgo
 	 * Construction of the alignment
 	 * @param startRow : The index where start the alignment on the row
 	 * @param startColumn : The index where start the alignment on the column
-	 * @param isSuffixe : Boolean to knwo if we are treating a suffix or not.  
+	 * @param isSuffixe : Boolean to know if we are treating a suffix or not.  
 	 */
 	private void alignmentConstructor(int startRow, int startColumn, boolean isSuffixe)
 	{
-
 		StringBuilder alignmentF1 = new StringBuilder();
         StringBuilder alignmentF2 = new StringBuilder();
         int row = startRow, column = startColumn;
@@ -182,8 +186,6 @@ public class AlignmentAlgo
 		while(row != 0 && column != 0)
 		{
 			int p = score(f1.getCode().charAt(row-1),f2.getCode().charAt(column-1));
-					
-
 			if(matrix[row-1][column-1]+p == matrix[row][column])
 			{
 				//On vient de la diagonal
@@ -208,8 +210,7 @@ public class AlignmentAlgo
 					row--;
 					alignmentF1.append(f1.getCode().charAt(row));
 					alignmentF2.append(Alignment.GAP);
-				}
-						
+				}	
 			}
 		}
 		if(row != 0)
@@ -240,7 +241,6 @@ public class AlignmentAlgo
 		//							 alignement f1        -------------
 		if(isSuffixe == false)
 		{
-			
 			StringBuilder temp = alignmentF1;
 			alignmentF1= alignmentF2;
 			alignmentF2 = temp;
