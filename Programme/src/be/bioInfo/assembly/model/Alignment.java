@@ -1,8 +1,7 @@
 package be.bioInfo.assembly.model;
 
 /**
- * Data of an alignment
- * 
+ * Data of an alignment 
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
@@ -13,17 +12,20 @@ public class Alignment
 	
 	//type de l'alignement
 	private AlignmentType type;
-	//index du début de l'alignement
+	//index du debut de l'alignement
 	private int startIndex;
 	//alignement 1
     private String code1;
     //alignement 2
     private String code2;
-    //coût de l'alignement
+    //cout de l'alignement
     private int cost;
     
-    public Alignment() {
-        
+	/**
+	 * Constructor.
+	 * Do nothing, simple implementation.
+	 */
+    public Alignment() {        
     }
     
 	public int getStartIndex() {

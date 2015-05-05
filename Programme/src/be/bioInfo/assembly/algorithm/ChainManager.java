@@ -20,16 +20,21 @@ public class ChainManager
 	private static File file;
 	private static PrintWriter pw;
 
-	public ChainManager(){
-		
-	}
+	/**
+	 * Constructor
+	 */
+	public ChainManager(){}
 
-	public static void constructChain(ArrayList<Edge> edgeList)
+	/**
+	 * Construct the contig from the edgeList
+	 * @param edgeList : list of all the edge
+	 * @param numColl : number of the collection
+	 */
+	public static void constructChain(ArrayList<Edge> edgeList, String numColl)
 	{
 		String superChain;
 		ArrayList<short[]> values = new ArrayList<>();
 		int sequenceIndex = 0;
-		
 		int i;
 
 		//Recherche du premier arc
@@ -40,7 +45,6 @@ public class ChainManager
 				break;
 			}
 		}
-		
 		if(i == edgeList.size())
 			i = 0;
 		Edge currentEdge = edgeList.get(i);
@@ -49,7 +53,7 @@ public class ChainManager
 		boolean edgeStillNotTreated = true;
 		do
 		{
-			//Si on rentre dans le if on est dans le dernier arc à traiter
+			//Si on rentre dans le if on est dans le dernier arc a traiter
 			if(edgeList.size() == 0)
 				edgeStillNotTreated = false;
 			int currentSeqIndex = sequenceIndex;
@@ -58,23 +62,23 @@ public class ChainManager
 			System.out.println(currentEdge.getAlignment().getCode2());*/
 			for (int j = 0; j < currentEdge.getAlignment().getCode1().length(); j++)
 			{
-				//Création d'un tableau contenant le nombre de A,T,C,G,- pour la currentSeqIndex position dans la super chaine
-				//On rajoute une cellule pour savoir si on est en présence d'un gap
-				if(currentSeqIndex>=values.size())
+				//Creation d'un tableau contenant le nombre de A,T,C,G,- pour la currentSeqIndex position dans la super chaine
+				//On rajoute une cellule pour savoir si on est en presence d'un gap
+				if(currentSeqIndex >= values.size())
 				{
 					values.add(new short[6]);
 	            }
-				//Si on est pas en présence d'un gap à la currentSeqIndex position dans la super chaine
+				//Si on est pas en presence d'un gap a la currentSeqIndex position dans la super chaine
 				if(values.get(currentSeqIndex)[5] != 1) 
 				{
 					short[] value = values.get(currentSeqIndex);
-	                addValue(value, currentEdge.getAlignment().getCode1().charAt(j));//Ajoute 1 à la cellule représentant la j ème lettre de code1
-	                addValue(value, currentEdge.getAlignment().getCode2().charAt(j));//Ajoute 1 à la cellule représentant la j ème lettre de code2
+	                addValue(value, currentEdge.getAlignment().getCode1().charAt(j));//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code1
+	                addValue(value, currentEdge.getAlignment().getCode2().charAt(j));//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code2
 	                
-	                //Si on a un gap à la j ème position de code 2
+	                //Si on a un gap ï¿½ la j ï¿½me position de code 2
 	                if (currentEdge.getAlignment().getCode2().charAt(j) == Alignment.GAP) 
 	                {
-	                	values.get(currentSeqIndex)[5] = 1;//Spécifie qu'on est en présence d'un gap
+	                	values.get(currentSeqIndex)[5] = 1;//Spï¿½cifie qu'on est en prï¿½sence d'un gap
 	                }
 	            }
 				else
@@ -90,12 +94,12 @@ public class ChainManager
 			
 			//TTTTGGGGG****  3
 			//*******GGCCCC  4
-			//Permet de se positionner sur le début de l'alignement donc sur le premier T de 2
+			//Permet de se positionner sur le dï¿½but de l'alignement donc sur le premier T de 2
 			//Ensuite on se positionnera sur le premier G de 4
 			sequenceIndex+=currentEdge.getAlignment().getStartIndex();
 			
 			
-			//Recherche de l'arc suivant à traiter
+			//Recherche de l'arc suivant ï¿½ traiter
 			for(int j = 0; j < edgeList.size(); j++)
 			{
 				if(currentEdge.getDestination() == edgeList.get(j).getSource())
@@ -113,12 +117,11 @@ public class ChainManager
 		{
 			file = new File("superChaine.fasta");
 			pw = new PrintWriter(new FileWriter(file));
-			pw.println(superChain);
+			pw.println("> Nom Watillon Thibaut, Opsommer Sophie Collection " + numColl + " Longueur "+ superChain.length() + "\n"+ superChain);
 			pw.close();
 			
 		} catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

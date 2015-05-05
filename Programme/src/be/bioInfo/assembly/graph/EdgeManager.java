@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
 import be.bioInfo.assembly.model.Alignment;
+import be.bioInfo.assembly.model.FragmentManager;
 
 /**
  * Construct the edges of the graph
@@ -47,7 +48,8 @@ public class EdgeManager implements Runnable
 	            {
 	            	Node source = graph.getNodeList().get(i);
 	            	Node dest = graph.getNodeList().get(j);
-	                if(source.getComplementaryNode() != dest) 
+	                //if(source.getComplementaryNode() != dest)
+	            	if(source.getData().getCode() != FragmentManager.computeComplementaryCode(dest.getData().getCode()))
 	                {
 	                    AlignmentAlgo alignmentAlgo = new AlignmentAlgo(source.getData(), dest.getData());
 	                    ArrayList<Alignment> alignmentList = alignmentAlgo.computeAlignmentMax();

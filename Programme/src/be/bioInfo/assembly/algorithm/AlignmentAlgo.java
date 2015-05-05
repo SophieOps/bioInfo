@@ -71,7 +71,7 @@ public class AlignmentAlgo
 		maxValueColumn = Integer.MIN_VALUE;
 		maxIndexColumn = -1;
 
-		//Regarde dans la derni�re ligne la colonne avec la + grande valeur
+		//Regarde dans la derniere ligne la colonne avec la + grande valeur
 		for(int j = 0; j < f2.getCode().length()+1; j++)
 		{
 			if(matrix[f1.getCode().length()][j] > maxValueColumn)
@@ -106,12 +106,8 @@ public class AlignmentAlgo
 	 */
 	private void computePrefixAndSuffixLength()
 	{
-		//CALCUL DE LA VALEUR MAXIMALE
-		
 		computePrefixLength();
-		
 		computeSuffixLength();
-
 	}
 
 	/**

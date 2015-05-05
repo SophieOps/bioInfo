@@ -122,7 +122,7 @@ public class FragmentManager
 	 * @return The complementary of the code
 	 * @throws FragmentException
 	 */
-	private static String computeComplementaryCode(String code)
+	public static String computeComplementaryCode(String code)
 	{
 		String complementaryCode="";
 		code = code.toUpperCase();

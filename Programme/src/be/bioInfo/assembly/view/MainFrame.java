@@ -43,10 +43,12 @@ public class MainFrame extends JFrame implements ActionListener
 	private JButton btCancel = new JButton("Cancel");
 	private JButton btFileChooser = new JButton("Parcourir");
 	private JTextArea txtFileChooser = new JTextArea("Fichier à importer : ");
-	private JTextArea txtComplementary = new JTextArea("Le fichiet contient-il les fragments complémentaires inversés ?");
+	private JTextArea txtComplementary = new JTextArea("Faut-il calculer les fragments complémentaires inversés ?");
 	private JTextField filePath = new JTextField("");
-	private JRadioButton rbtwithCom = new JRadioButton("Oui");
-	private JRadioButton rbtwithoutCom = new JRadioButton("Non");
+	private JTextArea txtNumColl = new JTextArea("Quel est le numéro de la collection ?");
+	private JTextField numColl = new JTextField("");
+	private JRadioButton rbtMustComputeComplementary = new JRadioButton("Oui");
+	private JRadioButton rbtComplementaryUnused = new JRadioButton("Non");
 	//static private JProgressBar bar;
 	private int result = -1;
 	private JFileChooser fc;
@@ -69,11 +71,11 @@ public class MainFrame extends JFrame implements ActionListener
 
 		//Gestion des radio boutton
 		ButtonGroup group = new ButtonGroup();
-		rbtwithoutCom.setSelected(true);
-		rbtwithCom.setBackground(Color.WHITE);
-		rbtwithoutCom.setBackground(Color.WHITE);
-		group.add(rbtwithCom);
-		group.add(rbtwithoutCom);
+		rbtMustComputeComplementary.setSelected(true);
+		rbtMustComputeComplementary.setBackground(Color.WHITE);
+		rbtComplementaryUnused.setBackground(Color.WHITE);
+		group.add(rbtMustComputeComplementary);
+		group.add(rbtComplementaryUnused);
 		
 //		bar  = new JProgressBar();
 //	    bar.setMaximum(1000);
@@ -96,8 +98,8 @@ public class MainFrame extends JFrame implements ActionListener
 		pan2.setLayout(new BoxLayout(pan2, BoxLayout.LINE_AXIS));
 		pan2.setBackground(Color.WHITE);
 		pan2.add(txtComplementary);
-		pan2.add(rbtwithCom);
-		pan2.add(rbtwithoutCom);
+		pan2.add(rbtComplementaryUnused);
+		pan2.add(rbtMustComputeComplementary);
 
 		JPanel pan3 = new JPanel();
 		pan3.setLayout(new BoxLayout(pan3, BoxLayout.LINE_AXIS));
@@ -109,6 +111,12 @@ public class MainFrame extends JFrame implements ActionListener
 //		pan4.setLayout(new BoxLayout(pan4, BoxLayout.LINE_AXIS));
 //		pan4.setBackground(Color.WHITE);
 //		pan4.add(bar);
+		
+		JPanel pan5 = new JPanel();
+		pan5.setLayout(new BoxLayout(pan5, BoxLayout.LINE_AXIS));
+		pan5.setBackground(Color.WHITE);
+		pan5.add(txtNumColl);
+		pan5.add(numColl);
 
 		//On positionne maintenant ces trois lignes en colonne
 		pan.setLayout(new BoxLayout(pan, BoxLayout.PAGE_AXIS));
@@ -116,6 +124,7 @@ public class MainFrame extends JFrame implements ActionListener
 		pan.add(pan1);
 		pan.add(pan2);
 		//pan.add(pan4);
+		pan.add(pan5);
 		pan.add(pan3);
 
 		this.getContentPane().add(pan);
@@ -137,28 +146,28 @@ public class MainFrame extends JFrame implements ActionListener
 			txtFileChooser.setText("Fichier choisi : ");
 			filePath.setText(fc.getSelectedFile().getPath());
 		}else if(evt.getSource() == btOK){
-			boolean withoutcompl = true;
-			if(rbtwithCom.isSelected()){
-				withoutcompl = false;
+			boolean mustComputeComplementary = false;
+			if(rbtMustComputeComplementary.isSelected()){
+				mustComputeComplementary = true;
 			}
 			if (result == JFileChooser.APPROVE_OPTION) 
 			{
 				try{
 					System.out.println("Lecture du fichier");
-					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), withoutcompl);//booleen pour savoir si il faut calculer les compl�mentaires ou non
+					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), mustComputeComplementary);//booleen pour savoir si il faut calculer les compl�mentaires ou non
 					System.out.println("Fin lecture du fichier");
 					/*for(int i = 0; i < nodeList.size(); i++){
 						System.out.println(nodeList.get(i).getData().getCode());
 					}*/
 					System.out.println("Construction du graphe");
-					Graph graph = GraphManager.constructGraph(nodeList, withoutcompl);
+					Graph graph = GraphManager.constructGraph(nodeList, mustComputeComplementary);
 					System.out.println("Fin construction du graphe");
 
 					/*for(int i = 0; i < graph.getEdgeList().size(); i++){
 						System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" � "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
 					}*/
 					System.out.println("Lancement Greedy");
-					ArrayList<Edge> edgeList = GreedyAlgo.execute(graph);
+					ArrayList<Edge> edgeList = GreedyAlgo.execute(graph, mustComputeComplementary);
 					System.out.println("Fin de greedy");
 					/*for(int i = 0; i < edgeList.size(); i++){
 						System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
@@ -166,7 +175,7 @@ public class MainFrame extends JFrame implements ActionListener
 						System.out.println("De poids : "+edgeList.get(i).getWeight());
 					}*/
 					System.out.println("Construction super chaine");
-					ChainManager.constructChain(edgeList);	
+					ChainManager.constructChain(edgeList, numColl.getText());	
 					System.out.println("Fin construction super chaine");
 				}catch(FragmentException e)
 				{
