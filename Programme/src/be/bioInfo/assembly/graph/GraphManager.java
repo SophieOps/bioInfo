@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import observer.Observable;
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
 import be.bioInfo.assembly.view.MainFrame;
 
 /**
- * Construc the graph
+ * Construct the graph
  * @author Watillon Thibaut & Opsommer Sophie, 2015
  *
  */
-public class GraphManager implements Observable
+public class GraphManager
 {
 	/**
 	 * Constructor.
@@ -25,6 +24,7 @@ public class GraphManager implements Observable
 	 * construct a graph, which is store in a Graph object with all the
 	 *  node depend on the cost of the alignment.
 	 * @param nodeList : The list of nodes
+	 * @praram computeComplementary : is true if the nodes are associate with their complementary
 	 * @return The graph
 	 */
 	public static Graph constructGraph(ArrayList<Node> nodeList, boolean computeComplementary)
@@ -54,9 +54,9 @@ public class GraphManager implements Observable
 		int nbThread = Runtime.getRuntime().availableProcessors();
 		ExecutorService service = Executors.newFixedThreadPool(nbThread);
         int size = graph.getNodeList().size();
-        int nbEdge=0;
+        int nbEdge = 0;
         if(computeComplementary == true)
-        	nbEdge = size * (size-2); //-1 pour soi et -1 pour son compl�mentaire
+        	nbEdge = size * (size-2); //-1 pour soi et -1 pour son complementaire
         else
         	nbEdge = size*(size-1);//-1 pour soi
         EdgeManager[] edgeManager = new EdgeManager[nbThread];
@@ -83,7 +83,7 @@ public class GraphManager implements Observable
             }
             
             System.out.println(nbDone+"/"+nbEdge+" arcs construits");
-            MainFrame.setValueProgressBar((int)(nbDone/nbEdge)*1000);
+            //MainFrame.setValueProgressBar((int)(nbDone/nbEdge)*1000);
         }
 	}
 

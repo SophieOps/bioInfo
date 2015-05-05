@@ -31,7 +31,7 @@ public class FragmentManager
 	/**
 	 * Read the file and create the fragments, the nodes and compute their complementary or not
 	 * @param selectedFile : The file to read
-	 * @param computeComplementary : Boolean to know if we need to compute complementary 
+	 * @param computeComplementary : Is true if we need to compute complementary. 
 	 * @return : List of nodes
 	 * @throws FragmentException
 	 * @throws FileNotFoundException
@@ -96,8 +96,8 @@ public class FragmentManager
 		complementaryNode.setData(complementaryFragment);
 		node.setData(fragment);
 
-		node.setComplementaryNode(complementaryNode);
-		complementaryNode.setComplementaryNode(node);
+//		node.setComplementaryNode(complementaryNode);
+//		complementaryNode.setComplementaryNode(node);
 		nodeList.add(node);
 		nodeList.add(complementaryNode);
 	}

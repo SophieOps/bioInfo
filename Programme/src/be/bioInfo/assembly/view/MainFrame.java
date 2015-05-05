@@ -127,6 +127,7 @@ public class MainFrame extends JFrame implements ActionListener
 //	public static void setValueProgressBar(int value){
 //		bar.setValue(value);
 //	}
+	//TODO : Faire de ceci un singloton pour ajouter une progressbar à l'interface
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
