@@ -41,8 +41,8 @@ public class ChainManager
 			}
 		}
 		
-		if(i == edgeList.size())
-			i = 0;
+		/*if(i == edgeList.size())
+			i = 0;*/
 		Edge currentEdge = edgeList.get(i);
 		edgeList.remove(i);
 		
@@ -50,11 +50,11 @@ public class ChainManager
 		do
 		{
 			//Si on rentre dans le if on est dans le dernier arc à traiter
-			if(edgeList.size() == 0)
+			if(edgeList.isEmpty())
 				edgeStillNotTreated = false;
 			int currentSeqIndex = sequenceIndex;
-			/*System.out.println(currentEdge.getSource().getData().getCode()+" "+currentEdge.getDestination().getData().getCode());
-			System.out.println(currentEdge.getAlignment().getCode1());
+			//System.out.println(currentEdge.getSource().getData().getCode()+" "+currentEdge.getDestination().getData().getCode());
+			/*System.out.println(currentEdge.getAlignment().getCode1());
 			System.out.println(currentEdge.getAlignment().getCode2());*/
 			for (int j = 0; j < currentEdge.getAlignment().getCode1().length(); j++)
 			{
@@ -96,7 +96,8 @@ public class ChainManager
 			
 			
 			//Recherche de l'arc suivant à traiter
-			for(int j = 0; j < edgeList.size(); j++)
+			int j;
+			for(j = 0; j < edgeList.size(); j++)
 			{
 				if(currentEdge.getDestination() == edgeList.get(j).getSource())
 				{
@@ -105,6 +106,12 @@ public class ChainManager
 					break;
 				}
 			}
+			/*if(j == edgeList.size() && j!=0)
+			{
+				currentEdge = edgeList.get(0);
+				edgeList.remove(0);
+			}*/
+				
 			
 		}while(edgeStillNotTreated == true);
 		

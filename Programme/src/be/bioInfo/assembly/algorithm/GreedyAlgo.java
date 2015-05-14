@@ -47,7 +47,7 @@ public class GreedyAlgo
 		{
 			boolean sameSet = checkSet(edge.getSource(), edge.getDestination(), set);
 		
-			//previus : if(edge.getInclusion() == 1 || edge.getInclusion() == -1)//traitement diff�rent pour les arcs o� un fragment est inclu � l'autre
+			
 			if(edge.getDestination().isIn() == false && edge.getSource().isOut() == false && sameSet == false)
 			{
 				if(edge.getAlignment().getType() == AlignmentType.F1INCLUDEDTOF2 || edge.getAlignment().getType() == AlignmentType.F2INCLUDEDTOF1 )//traitement diff�rent pour les arcs o� un fragment est inclu � l'autre
@@ -67,7 +67,7 @@ public class GreedyAlgo
 					//Et f3>f4 car c'est le seul qu'il reste
 					//Donc on a
 					//f1 >f2 > f3 > f4 et c'est pas bon car on a pris un arc o� un frag est inclu � un autre
-					inclusionManagement(set, edge);
+					inclusionManagement(set, edge, choosenEdge);
 					
 				}
 				else
@@ -96,38 +96,42 @@ public class GreedyAlgo
 		}
 		if(choosenEdge.isEmpty())
 			choosenEdge.add(graph.getEdgeList().get(0));
+		
+		for(ArrayList<Node> n : set)
+		{
+			System.out.println(n.size());
+			for(int i = 0; i < n.size(); i++)
+			{
+				System.out.println(n.get(i).getId());
+			}
+		}
+		System.out.println("SIZE "+choosenEdge.size());
+		for(int i = 0; i < choosenEdge.size(); i++)
+		{
+			System.out.println(choosenEdge.get(i).getSource().getId()+" "+choosenEdge.get(i).getDestination().getId()+" "+choosenEdge.get(i).getAlignment().getCost());
+		}
 
 		return choosenEdge;
 	}
 
-//	private void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge,
-//			boolean sameSet) {
-//		if(sameSet == false)
-//		{
-//			
-//			if(edge.getInclusion() == 1)//f1 inclus � f2
-//			{
-//				f1IncluTof2(set, edge);
-//			}
-//			else
-//			{
-//				//f2 inclus � f1
-//				
-//				f2IncluTof1(set, edge);
-//			}
-//			
-//
-//		}
-//	}
-	private static void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge)throws GreedyException
+
+	private static void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException
 	{
 		if(edge.getAlignment().getType() == AlignmentType.F1INCLUDEDTOF2)//f1 inclus � f2
-			f1IncluTof2(set, edge);
+			f1IncluTof2(set, edge, choosenEdge);
 		else
-			f2IncluTof1(set, edge);
+			f2IncluTof1(set, edge, choosenEdge);
+		int i = 0;
+		while(i < choosenEdge.size())
+		{
+			if(choosenEdge.get(i) == null)
+				choosenEdge.remove(i);
+			else
+				i++;
+		}
 	}
 	
-	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge) throws GreedyException{
+	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge) throws GreedyException{
 		
 		//f2 ne peut plus �tre choisi donc in et out � true
 		edge.getDestination().setIn(true);
@@ -148,9 +152,10 @@ public class GreedyAlgo
 		}
 		else
 			throw new GreedyException("Noeud destination d�j� dans l'ensemble du noeud source");
+
 	}
 
-	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge)throws GreedyException {
+	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException {
 		//f1 ne peut plus �tre choisi donc in et out mis � true 
 		edge.getSource().setIn(true);
 		edge.getSource().setOut(true);
@@ -160,7 +165,7 @@ public class GreedyAlgo
 			edge.getSource().getComplementaryNode().setIn(true);
 			edge.getSource().getComplementaryNode().setOut(true);
 		}
-		
+
 		//On ajoute f1 � la liste de fragments inclus � f2
 		if(!edge.getDestination().getIncludedNode().contains(edge.getSource()))
 		{
@@ -170,6 +175,8 @@ public class GreedyAlgo
 		}
 		else
 			throw new GreedyException("Noeud source d�j� dans l'ensemble du noeud destination");
+		
+		
 	}
 
 	/**
@@ -255,8 +262,7 @@ public class GreedyAlgo
 		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
 		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
 
-		//ArrayList<Node> complementaryNodeSet1 = set.get(indexComplementaryNode1);
-		//ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
+	
 		
 		//ajout des donn�es de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)
@@ -317,7 +323,7 @@ public class GreedyAlgo
 		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
 		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
 
-		//ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
+		
 
 		//ajout des donn�es de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)

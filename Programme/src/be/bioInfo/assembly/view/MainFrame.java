@@ -31,10 +31,6 @@ import be.bioInfo.assembly.model.FragmentManager;
  */
 public class MainFrame extends JFrame implements ActionListener
 {
-	private FragmentManager fragmentManager;
-	private GraphManager graphManager;
-	private GreedyAlgo greedyAlgo;
-	private ChainManager chainManager;
 
 	private JPanel pan = new JPanel();
 	private JButton btOK = new JButton("Ok");

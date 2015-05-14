@@ -21,7 +21,8 @@ import be.bioInfo.assembly.graph.Node;
  */
 public class FragmentManager
 {
-		
+	
+	public static int CPT =0;
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
@@ -97,8 +98,11 @@ public class FragmentManager
 		Fragment complementaryFragment = new Fragment(computeComplementaryCode(code));
 
 		complementaryNode.setData(complementaryFragment);
+		complementaryNode.setId(CPT);
+		CPT++;
 		node.setData(fragment);
-
+		node.setId(CPT);
+		CPT++;
 		node.setComplementaryNode(complementaryNode);
 		complementaryNode.setComplementaryNode(node);
 		nodeList.add(node);
@@ -119,32 +123,10 @@ public class FragmentManager
 		nodeList.add(node);
 	}
 	
-	/**
-<<<<<<< HEAD
-	 * Associate the node with is complementary node
-	 * @param nodeList the list of the nodes
-	 * @throws FragmentException
-	 */
-	private void associateComplementaryNode(ArrayList<Node> nodeList) throws FragmentException{
-		for (Node node : nodeList){
-			for(Node nodeCompl : nodeList){
-				if((!node.equals(nodeCompl)) 
-						&& (computeComplementaryCode(node.getData().getCode()).equals(nodeCompl.getData().getCode()))){
-					node.setComplementaryNode(nodeCompl);
-					nodeCompl.setComplementaryNode(node); 
-				}
-			}
-		}
-		for(Node node : nodeList){
-			if(!node.getComplementaryNode().getComplementaryNode().equals(node)){
-				 JOptionPane.showMessageDialog(null, "Il y a un fragment non associé" + node.toString(), "InfoBox: Erreur lors de l'association des noeuds complémentaires inversé", JOptionPane.INFORMATION_MESSAGE);
-			}
-		}
-	}
+
+
 	
 	/**
-=======
->>>>>>> 6de79d8cd2180af4e091f08fcf1edbbc2f3e5d52
 	 * Compute the complementary of a fragment
 	 * @param code : The code read from the file
 	 * @return The complementary of the code

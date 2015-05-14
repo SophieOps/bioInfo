@@ -21,6 +21,8 @@ public class Node
 	private boolean out;  
 	//List of the included node
 	private ArrayList<Node> includedNode;
+	
+	private int id;
 
 
 	public Fragment getData() {
@@ -64,6 +66,17 @@ public class Node
 	public void setIncludedNode(ArrayList<Node> includedNode) {
 		this.includedNode = includedNode;
 	}
+
+	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	/**
 	 * Constructor.
