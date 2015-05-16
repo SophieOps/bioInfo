@@ -97,19 +97,7 @@ public class GreedyAlgo
 		if(choosenEdge.isEmpty())
 			choosenEdge.add(graph.getEdgeList().get(0));
 		
-		for(ArrayList<Node> n : set)
-		{
-			System.out.println(n.size());
-			for(int i = 0; i < n.size(); i++)
-			{
-				System.out.println(n.get(i).getId());
-			}
-		}
-		System.out.println("SIZE "+choosenEdge.size());
-		for(int i = 0; i < choosenEdge.size(); i++)
-		{
-			System.out.println(choosenEdge.get(i).getSource().getId()+" "+choosenEdge.get(i).getDestination().getId()+" "+choosenEdge.get(i).getAlignment().getCost());
-		}
+
 
 		return choosenEdge;
 	}
@@ -133,48 +121,56 @@ public class GreedyAlgo
 	
 	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge) throws GreedyException{
 		
-		//f2 ne peut plus �tre choisi donc in et out � true
-		edge.getDestination().setIn(true);
-		edge.getDestination().setOut(true);
-		//IDEM pour le compl�mentaire
-		if(edge.getDestination().getComplementaryNode() != null)
+		if(edge.getDestination().isOut() != true)
 		{
-			edge.getDestination().getComplementaryNode().setIn(true);
-			edge.getDestination().getComplementaryNode().setOut(true);
+			//f2 ne peut plus �tre choisi donc in et out � true
+			edge.getDestination().setIn(true);
+			edge.getDestination().setOut(true);
+			//IDEM pour le compl�mentaire
+			if(edge.getDestination().getComplementaryNode() != null)
+			{
+				edge.getDestination().getComplementaryNode().setIn(true);
+				edge.getDestination().getComplementaryNode().setOut(true);
+			}
+			
+			//On ajoute f2 � la liste de fragments inclus � f1
+			if(!edge.getSource().getIncludedNode().contains(edge.getDestination()))
+			{
+				edge.getSource().getIncludedNode().add(edge.getDestination());
+				//on mets f2 dans l'ensemble de f1
+				unionInclu(set,edge.getSource(), edge.getDestination());
+			}
+			else
+				throw new GreedyException("Noeud destination d�j� dans l'ensemble du noeud source");
 		}
-		
-		//On ajoute f2 � la liste de fragments inclus � f1
-		if(!edge.getSource().getIncludedNode().contains(edge.getDestination()))
-		{
-			edge.getSource().getIncludedNode().add(edge.getDestination());
-			//on mets f2 dans l'ensemble de f1
-			unionInclu(set,edge.getSource(), edge.getDestination());
-		}
-		else
-			throw new GreedyException("Noeud destination d�j� dans l'ensemble du noeud source");
 
 	}
 
 	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException {
-		//f1 ne peut plus �tre choisi donc in et out mis � true 
-		edge.getSource().setIn(true);
-		edge.getSource().setOut(true);
-		//IDEM pour le compl�mentaire
-		if(edge.getSource().getComplementaryNode() != null)
+		
+		if(edge.getSource().isIn() != true)
 		{
-			edge.getSource().getComplementaryNode().setIn(true);
-			edge.getSource().getComplementaryNode().setOut(true);
+		
+			//f1 ne peut plus �tre choisi donc in et out mis � true 
+			edge.getSource().setIn(true);
+			edge.getSource().setOut(true);
+			//IDEM pour le compl�mentaire
+			if(edge.getSource().getComplementaryNode() != null)
+			{
+				edge.getSource().getComplementaryNode().setIn(true);
+				edge.getSource().getComplementaryNode().setOut(true);
+			}
+	
+			//On ajoute f1 � la liste de fragments inclus � f2
+			if(!edge.getDestination().getIncludedNode().contains(edge.getSource()))
+			{
+				edge.getDestination().getIncludedNode().add(edge.getSource());
+				//on mets f1 dans l'ensemble de f2
+				unionInclu(set, edge.getDestination(), edge.getSource());
+			}
+			else
+				throw new GreedyException("Noeud source d�j� dans l'ensemble du noeud destination");
 		}
-
-		//On ajoute f1 � la liste de fragments inclus � f2
-		if(!edge.getDestination().getIncludedNode().contains(edge.getSource()))
-		{
-			edge.getDestination().getIncludedNode().add(edge.getSource());
-			//on mets f1 dans l'ensemble de f2
-			unionInclu(set, edge.getDestination(), edge.getSource());
-		}
-		else
-			throw new GreedyException("Noeud source d�j� dans l'ensemble du noeud destination");
 		
 		
 	}
@@ -346,7 +342,7 @@ public class GreedyAlgo
 						nodeSet1.add(complementaryNodeSet2.get(i));
 				}
 				//supprimer l'ensemble du compl�mentaire
-				set.get(indexComplementaryNode2).clear();;
+				set.get(indexComplementaryNode2).clear();
 			}
 		}
 		//supprimer l'ensemble du noeud 2
