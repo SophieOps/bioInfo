@@ -38,6 +38,7 @@ import be.bioInfo.assembly.model.FragmentManager;
  */
 public class MainFrame extends JFrame implements ActionListener
 {
+
 	private JPanel pan = new JPanel();
 	private JButton btOK = new JButton("Ok");
 	private JButton btCancel = new JButton("Cancel");

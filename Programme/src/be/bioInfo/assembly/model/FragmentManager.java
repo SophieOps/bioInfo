@@ -21,7 +21,7 @@ import be.bioInfo.assembly.graph.Node;
  */
 public class FragmentManager
 {
-		
+	
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.
@@ -46,7 +46,7 @@ public class FragmentManager
 		Scanner fileScan = null;
     	fileScan = new Scanner(selectedFile);
     	String line = fileScan.nextLine(); // contient la premiere ligne du fichier avec les infos : "Groupe-num_groupe Collection num_collection Longueur longueur_sequence_cible"
- 
+
 	    while(fileScan.hasNextLine())
 	    {
 	    	line = fileScan.nextLine();
@@ -63,10 +63,12 @@ public class FragmentManager
 	        }
 	        else
 	        {
-	        	Scanner lineScan = new Scanner(line);
-		        lineScan.useLocale(Locale.FRENCH);
-		        code+=lineScan.next();
-		        lineScan.close();
+	        	if(!line.isEmpty())
+	        	{
+		        	Scanner lineScan = new Scanner(line);
+			        code+=lineScan.next();
+			        lineScan.close();
+	        	}
 		    }
 	    }
 	    
@@ -96,8 +98,9 @@ public class FragmentManager
 		complementaryNode.setData(complementaryFragment);
 		node.setData(fragment);
 
-//		node.setComplementaryNode(complementaryNode);
-//		complementaryNode.setComplementaryNode(node);
+		node.setComplementaryNode(complementaryNode);
+		complementaryNode.setComplementaryNode(node);
+
 		nodeList.add(node);
 		nodeList.add(complementaryNode);
 	}

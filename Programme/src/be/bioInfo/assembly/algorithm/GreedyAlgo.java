@@ -62,13 +62,15 @@ public class GreedyAlgo
 					//f2 > f3 et f3 > f4 car c'est le seul qu'il reste
 					//Donc on a
 					//f1 >f2 > f3 > f4 et c'est pas bon car on a pris un arc o� un frag est inclu � un autre
-					inclusionManagement(set, edge, graph.getNodeList(), computeComplementary);
+
+					inclusionManagement(set, edge, choosenEdge);
 				} else if(edge.getAlignment().getType() == AlignmentType.OTHER)
-				{//cas ou les fragments ne sont pas inclus
-					updateEdge(edge, graph.getNodeList(), computeComplementary);
-					choosenEdge.add(edge);
-					unionSet(set, edge.getSource(), edge.getDestination());	
+				{
+						updateEdge(edge);
+						choosenEdge.add(edge);
+						unionSet(set, edge.getSource(), edge.getDestination());	
 				}
+
 			}
 			int i = 0;
 			while(i < set.size())
@@ -82,120 +84,102 @@ public class GreedyAlgo
 		}
 		if(choosenEdge.isEmpty())
 			choosenEdge.add(graph.getEdgeList().get(0));
+		
+
 
 		return choosenEdge;
 	}
 
-	private static void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Node> nodeList, boolean computeComplementary)throws GreedyException
+	private static void inclusionManagement(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException
 	{
 		if(edge.getAlignment().getType() == AlignmentType.F1INCLUDEDTOF2)//f1 inclus � f2
-			f1IncluTof2(set, edge, nodeList, computeComplementary);
+			f1IncluTof2(set, edge, choosenEdge);
 		else
-			f2IncluTof1(set, edge, nodeList, computeComplementary);
-	}
-
-	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Node> nodeList, boolean computeComplementary) throws GreedyException
-	{
-		//f2 ne peut plus etre choisi donc in et out a true
-		edge.getDestination().setIn(true);
-		edge.getDestination().setOut(true);
-		//IDEM pour le complementaire
-		if(edge.getDestination().getComplementaryNode() != null)
+			f2IncluTof1(set, edge, choosenEdge);
+		int i = 0;
+		while(i < choosenEdge.size())
 		{
-			edge.getDestination().getComplementaryNode().setIn(true);
-			edge.getDestination().getComplementaryNode().setOut(true);
-		}else if(computeComplementary){
-			for(Node node : nodeList){
-				if (edge.getDestination().getData().getCode().equals(FragmentManager.computeComplementaryCode(node.getData().getCode())))
-				{
-					node.setIn(true);
-					node.setOut(true);				
-				}
-			}
-		}
-		//On ajoute f2 a la liste de fragments inclus a f1
-		if(!edge.getSource().getIncludedNode().contains(edge.getDestination()))
-		{
-			edge.getSource().getIncludedNode().add(edge.getDestination());
-			//on mets f2 dans l'ensemble de f1
-			unionInclu(set,edge.getSource(), edge.getDestination());
-		}else
-			throw new GreedyException("Noeud destination deja dans l'ensemble du noeud source");
-	}
-
-	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Node> nodeList, boolean computeComplementary)throws GreedyException {
-		//f1 ne peut plus etre choisi donc in et out mis a true 
-		edge.getSource().setIn(true);
-		edge.getSource().setOut(true);
-		//IDEM pour le complementaire
-		if(edge.getSource().getComplementaryNode() != null)
-		{
-			edge.getSource().getComplementaryNode().setIn(true);
-			edge.getSource().getComplementaryNode().setOut(true);
-		}else if(computeComplementary){
-			for(Node node : nodeList){
-				if (edge.getSource().getData().getCode().equals(FragmentManager.computeComplementaryCode(node.getData().getCode())))
-				{
-					node.setIn(true);
-					node.setOut(true);				
-				}
-			}
+			if(choosenEdge.get(i) == null)
+				choosenEdge.remove(i);
+			else
+				i++;
 		}
 
-		//On ajoute f1 a la liste de fragments inclus a f2
-		if(!edge.getDestination().getIncludedNode().contains(edge.getSource()))
+	}
+
+
+	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge) throws GreedyException{
+		
+		if(edge.getDestination().isOut() != true)
+
 		{
-			edge.getDestination().getIncludedNode().add(edge.getSource());
-			//on mets f1 dans l'ensemble de f2
-			unionInclu(set, edge.getDestination(), edge.getSource());
-		}else
-			throw new GreedyException("Noeud source deja dans l'ensemble du noeud destination");
+			//f2 ne peut plus �tre choisi donc in et out � true
+			edge.getDestination().setIn(true);
+			edge.getDestination().setOut(true);
+			//IDEM pour le compl�mentaire
+			if(edge.getDestination().getComplementaryNode() != null)
+			{
+				edge.getDestination().getComplementaryNode().setIn(true);
+				edge.getDestination().getComplementaryNode().setOut(true);
+			}
+			
+			//On ajoute f2 � la liste de fragments inclus � f1
+			if(!edge.getSource().getIncludedNode().contains(edge.getDestination()))
+			{
+				edge.getSource().getIncludedNode().add(edge.getDestination());
+				//on mets f2 dans l'ensemble de f1
+				unionInclu(set,edge.getSource(), edge.getDestination());
+			}
+			else
+				throw new GreedyException("Noeud destination d�j� dans l'ensemble du noeud source");
+		}
+
+	}
+
+	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException {
+		
+		if(edge.getSource().isIn() != true)
+		{
+		
+			//f1 ne peut plus �tre choisi donc in et out mis � true 
+			edge.getSource().setIn(true);
+			edge.getSource().setOut(true);
+			//IDEM pour le compl�mentaire
+			if(edge.getSource().getComplementaryNode() != null)
+			{
+				edge.getSource().getComplementaryNode().setIn(true);
+				edge.getSource().getComplementaryNode().setOut(true);
+			}
+	
+			//On ajoute f1 � la liste de fragments inclus � f2
+			if(!edge.getDestination().getIncludedNode().contains(edge.getSource()))
+			{
+				edge.getDestination().getIncludedNode().add(edge.getSource());
+				//on mets f1 dans l'ensemble de f2
+				unionInclu(set, edge.getDestination(), edge.getSource());
+			}
+			else
+				throw new GreedyException("Noeud source d�j� dans l'ensemble du noeud destination");
+		}
+
 	}
 
 	/**
 	 * Update of the choosen edges and their complementary
 	 * @param edge choosen edge
-	 * @param nodeList : List of all nodes
-	 * @param computeComplementary : true if the complementary node is present
 	 */
-	private static void updateEdge(Edge edge, ArrayList<Node> nodeList, boolean computeComplementary) {
+	private static void updateEdge(Edge edge) {
 		edge.getSource().setOut(true);
 		edge.getDestination().setIn(true);
-		boolean src = true, dest = true;
-		if(computeComplementary){
-			if(edge.getSource().getComplementaryNode() != null)
-			{
-				edge.getSource().getComplementaryNode().setIn(true);
-				edge.getSource().getComplementaryNode().setOut(true);
-			}else{
-				src = false;
-			}
-			if(edge.getDestination().getComplementaryNode() != null)
-			{
-				edge.getDestination().getComplementaryNode().setIn(true);
-				edge.getDestination().getComplementaryNode().setOut(true);
-			}else{
-				dest = false;
-			}
-			if(computeComplementary){
-				//boolean trouveSRC = false;
-				for(Node node : nodeList){
-					if ((!src) && (edge.getSource().getData().getCode().equals(FragmentManager.computeComplementaryCode(node.getData().getCode()))))
-					{
-						node.setIn(true);
-						node.setOut(true);
-						//trouve = true;				
-					}else if ((!dest) && (edge.getDestination().getData().getCode().equals(FragmentManager.computeComplementaryCode(node.getData().getCode()))))
-					{
-						node.setIn(true);
-						node.setOut(true);
-						//trouve = true;				
-					}
-				}
-				/*if(!trouve){
-					System.out.println("arc src non trouvé");
-				}*/
-			}
+		if(edge.getSource().getComplementaryNode() != null)
+		{
+			edge.getSource().getComplementaryNode().setIn(true);
+			edge.getSource().getComplementaryNode().setOut(true);
+		}
+		if(edge.getDestination().getComplementaryNode() != null)
+		{
+			edge.getDestination().getComplementaryNode().setIn(true);
+			edge.getDestination().getComplementaryNode().setOut(true);
 		}
 	}
 	
@@ -261,9 +245,6 @@ public class GreedyAlgo
 		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
 		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
 
-		//ArrayList<Node> complementaryNodeSet1 = set.get(indexComplementaryNode1);
-		//ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
-
 		//ajout des donn�es de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)
 		{
@@ -323,7 +304,7 @@ public class GreedyAlgo
 		ArrayList<Node> nodeSet1 = set.get(indexNodeSet1);
 		ArrayList<Node> nodeSet2 = set.get(indexNodeSet2);
 
-		//ArrayList<Node> complementaryNodeSet2 = set.get(indexComplementaryNode2);
+		
 
 		//ajout des donn�es de l'ensemble contenant le noeud 2 dans l'ensemble du noeud 1
 		for(int i = 0; i < nodeSet2.size(); i++)
@@ -346,7 +327,7 @@ public class GreedyAlgo
 						nodeSet1.add(complementaryNodeSet2.get(i));
 				}
 				//supprimer l'ensemble du compl�mentaire
-				set.get(indexComplementaryNode2).clear();;
+				set.get(indexComplementaryNode2).clear();
 			}
 		}
 		//supprimer l'ensemble du noeud 2

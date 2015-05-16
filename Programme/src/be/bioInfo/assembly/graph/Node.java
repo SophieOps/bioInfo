@@ -21,7 +21,7 @@ public class Node
 	private boolean out;  
 	//List of the included node
 	private ArrayList<Node> includedNode;
-
+	
 
 	public Fragment getData() {
 		return data;
@@ -65,6 +65,7 @@ public class Node
 		this.includedNode = includedNode;
 	}
 
+	
 	/**
 	 * Constructor.
 	 * Do nothing, simple implementation.

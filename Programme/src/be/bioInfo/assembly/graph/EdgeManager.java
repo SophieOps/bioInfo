@@ -48,10 +48,9 @@ public class EdgeManager implements Runnable
 	            {
 	            	Node source = graph.getNodeList().get(i);
 	            	Node dest = graph.getNodeList().get(j);
-	                //if(source.getComplementaryNode() != dest)
-	            	if(source.getData().getCode() != FragmentManager.computeComplementaryCode(dest.getData().getCode()))
+	            	if(source.getComplementaryNode() != dest) 
 	                {
-	                    AlignmentAlgo alignmentAlgo = new AlignmentAlgo(source.getData(), dest.getData());
+	                    AlignmentAlgo alignmentAlgo = new AlignmentAlgo(source.getData(), dest.getData(), false);
 	                    ArrayList<Alignment> alignmentList = alignmentAlgo.computeAlignmentMax();
 
 	                    synchronized (graph)

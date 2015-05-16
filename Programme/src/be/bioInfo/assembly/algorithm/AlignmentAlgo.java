@@ -21,16 +21,14 @@ public class AlignmentAlgo
 	private ArrayList<Alignment> alignmentList;
 	private Fragment f1;
     private Fragment f2;
+    private boolean insertAlignment;
 	
-	/**
-	 * Constructor
-	 * @param f1 : fragment number 1
-	 * @param f2 : fragment number 2
-	 */
-	public AlignmentAlgo(Fragment f1, Fragment f2)
+
+	public AlignmentAlgo(Fragment f1, Fragment f2, boolean insertAlignment)
 	{
 		this.f1 = f1;
 		this.f2 = f2;
+		this.insertAlignment =  insertAlignment;
 	}
 
 	/**
@@ -260,7 +258,7 @@ public class AlignmentAlgo
         if(alignmentF1.charAt(0) == Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) == Alignment.BORDER)
             alignment.setType(AlignmentType.F1INCLUDEDTOF2);
         else if(alignmentF1.charAt(0)== Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) != Alignment.BORDER)
-            alignment.setType(AlignmentType.OTHER);//PREFIXE
+            alignment.setType(AlignmentType.PREFIX);//PREFIXE
         else if(alignmentF1.charAt(0)!= Alignment.BORDER && alignmentF1.charAt(alignmentF1.length()-1) == Alignment.BORDER)
             alignment.setType(AlignmentType.OTHER);//SUFFIXE
         else if(alignmentF2.charAt(0) == Alignment.BORDER || alignmentF2.charAt(alignmentF2.length() - 1) == Alignment.BORDER)
@@ -269,8 +267,11 @@ public class AlignmentAlgo
             alignment.setType(AlignmentType.OTHER);//EGAL
 
        
-        alignment.setCode1(alignmentF1.toString());
-        alignment.setCode2(alignmentF2.toString());
+        if(insertAlignment == true)
+        {
+	        alignment.setCode1(alignmentF1.toString());
+	        alignment.setCode2(alignmentF2.toString());
+        }
 
         alignmentList.add(alignment);
 	}
