@@ -157,24 +157,15 @@ public class MainFrame extends JFrame implements ActionListener
 					System.out.println("Lecture du fichier");
 					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), mustComputeComplementary);//booleen pour savoir si il faut calculer les compl�mentaires ou non
 					System.out.println("Fin lecture du fichier");
-					/*for(int i = 0; i < nodeList.size(); i++){
-						System.out.println(nodeList.get(i).getData().getCode());
-					}*/
+
 					System.out.println("Construction du graphe");
 					Graph graph = GraphManager.constructGraph(nodeList, mustComputeComplementary);
 					System.out.println("Fin construction du graphe");
 
-					/*for(int i = 0; i < graph.getEdgeList().size(); i++){
-						System.out.println("Arc de "+ graph.getEdgeList().get(i).getSource().getData().getCode()+" � "+graph.getEdgeList().get(i).getDestination().getData().getCode()+" poids = "+graph.getEdgeList().get(i).getWeight());
-					}*/
 					System.out.println("Lancement Greedy");
 					ArrayList<Edge> edgeList = GreedyAlgo.execute(graph, mustComputeComplementary);
 					System.out.println("Fin de greedy");
-					/*for(int i = 0; i < edgeList.size(); i++){
-						System.out.println("Arc de la source " + edgeList.get(i).getSource().getId() + " : " + edgeList.get(i).getSource().getData().getCode());
-						System.out.println("A la destination " + edgeList.get(i).getDestination().getId() + " : " + edgeList.get(i).getDestination().getData().getCode());
-						System.out.println("De poids : "+edgeList.get(i).getWeight());
-					}*/
+
 					System.out.println("Construction super chaine");
 					ChainManager.constructChain(edgeList, numColl.getText());	
 					System.out.println("Fin construction super chaine");

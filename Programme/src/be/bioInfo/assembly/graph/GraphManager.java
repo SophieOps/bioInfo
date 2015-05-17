@@ -32,16 +32,7 @@ public class GraphManager
 		Graph graph = new Graph();
 		graph.setNodeList(nodeList);
 		multiThread(graph,  computeComplementary);
-		//System.out.println(graph.getEdgeList().size());
-		System.out.println(graph.getNodeList().size());
-		
-		/*for(int i = 0; i < graph.getEdgeList().size();i++)
-		{
-			System.out.println(graph.getEdgeList().get(i).getSource().getData().getCode()+" "+graph.getEdgeList().get(i).getDestination().getData().getCode());
-			System.out.println(graph.getEdgeList().get(i).getAlignment().getCode1());
-			System.out.println(graph.getEdgeList().get(i).getAlignment().getCode2());
-			System.out.println(graph.getEdgeList().get(i).getAlignment().getType());
-		}*/
+
 		return graph;
 	}
 	

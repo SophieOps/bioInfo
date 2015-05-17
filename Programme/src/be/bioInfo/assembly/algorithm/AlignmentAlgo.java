@@ -44,15 +44,7 @@ public class AlignmentAlgo
 				matrix[i][j] = (short)Math.max(Math.max(matrix[i-1][j]+G,matrix[i][j-1]+G), matrix[i-1][j-1]+p);
 			}
 		}		
-		//AFFICHAGE MATRICE
-		/*for(int i = 0; i < f1.getCode().length()+1; i++)
-		{
-			for(int j = 0; j < f2.getCode().length()+1; j++)
-			{
-				System.out.print(matrix[i][j]+" ");
-			}
-			System.out.print("\n");
-		}*/
+
 	}
 
 	/**

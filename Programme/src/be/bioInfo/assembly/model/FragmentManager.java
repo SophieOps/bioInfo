@@ -38,7 +38,7 @@ public class FragmentManager
 	 */
 	public static ArrayList<Node> readFile(File selectedFile, boolean computeComplementary) throws FragmentException, FileNotFoundException
 	{
-        String code = "" ;
+        StringBuilder code = new StringBuilder();
         ArrayList<Node> nodeList = new ArrayList<>();
         Node node = new Node();
 		Node complementaryNode = new Node();
@@ -59,14 +59,14 @@ public class FragmentManager
 	        	
 	        	node = new Node();
 	        	complementaryNode = new Node();
-	        	code ="";	
+	        	code = new StringBuilder();	
 	        }
 	        else
 	        {
 	        	if(!line.isEmpty())
 	        	{
 		        	Scanner lineScan = new Scanner(line);
-			        code+=lineScan.next();
+			        code.append(lineScan.next());
 			        lineScan.close();
 	        	}
 		    }
@@ -90,10 +90,10 @@ public class FragmentManager
 	 * @param complementaryNode : The complementary Node to create
 	 * @throws FragmentException
 	 */
-	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
+	private static void createFragmentNode(StringBuilder code, ArrayList<Node> nodeList, Node node, Node complementaryNode) throws FragmentException 
 	{
-		Fragment fragment = new Fragment(code);
-		Fragment complementaryFragment = new Fragment(computeComplementaryCode(code));
+		Fragment fragment = new Fragment(code.toString());
+		Fragment complementaryFragment = new Fragment(computeComplementaryCode(code.toString()));
 
 		complementaryNode.setData(complementaryFragment);
 		node.setData(fragment);
@@ -112,9 +112,9 @@ public class FragmentManager
 	 * @param node : The node to create
 	 * @throws FragmentException
 	 */
-	private static void createFragmentNode(String code, ArrayList<Node> nodeList, Node node) throws FragmentException 
+	private static void createFragmentNode(StringBuilder code, ArrayList<Node> nodeList, Node node) throws FragmentException 
 	{
-		Fragment fragment = new Fragment(code);
+		Fragment fragment = new Fragment(code.toString());
 		node.setData(fragment);
 		nodeList.add(node);
 	}
