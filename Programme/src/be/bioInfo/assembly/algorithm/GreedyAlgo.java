@@ -110,7 +110,7 @@ public class GreedyAlgo
 
 	private static void f2IncluTof1(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge) throws GreedyException{
 		
-		if(edge.getDestination().isOut() != true)
+		if(edge.getDestination().isOut() == false)
 
 		{
 			//f2 ne peut plus �tre choisi donc in et out � true
@@ -138,7 +138,7 @@ public class GreedyAlgo
 
 	private static void f1IncluTof2(ArrayList<ArrayList<Node>> set, Edge edge, ArrayList<Edge> choosenEdge)throws GreedyException {
 		
-		if(edge.getSource().isIn() != true)
+		if(edge.getSource().isIn() == false)
 		{
 		
 			//f1 ne peut plus �tre choisi donc in et out mis � true 
