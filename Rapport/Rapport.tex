@@ -57,9 +57,7 @@
 \newpage
 
 %%###### LE RAPPORT COMMENCE ICI ######
-\smalltitle{Note préliminaire}
-\addcontentsline{toc}{section}{Note préliminaire}
-La rédaction de ce document est basé sur le livre \textit{Introduction to algorithme}~\cite{intro_to_algo}
+
 
 \section{Introduction}
 
@@ -105,16 +103,6 @@ ACTGCGTA****** : Fragment du noeud source (f1)\medskip
 
 Grâce à ces deux chaînes de caractères, nous pouvons déterminer le type d'alignement qui sera nécessaire lors de l'exécution du \textit{Greedy}\medskip
 
-Si le premier et dernier caractère de la première chaîne est '*', alors f1 est inclu à f2.\medskip
-
-Sinon, si le premier caractère de f1 est '*' et son dernier n'est pas '*', alors f1 est préfixe de f2.\medskip
-
-Sinon, si le premier caractère de f1 n'est pas '*' et son dernier caractère l'est, alors f1 est suffixe de f2.\medskip
-
-Sinon,  si le premier caractère de f2 est '*' ou son dernier caractère est '*', alors f2 est inclu à f1.\medskip
-
-Sinon les deux fragments sont égaux.\medskip
-
 Il est également possible de déterminer la position du début de l'alignement qui sera utile lors de la construction de la séquence.\medskip
 
 Dans l'exemple, le début de l'alignement se trouve à la 4\up{ème} position dans la seconde chaîne.\medskip
@@ -135,6 +123,8 @@ Pour ce faire, lors du traitement d'un arc $n_1$ --> $n_2$, si $n_1$ est inclu �
 
 Mainenant, si $n_2$ est inclu à $n_1$, le noeud $n_2$ est inséré dans la liste des fragments inclus à $n_1$.  Il faut également empécher de prendre par la suite le noeud $n_2$ et son complémentaire inversé en mettant ses booléen $in$ et $out$ à $TRUE$ et en insérant $n_2$ et son complémentaire inversé dans l'ensemble de $n_1$.  Ici, cela est uniquement faisable si le noeud $n_2$ n'est pas déjà un noeud source d'un arc choisit par \textit{Greedy}.\medskip
 
+Concernant les arcs dont les fragments ne sont pas inclus, il faut empêcher le noeud source d'être le noeud source d'un autre arc et d'empêcher le noeud destination d'être le noeud destination d'un autre arc.  Il faut également empêcher de prendre des arcs ayant comme noeuds les complémentaires inversés des noeuds déjà choisi par \textit{Greedy}.  Cela se fait via les booléens \textit{in} et \textit{out}.  Il ne faut également pas oublier de mettre tous ces noeuds dans le même ensemble (complémentaires inversés compris).\medskip
+
 Une fois l'algorithme du \textit{Greedy} terminé, la liste des meilleurs arcs est disponible pour construire la séquence.
 
 \subsection{Construction de la séquence}
@@ -149,7 +139,7 @@ Une fois cet arc trouvé, on le traite et une fois cet arc traité, on cherche l
 
 Lors de la construction de la séquence, deux éléments importants doivent être pris en compte : la propagation des gaps vers les fragments précédents et la propagation des gaps vers les fragments futurs.\medskip
 
-En effet, lors de la gestion d'un arc $n_1$-->$n_2$, si la chaîne de caractères du fragment de $n_1$ possède un gap à la $i^{eme}$ position cela signifie que le caractère $i+1$ de cette chaîne correspond au caractère à la position $i$ dans la séquence.  Il s'agit donc de décaler vers la droite le tableau correspondant au $i^{eme}$ caractère de la séquence ainsi que tous les tableaux correspondant aux caractères se trouvant après le $i^{eme}$ caractère et d'insérer un nouveau tableau à la position $i$.  Un exemple de ce type de propagation de gaps est visible à la figure \ref{gapPrecedent}.\medskip
+En effet, lors de la gestion d'un arc $n_1$-->$n_2$, si la chaîne de caractères du fragment de $n_1$ possède un gap à la $i^{eme}$ position cela signifie que le caractère $i+1$ de cette chaîne correspond au caractère à la position $i$ dans la séquence.  Il s'agit donc de propager le gap dans les fragments précédemment traiter pour que le $i^{eme}$ caractère de la séquence corresponde au $i+1^{eme}$ caractère de la chaîne.  Un exemple de ce type de propagation de gaps est visible à la figure \ref{gapPrecedent}.\medskip
 
 Un problème équivalent survient lorsque dans l'arc $n_1$-->$n_2$, la chaîne de caractère du fragment de $n_2$ possède un gap à la $i^{eme}$ position.  Les futurs fragments à insérer dans la séquence devront faire correspondre leur $i^{eme}$ caractère au $i+1^{eme}$ caractère de la séquence.  Un exemple de ce type de propagation de gaps est visible à la figure \ref{gapSuivant}.\medskip
 
@@ -164,6 +154,41 @@ Un problème équivalent survient lorsque dans l'arc $n_1$-->$n_2$, la chaîne d
 	\includegraphics[scale =0.4]{images/gapSuivant.png}
 	\caption{\label{gapSuivant}Exemple de propagation d'un gap vers les fragments futurs}
 \end{figure}
+
+\section{Résultats}
+
+\section{Problèmes rencontrés}
+
+Nous avons rencontrés de nombreux problèmes et ce à chaque étape de la réalisation de l'application.\medskip
+
+La première étant lors de l'implémentation de l'algorithme de l'alignement semi-global et la détermination du type de l'alignement.  Nous avons longuement essayer de déterminer le type de l'alignement (préfixe, suffixe, inclusion) via la matrice de l'alignement mais cette méthode donnait des mauvais résultats lorsque l'alignement contenait des gaps.  Nous nous sommes alors basé sur les chaînes de caractères représentant l'alignement et nous avons obtenus de meilleurs résultats.\medskip
+
+La seconde difficulté était au niveau de l'algorithme \textit{Greedy} et la gestion des fragments inclus.  Il nous a fallu un certains temps avant d'arriver à les gérer correctement.\medskip
+
+La dernière difficulté concerne la construction de la séquence en elle même.  Cette étape fut la plus dure car de nombreux éléments étaient à prendre en compte.  Comment gérer les gaps, les fragments inclus, comment reconstituer une chaine via les arcs,...
+
+\section{Logiciel}
+
+\subsection{Points forts}
+
+Un point fort du logiciel est qu'il est multithreadé au niveau de la construction des arcs du graph permettant ainsi de gagner un temps considérable.
+
+Un seconde point fort est qu'il propose une interface graphique permettant d'aller directement sélectionner le fichier à traiter sans devoir insérer son chemin d'accès.
+
+\subsection{Points faibles}
+
+Un point faible du logiciel est la variabilité des résultats à chaque exécution de l'application.  Cela vient du fait que lors du tri des arcs par ordre décroissant en fonction de leur coût, la méthode \textit{Collection.sort()} trie différement les arcs ayant le même coût.\medskip
+
+
+Un second point faible est que les fragments inclus n'ont pas été traités lors de la construction de la séquence par manque de temps bien qu'ils ont été détecté par \textit{Greedy}.
+
+\subsection{Erreurs connues}
+
+Une erreur connue concerne la longueur de la séquence obtenue.  Nous ne savons pas pourquoi la séquence contient beaucoup plus de caractère que la séquence cible.
+
+\section{Répartition des tâches}
+
+\section{Conclusion} 
 
 \bibliographystyle{plain}
 \bibliography{reference}
