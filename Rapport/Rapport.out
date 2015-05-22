@@ -1,11 +1,28 @@
-\BOOKMARK [1][-]{section.1}{Impl\351mentation}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Structures de donn\351es}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Construction du graph de chevauchement}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Algorithme de l'alignement semi-global}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Algorithme Greedy}{section.1}% 5
-\BOOKMARK [2][-]{subsection.1.5}{Construction de la s\351quence}{section.1}% 6
-\BOOKMARK [1][-]{section.2}{Probl\350mes rencontr\351s}{}% 7
-\BOOKMARK [1][-]{section.3}{Logiciel}{}% 8
-\BOOKMARK [2][-]{subsection.3.1}{Points forts}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.2}{Points faibles}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.3}{Erreurs connues}{section.3}% 11
+\BOOKMARK [1][-]{Doc-Start}{R\351sum\351}{}% 1
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 2
+\BOOKMARK [2][-]{subsection.1.1}{Probl\350me pos\351}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.2}{Les donn\351es}{section.1}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.1}{En entr\351e}{subsection.1.2}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.2}{En sortie}{subsection.1.2}% 6
+\BOOKMARK [2][-]{subsection.1.3}{Etapes cl\351s}{section.1}% 7
+\BOOKMARK [1][-]{section.2}{Impl\351mentation}{}% 8
+\BOOKMARK [2][-]{subsection.2.1}{Structures de donn\351es}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.2}{Construction du graph de chevauchement}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.3}{Algorithme de l'alignement semi-global}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.4}{Algorithme Greedy}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.5}{Construction de la s\351quence}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{R\351sultats}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Collection 1}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Collection 4}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Collection 5}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.4}{Collection 2}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.5}{Collection S1}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.6}{Collection S2}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.7}{Collection S3}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Probl\350mes rencontr\351s}{}% 22
+\BOOKMARK [1][-]{section.5}{Logiciel}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Points forts}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Points faibles}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{Erreurs connues}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{R\351partition des t\342ches}{}% 27
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 28

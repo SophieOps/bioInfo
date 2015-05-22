@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.1)  20 MAY 2015 12:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.1)  22 MAY 2015 12:18
 entering extended mode
 **Rapport.tex
 (C:\Users\Sophie\Documents\bioInfo\Rapport\Rapport.tex
@@ -595,15 +595,6 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 \Hy@SectionHShift=\skip63
 )
-\c@defi=\count122
-\c@note=\count123
-\c@prop=\count124
-\c@exemple=\count125
-\c@corollaire=\count126
-\c@lemme=\count127
-\c@rem=\count128
-\c@thm=\count129
-
 (C:\Users\Sophie\Documents\bioInfo\Rapport\Rapport.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
 LaTeX Font Info:    ... okay on input line 54.
@@ -625,16 +616,16 @@ LaTeX Info: Redefining \up on input line 54.
 
 (C:\Users\Sophie\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count130
+\scratchcounter=\count122
 \scratchdimen=\dimen131
 \scratchbox=\box32
-\nofMPsegments=\count131
-\nofMParguments=\count132
+\nofMPsegments=\count123
+\nofMParguments=\count124
 \everyMPshowfont=\toks32
-\MPscratchCnt=\count133
+\MPscratchCnt=\count125
 \MPscratchDim=\dimen132
-\MPnumerator=\count134
-\makeMPintoPDFobject=\count135
+\MPnumerator=\count126
+\makeMPintoPDFobject=\count127
 \everyMPtoPDFconversion=\toks33
 ) ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box33
@@ -645,7 +636,7 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count136
+\c@section@level=\count128
 )
 LaTeX Info: Redefining \ref on input line 54.
 LaTeX Info: Redefining \pageref on input line 54.
@@ -659,7 +650,7 @@ LaTeX Font Info:    Try loading font information for T1+phv on input line 57.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
-<umonsCharte/UMONS-Logo.jpg, id=51, 346.1733pt x 124.3044pt>
+<umonsCharte/UMONS-Logo.jpg, id=115, 346.1733pt x 124.3044pt>
 File: umonsCharte/UMONS-Logo.jpg Graphic file (type jpg)
  <use umonsCharte/UMONS-Logo.jpg>
 Package pdftex.def Info: umonsCharte/UMONS-Logo.jpg used on input line 57.
@@ -704,25 +695,25 @@ LaTeX Warning: No \umonsDocumentType given.
 
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
 (Font)              Font shape `T1/phv/m/sl' tried instead on input line 57.
-<umonsCharte/FS-Logo.jpg, id=52, 517.935pt x 265.2309pt>
+<umonsCharte/FS-Logo.jpg, id=116, 517.935pt x 265.2309pt>
 File: umonsCharte/FS-Logo.jpg Graphic file (type jpg)
  <use umonsCharte/FS-Logo.jpg>
 Package pdftex.def Info: umonsCharte/FS-Logo.jpg used on input line 57.
 (pdftex.def)             Requested size: 167.8685pt x 85.35721pt.
 
-<umonsCharte/symboleinfo.jpg, id=53, 171.64125pt x 111.41624pt>
+<umonsCharte/symboleinfo.jpg, id=117, 171.64125pt x 111.41624pt>
 File: umonsCharte/symboleinfo.jpg Graphic file (type jpg)
  <use umonsCharte/symboleinfo.jpg>
 Package pdftex.def Info: umonsCharte/symboleinfo.jpg used on input line 57.
 (pdftex.def)             Requested size: 82.51299pt x 53.56079pt.
 
-<umonsCharte/AUWB-Logo.jpg, id=54, 141.82988pt x 58.71938pt>
+<umonsCharte/AUWB-Logo.jpg, id=118, 141.82988pt x 58.71938pt>
 File: umonsCharte/AUWB-Logo.jpg Graphic file (type jpg)
  <use umonsCharte/AUWB-Logo.jpg>
 Package pdftex.def Info: umonsCharte/AUWB-Logo.jpg used on input line 57.
 (pdftex.def)             Requested size: 82.51299pt x 34.16118pt.
 
-<umonsCharte/UMons-Photo.jpg, id=55, 48.6618pt x 84.315pt>
+<umonsCharte/UMons-Photo.jpg, id=119, 48.6618pt x 84.315pt>
 File: umonsCharte/UMons-Photo.jpg Graphic file (type jpg)
  <use umonsCharte/UMons-Photo.jpg>
 Package pdftex.def Info: umonsCharte/UMons-Photo.jpg used on input line 57.
@@ -731,18 +722,15 @@ Package pdftex.def Info: umonsCharte/UMons-Photo.jpg used on input line 57.
 
  <C:/Users/Sophie/Documents/bioInfo/Rapport/umonsCharte/UMONS-Logo.jpg> <C:/Users/Sophie/Documents/bioInfo/Rapport/umons
 Charte/FS-Logo.jpg> <C:/Users/Sophie/Documents/bioInfo/Rapport/umonsCharte/symboleinfo.jpg> <C:/Users/Sophie/Documents/b
-ioInfo/Rapport/umonsCharte/AUWB-Logo.jpg> <C:/Users/Sophie/Documents/bioInfo/Rapport/umonsCharte/UMons-Photo.jpg>] (C:\U
-sers\Sophie\Documents\bioInfo\Rapport\Rapport.toc)
-\tf@toc=\write4
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+ioInfo/Rapport/umonsCharte/AUWB-Logo.jpg> <C:/Users/Sophie/Documents/bioInfo/Rapport/umonsCharte/UMons-Photo.jpg>]pdfTeX
+ warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.64 \newpage
+l.71 \newpage
               [1
 
-]
-
-LaTeX Warning: Reference `UMLobj' on page 2 undefined on input line 85.
+] (C:\Users\Sophie\Documents\bioInfo\Rapport\Rapport.toc)
+\tf@toc=\write4
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -751,30 +739,28 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
+Overfull \hbox (40.88092pt too wide) in paragraph at lines 109--115
+ [][] 
+ []
+
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.61858pt.
+ Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
 [3]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 14.61858pt.
+ Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[4] <images/gapPrecedent.png, id=103, 962.09438pt x 311.66437pt>
-File: images/gapPrecedent.png Graphic file (type png)
- <use images/gapPrecedent.png>
-Package pdftex.def Info: images/gapPrecedent.png used on input line 165.
-(pdftex.def)             Requested size: 390.0pt x 126.33751pt.
-
-<images/gapSuivant.png, id=105, 962.09438pt x 319.1925pt>
-File: images/gapSuivant.png Graphic file (type png)
- <use images/gapSuivant.png>
-Package pdftex.def Info: images/gapSuivant.png used on input line 171.
-(pdftex.def)             Requested size: 390.0pt x 129.38914pt.
+[4] <images/classDiagram_Objects.png, id=185, 793.96625pt x 625.33624pt>
+File: images/classDiagram_Objects.png Graphic file (type png)
+ <use images/classDiagram_Objects.png>
+Package pdftex.def Info: images/classDiagram_Objects.png used on input line 148.
+(pdftex.def)             Requested size: 312.00119pt x 245.74081pt.
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -783,7 +769,185 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [5]
-Overfull \hbox (1.11415pt too wide) in paragraph at lines 191--192
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[6 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/classDiagram_Objects.png (PNG copy)>]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[7] <images/table.png, id=207, 484.81125pt x 156.585pt>
+File: images/table.png Graphic file (type png)
+ <use images/table.png>
+Package pdftex.def Info: images/table.png used on input line 217.
+(pdftex.def)             Requested size: 390.0pt x 125.96822pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[8 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/table.png>]
+<images/gapPrecedent.png, id=216, 962.09438pt x 311.66437pt>
+File: images/gapPrecedent.png Graphic file (type png)
+ <use images/gapPrecedent.png>
+Package pdftex.def Info: images/gapPrecedent.png used on input line 236.
+(pdftex.def)             Requested size: 390.0pt x 126.33751pt.
+
+<images/gapSuivant.png, id=218, 962.09438pt x 319.1925pt>
+File: images/gapSuivant.png Graphic file (type png)
+ <use images/gapSuivant.png>
+Package pdftex.def Info: images/gapSuivant.png used on input line 242.
+(pdftex.def)             Requested size: 390.0pt x 129.38914pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[9 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/gapPrecedent.png>]
+<images/collection1/collection1_2.png, id=227, 305.64188pt x 392.21532pt>
+File: images/collection1/collection1_2.png Graphic file (type png)
+ <use images/collection1/collection1_2.png>
+Package pdftex.def Info: images/collection1/collection1_2.png used on input line 256.
+(pdftex.def)             Requested size: 155.99762pt x 200.18275pt.
+
+<images/collection1/collection1_16.png, id=228, 295.1025pt x 391.4625pt>
+File: images/collection1/collection1_16.png Graphic file (type png)
+ <use images/collection1/collection1_16.png>
+Package pdftex.def Info: images/collection1/collection1_16.png used on input line 257.
+(pdftex.def)             Requested size: 155.99762pt x 206.93654pt.
+
+<images/collection4/collection4_2.png, id=230, 241.65282pt x 394.47375pt>
+File: images/collection4/collection4_2.png Graphic file (type png)
+ <use images/collection4/collection4_2.png>
+Package pdftex.def Info: images/collection4/collection4_2.png used on input line 266.
+(pdftex.def)             Requested size: 155.99762pt x 254.65933pt.
+
+<images/collection4/collection4_3.png, id=231, 246.1697pt x 396.7322pt>
+File: images/collection4/collection4_3.png Graphic file (type png)
+ <use images/collection4/collection4_3.png>
+Package pdftex.def Info: images/collection4/collection4_3.png used on input line 267.
+(pdftex.def)             Requested size: 155.99762pt x 251.41968pt.
+
+<images/collection5/collection5_1.png, id=233, 280.04625pt x 389.95688pt>
+File: images/collection5/collection5_1.png Graphic file (type png)
+ <use images/collection5/collection5_1.png>
+Package pdftex.def Info: images/collection5/collection5_1.png used on input line 276.
+(pdftex.def)             Requested size: 117.00119pt x 162.92392pt.
+
+<images/collection5/collection5_3.png, id=234, 276.28218pt x 405.76593pt>
+File: images/collection5/collection5_3.png Graphic file (type png)
+ <use images/collection5/collection5_3.png>
+Package pdftex.def Info: images/collection5/collection5_3.png used on input line 277.
+(pdftex.def)             Requested size: 117.00119pt x 171.83218pt.
+
+<images/collection5/collection5_9.png, id=235, 281.55188pt x 395.22656pt>
+File: images/collection5/collection5_9.png Graphic file (type png)
+ <use images/collection5/collection5_9.png>
+Package pdftex.def Info: images/collection5/collection5_9.png used on input line 278.
+(pdftex.def)             Requested size: 117.00119pt x 164.23909pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[10 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/gapSuivant.png>]
+
+LaTeX Warning: Text page 11 contains only floats.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[11 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection1/collection1_2.png> <C:/Users/Sophie/Documents/bioInfo/
+Rapport/images/collection1/collection1_16.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection4/collection4
+_2.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection4/collection4_3.png>]
+<images/collection2/collection2_1.png, id=249, 803.0pt x 602.25pt>
+File: images/collection2/collection2_1.png Graphic file (type png)
+ <use images/collection2/collection2_1.png>
+Package pdftex.def Info: images/collection2/collection2_1.png used on input line 287.
+(pdftex.def)             Requested size: 117.00119pt x 87.75133pt.
+
+<images/collection2/collection2_2.png, id=250, 803.0pt x 602.25pt>
+File: images/collection2/collection2_2.png Graphic file (type png)
+ <use images/collection2/collection2_2.png>
+Package pdftex.def Info: images/collection2/collection2_2.png used on input line 288.
+(pdftex.def)             Requested size: 117.00119pt x 87.75133pt.
+
+<images/collection2/collection2_3.png, id=251, 803.0pt x 602.25pt>
+File: images/collection2/collection2_3.png Graphic file (type png)
+ <use images/collection2/collection2_3.png>
+Package pdftex.def Info: images/collection2/collection2_3.png used on input line 289.
+(pdftex.def)             Requested size: 117.00119pt x 87.75133pt.
+
+<images/collectionS1/collectionS1.png, id=253, 400.49625pt x 393.72093pt>
+File: images/collectionS1/collectionS1.png Graphic file (type png)
+ <use images/collectionS1/collectionS1.png>
+Package pdftex.def Info: images/collectionS1/collectionS1.png used on input line 300.
+(pdftex.def)             Requested size: 195.0pt x 191.70538pt.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[12 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection5/collection5_1.png> <C:/Users/Sophie/Documents/bioInfo/
+Rapport/images/collection5/collection5_3.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection5/collection5_
+9.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection2/collection2_1.png> <C:/Users/Sophie/Documents/bioIn
+fo/Rapport/images/collection2/collection2_2.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collection2/collectio
+n2_3.png>] <images/collectionS2/collectionS2.png, id=265, 411.03563pt x 380.17032pt>
+File: images/collectionS2/collectionS2.png Graphic file (type png)
+
+<use images/collectionS2/collectionS2.png>
+Package pdftex.def Info: images/collectionS2/collectionS2.png used on input line 309.
+(pdftex.def)             Requested size: 195.0pt x 180.35654pt.
+ <images/collectionS2/collectionS2_2.png, id=266, 803.0pt x 602.25pt>
+File: images/collectionS2/collectionS2_2.png Graphic file (type png)
+
+<use images/collectionS2/collectionS2_2.png>
+Package pdftex.def Info: images/collectionS2/collectionS2_2.png used on input line 310.
+(pdftex.def)             Requested size: 195.0pt x 146.25221pt.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 315.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[13 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collectionS1/collectionS1.png>]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[14 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/collectionS2/collectionS2.png> <C:/Users/Sophie/Documents/bioInfo/
+Rapport/images/collectionS2/collectionS2_2.png>]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[15]
+Overfull \hbox (1.11415pt too wide) in paragraph at lines 335--336
 []\T1/cmr/m/n/12 Un point fort du lo-gi-ciel est qu'il est mul-ti-threadé au ni-veau de la construc-
  []
 
@@ -793,64 +957,72 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[6 <C:/Users/Sophie/Documents/bioInfo/Rapport/images/gapPrecedent.png> <C:/Users/Sophie/Documents/bioInfo/Rapport/images
-/gapSuivant.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 206.
+[16]
+Overfull \hbox (44.36514pt too wide) in paragraph at lines 360--373
+ [][] 
+ []
 
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 15.04742pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[17]
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 14.49998pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 206.
+[18]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 412.
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.61858pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[19]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 412.
  (C:\Users\Sophie\Documents\bioInfo\Rapport\Rapport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 206.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 206.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 412.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 412.
+Package rerunfilecheck Info: File `Rapport.out' has not changed.
+(rerunfilecheck)             Checksum: 49D32366F5151B2B2C9C68AA224C0053;1795.
 
-
-Package rerunfilecheck Warning: File `Rapport.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Rapport.out':
-(rerunfilecheck)             Before: 4EE572D8F610A9F7BEC08CB727EF2154;798
-(rerunfilecheck)             After:  CE1E2B8ABF48B8ED7F02A651799C3C83;749.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.74pt have occurred.
 
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 206.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 412.
  ) 
 Here is how much of TeX's memory you used:
- 7747 strings out of 493921
- 108589 string characters out of 3144873
- 196647 words of memory out of 3000000
- 10859 multiletter control sequences out of 15000+200000
- 39570 words of font info for 73 fonts, out of 3000000 for 9000
+ 7869 strings out of 493921
+ 112336 string characters out of 3144873
+ 198140 words of memory out of 3000000
+ 10908 multiletter control sequences out of 15000+200000
+ 42124 words of font info for 77 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 29i,11n,43p,655b,380s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk> <C:\Users\Sophie\AppData\Lo
+ 29i,11n,43p,655b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1200.pk> <C:\Users\Sophie\AppData\Lo
 cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0800.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
-\jknappen\ec\dpi600\ecti1200.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.p
-k> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\Sophie\AppData\Lo
+\jknappen\ec\dpi600\eccc1200.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1200.p
+k> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Sophie\AppData\Lo
 cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
-\jknappen\ec\dpi600\ecbx1728.pk>{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x8
+\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.p
+k> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1095.pk> <C:\Users\Sophie\AppData\Lo
+cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1095.pk> <C:\Users\Sophie\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
+\jknappen\ec\dpi600\ecbx1095.pk>{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x8
 6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2
 .9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/ur
 w/helvetic/uhvro8a.pfb>
-Output written on Rapport.pdf (8 pages, 641039 bytes).
+Output written on Rapport.pdf (20 pages, 919883 bytes).
 PDF statistics:
- 371 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 132 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 701 PDF objects out of 1000 (max. 8388607)
+ 68 named destinations out of 1000 (max. 500000)
+ 335 words of extra memory for PDF output out of 10000 (max. 10000000)
 

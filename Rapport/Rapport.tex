@@ -23,7 +23,7 @@
 \textsc{Opsommer} & Sophie & SOPHIE.OPSOMMER@student.umons.ac.be\\
 \end{tabular}}
 %% The main title of your thesis
-\umonsTitle{Assemblage de fragments d’ADN\\ - \\Rapport de projet}
+\umonsTitle{Assemblage de fragments d’ADN\\Rapport de projet}
 %% The sub-title of your thesis
 \umonsSubtitle{Projet réalisé dans le cadre \\de la 1er Master en Sciences informatique \\pour le cours d'\og Algorithmique et bioinformatique \fg}
 %% Your supervisor(s)
@@ -35,17 +35,17 @@
 \umonsDate {\hfill Ann\'ee Acad\'emique 2014-2015}
 %%###### END CHANGEMENT ######
 
-\newcommand{\smalltitle}[1]{\bigskip\large\textbf{#1}\par\normalsize\medskip}
-\newcommand{\partitle}[1]{\bigskip\textit{\underline{#1}}\par\medskip}
+%\newcommand{\smalltitle}[1]{\bigskip\large\textbf{#1}\par\normalsize\medskip}
+%\newcommand{\partitle}[1]{\bigskip\textit{\underline{#1}}\par\medskip}
 
-\newtheorem{defi}{Définition}
-\newtheorem{note}{Note}
-\newtheorem{prop}{Propriété}
-\newtheorem{exemple}{Exemple}
-\newtheorem{corollaire}{Corollaire}
-\newtheorem{lemme}{Lemme}
-\newtheorem{rem}{Remarque}
-\newtheorem{thm}{Théorème}
+%\newtheorem{defi}{Définition}
+%\newtheorem{note}{Note}
+%\newtheorem{prop}{Propriété}
+%\newtheorem{exemple}{Exemple}
+%\newtheorem{corollaire}{Corollaire}
+%\newtheorem{lemme}{Lemme}
+%\newtheorem{rem}{Remarque}
+%\newtheorem{thm}{Théorème}
 
 \fancyhf{}
 \chead{\leftmark}
@@ -79,7 +79,8 @@ Ce \emph{rapport} est rendu dans le cadre du cursus de première année de \og M
 
 \section{Introduction}
 \subsection{Problème posé}
-Ce projet consiste à développer un programme informatique qui a la particularité de pouvoir, à partir d'une collection de fragments (de longueur variable), créer un contig le plus petit possible avec tous les fragments (ou leur complémentaire inversé).
+Ce projet%\footnote{projet détaillé dans les documents \ref{enonce} et \ref{slides} et sur base de la théorie reçue lors du cours \ref{cours}} 
+consiste à développer un programme informatique qui a la particularité de pouvoir, à partir d'une collection de fragments (de longueur variable), créer un contig le plus petit possible avec tous les fragments (ou leur complémentaire inversé).
 
 \subsection{Les données}
 \subsubsection{En entrée}
@@ -113,6 +114,7 @@ Les fichiers généré par le programme se trouve à la racine du programme. Ils
 \end{tabular}
 \end{table}
 
+\newpage
 \subsection{Etapes clés}
 Les étapes clés du projet sont les suivantes : (chronologiquement)
 \begin{enumerate}
@@ -155,7 +157,7 @@ En effet, lorsque nous avons $n$ fragments et que nous devons calculer les compl
 
 Pour réduire le temps de calcul, nous appliquons donc le multithreading.\medskip
 
-Deux contraites sont à respecter lors de la construction des arcs.  La première est qu'il ne faut pas créer d'arc entre un noeud et son complémentaire inversé.  La seconde étant qu'il ne faut pas créer un arc ayant comme source et destination le même noeud.  D'où le $n*(n-2)$\medskip
+Deux contraites sont à respecter lors de la construction des arcs.  La première est qu'il ne faut pas créer d'arc entre un noeud et son complémentaire inversé.  La seconde étant qu'il ne faut pas créer un arc ayant comme source et destination le même noeud.  D'où le $n*(n-2)$.\medskip
 
 La création des arcs introduit aussi l'algorithme de l'alignement semi-global.\medskip
 
@@ -208,7 +210,7 @@ Une fois l'algorithme du \textit{Greedy} terminé, la liste des meilleurs arcs e
 
 \subsection{Construction de la séquence}
 
-Le but est, pour une séquence de taille N, de créer N tableaux où le tableau numéro $i$ contient le nombre de fois que les nucléotïdes A, C, T, G et les gaps sont présents à la $i^{eme}$ position dans la séquence. A noter que les tableaux contiendrons une cellule permettant de savoir si à la position $i$, nous sommes en présence ou non d'un gap.  Cela permettra de propager les gaps vers le bas.\medskip
+Le but est, pour une séquence de taille N, de créer N tableaux où le tableau numéro $i$ contient le nombre de fois que les nucléotïdes A, C, T, G et les gaps sont présents à la $i^{eme}$ position dans la séquence. A noter que les tableaux contiendrons une cellule permettant de savoir si à la position $i$, nous sommes en présence ou non d'un gap.  Cela permettra de propager les gaps vers le bas. La figure \ref{table} illustre cette structure de donnée.\medskip
 
 \begin{figure}[!ht]
 \centering
@@ -253,7 +255,7 @@ Les deux résultats présentés à la figure \ref{coll1} sont les deux meilleurs
 	\centering
 	\includegraphics[width=0.4\textwidth]{images/collection1/collection1_2.png}
 	\includegraphics[width=0.4\textwidth]{images/collection1/collection1_16.png}
-	\caption{\label{coll2}Résultats de la comparaison entre les fichiers générés et le fichier cible de la collection 1}
+	\caption{\label{coll1}Résultats de la comparaison entre les fichiers générés et le fichier cible de la collection 1}
 \end{figure}
 
 \subsection{Collection 4}
@@ -277,6 +279,16 @@ Les trois résultats présentés à la figure \ref{coll5} sont nos meilleurs ré
 	\caption{\label{coll5}Résultats de la comparaison entre les fichiers générés et le fichier cible de la collection 5}
 \end{figure}
 
+\subsection{Collection 2}
+Les trois résultats présentés à la figure \ref{coll2} sont nos meilleurs résultats pour cette collection. On y observe que les résultats sont mauvais. En effet aucune ligne ne se distingue, juste des points et des nuages un peu plus foncé par endroit.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{images/collection2/collection2_1.png}
+	\includegraphics[width=0.3\textwidth]{images/collection2/collection2_2.png}
+	\includegraphics[width=0.3\textwidth]{images/collection2/collection2_3.png}
+	\caption{\label{coll2}Résultats de la comparaison entre les fichiers générés et le fichier cible de la collection 2}
+\end{figure}
 
 \subsection{Collection S1}
 La collection S1 correspond aux mêmes fragments que la collection 1 seulement les fragments complémentaires et inversés ne doivent pas êtres calculés, ils sont fournis.
@@ -295,8 +307,12 @@ La figure \ref{collS2} est notre meilleur résultat. Il est, de façon évidente
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{images/collectionS2/collectionS2.png}
+	\includegraphics[width=0.5\textwidth]{images/collectionS2/collectionS2_2.png}
 	\caption{\label{collS2}Résultat de la comparaison entre le fichier généré et le fichier cible de la collection S2}
 \end{figure}
+
+\subsection{Collection S3}
+Pour la collection 3 simplifiées, 2 fichiers cibles ont été généré et sont disponible avec le programme seulement le site internet \url{http://emboss.bioinformatics.nl/cgi-bin/emboss/dotmatcher/} ne nous a pas permis d'obtenir une visualisation de la qualité du résultat.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -331,6 +347,10 @@ Un second point faible est que les fragments inclus n'ont pas été traités lor
 
 Une erreur connue concerne la longueur de la séquence obtenue.  Nous ne savons pas pourquoi la séquence contient beaucoup plus de caractère que la séquence cible.
 
+Un second point à soulever concerne la barre de progression. En effet, ayant 4 étapes dans le processus de résolution, chaque étape terminée fait avancer la barre de 25\%. Hors, pour une meilleur exactitude, elle devrait tenir compte du nombre d'arc et du fait que quand ce nombre augmente, le temps pour construire le graphe devient considérable et les 3 autres étapes deviennent négligeable en temps.
+
+Finalement, l'analyse par le site \url{http://emboss.bioinformatics.nl/cgi-bin/emboss/dotmatcher/} ne nous permet pas de visualiser la qualité du fichier cible. Nous déclarons ne pas en connapitre la raison.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Répartition des tâches}
@@ -342,11 +362,12 @@ Une erreur connue concerne la longueur de la séquence obtenue.  Nous ne savons 
 	Tâche & Réalisé par Thibaut & Réalisé par sophie\\
 	\hline
 	Compréhension du projet à réaliser & 50\% & 50\% \\
-	Lecture du fichier de fragments & 90\% & 10\% \\
-	Construction du graphe & 90\% & 10\% \\
-	Implémentation de l'algorithme Greedy  & 90\% & 10\% \\
-	Construction de la super chaine  & 90\% & 10\% \\
-	Ecriture du résultat dans un fichier & 75\% & 25\% \\
+	Lecture du fichier de fragments & 80\% & 20\% \\
+	Construction du graphe & 60\% & 40\% \\
+	Implémentation de l'algorithme Greedy & 55\% & 45\% \\
+	Construction de la super chaine & 80\% & 20\% \\
+	Ecriture du résultat dans un fichier & 60\% & 40\% \\
+	Interface & 10\% & 90\% \\
 	Rédaction du rapport  & 50\% & 50\% \\ % 7 pages par thibaut
 \end{tabular}
 \end{table}
@@ -354,8 +375,38 @@ Une erreur connue concerne la longueur de la séquence obtenue.  Nous ne savons 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Conclusion} 
+Au travers de ce travail, nous avons appris plusieurs choses. Ce fut d'abord un beau rappel de nos cours de biologie de secondaire. Ensuite, il nous a fait prendre conscience que les sciences font et feront encore partie de notre quotidient et que l'informatique à tout autant à apprendres aux autres sciences que ce que les autres sciences ont à apprendre à l'informatique.
 
-\bibliographystyle{plain}
-\bibliography{reference}
+A travers ce problème de séquensage d'ADN, nous avons eu l'occasion de mettre en pratique les concepts vu au cours mais aussi ceux vus tout au long de notre cursus tel que l'importance de la complexité des algorithmes, la programmation paralléle, la qualité du code,...
+
+Ce projet fut une dur épreuve parce que, en plus de devoir gérer plusieurs projets en même temps avec des groupes différents (et donc des disponibilités différentes), il a fallu être très attentif à l'ensemble de la problématique à tout moment. Chaque décision avait un impact conséquent sur l'ensemble du programme et une décision prise trop vite pouvait rendre inutile de longue heures de travail.
+
+Enfin, ce projet estdifférents des autres, parce que pour une fois, malgré que le projet soit fini, il n'est tout de même pas satisfaisant. En effet, certains résultats sont bons, mais d'autres restent mauvais sans en comprendre la raison (et donc pas de possibilité d'amélioration).
+
+\newpage
+%\bibliographystyle{plain}
+%\bibliography{reference}
+%\backmatter  %chapittre sans chiffre ni lettre
+\begin{thebibliography}{9}
+\bibitem {enonce}
+    O. Delgrange \& D. Maslowski,
+    Algorithmique et bioinformatique, Enoncé du projet,
+    Jan 2015,
+    UMONS
+		.
+\bibitem{cours}
+    O. Delgrange,
+    Cours d'Algorithmique et bioinformatique,
+    2014 - 2015,
+    UMONS
+		.
+\bibitem{slides}
+    O. Delgrange,
+    Algorithmique et bioinformatique, Assemblage de fragments d’ADN - Projet (slides de présentation du projet),
+    2014 - 2015,
+    UMONS
+		.
+\end{thebibliography}
+
 
 \end{document} 

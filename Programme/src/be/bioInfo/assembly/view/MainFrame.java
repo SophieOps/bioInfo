@@ -1,35 +1,18 @@
 package be.bioInfo.assembly.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-import be.bioInfo.assembly.algorithm.ChainManager;
-import be.bioInfo.assembly.algorithm.GreedyAlgo;
-import be.bioInfo.assembly.exception.FragmentException;
-import be.bioInfo.assembly.exception.GreedyException;
-import be.bioInfo.assembly.graph.Edge;
-import be.bioInfo.assembly.graph.Graph;
-import be.bioInfo.assembly.graph.GraphManager;
-import be.bioInfo.assembly.graph.Node;
-import be.bioInfo.assembly.model.FragmentManager;
 
 /**
  * Interface of the program
@@ -50,7 +33,8 @@ public class MainFrame extends JFrame implements ActionListener
 	private JTextField numColl = new JTextField("");
 	private JRadioButton rbtMustComputeComplementary = new JRadioButton("Oui");
 	private JRadioButton rbtComplementaryUnused = new JRadioButton("Non");
-	//static private JProgressBar bar;
+	private ProgressBar bar;
+    
 	private int result = -1;
 	private JFileChooser fc;
 
@@ -61,7 +45,7 @@ public class MainFrame extends JFrame implements ActionListener
 	public MainFrame()
 	{
 		this.setTitle("Algorithmique et bioinformatique");
-		this.setSize(500, 200);
+		this.setSize(500, 300);
 		this.setLocationRelativeTo(null);               
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -78,10 +62,11 @@ public class MainFrame extends JFrame implements ActionListener
 		group.add(rbtMustComputeComplementary);
 		group.add(rbtComplementaryUnused);
 		
-//		bar  = new JProgressBar();
-//	    bar.setMaximum(1000);
-//	    bar.setMinimum(0);
+//		bar  = new JProgressBar(0, 1000);
+//	    bar.setValue(0);
 //	    bar.setStringPainted(true);
+		bar = new ProgressBar();
+	    bar.setOpaque(true);
 
 		JPanel pan1bis = new JPanel();
 		//On définit le layout en lui indiquant qu'il travaillera en ligne
@@ -108,10 +93,10 @@ public class MainFrame extends JFrame implements ActionListener
 		pan3.add(btOK);
 		pan3.add(btCancel);
 		
-//		JPanel pan4 = new JPanel();
-//		pan4.setLayout(new BoxLayout(pan4, BoxLayout.LINE_AXIS));
-//		pan4.setBackground(Color.WHITE);
-//		pan4.add(bar);
+		JPanel pan4 = new JPanel();
+		pan4.setLayout(new BoxLayout(pan4, BoxLayout.LINE_AXIS));
+		pan4.setBackground(Color.WHITE);
+		pan4.add(bar);
 		
 		JPanel pan5 = new JPanel();
 		pan5.setLayout(new BoxLayout(pan5, BoxLayout.LINE_AXIS));
@@ -124,20 +109,16 @@ public class MainFrame extends JFrame implements ActionListener
 		pan.setBackground(Color.WHITE);
 		pan.add(pan1);
 		pan.add(pan2);
-		//pan.add(pan4);
 		pan.add(pan5);
+		pan.add(pan4);
 		pan.add(pan3);
 
+		//this.pack();
 		this.getContentPane().add(pan);
 		this.setVisible(true);
 
 		return;
 	}
-	
-//	public static void setValueProgressBar(int value){
-//		bar.setValue(value);
-//	}
-	//TODO : Faire de ceci un singloton pour ajouter une progressbar à l'interface
 	
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -147,47 +128,20 @@ public class MainFrame extends JFrame implements ActionListener
 			txtFileChooser.setText("Fichier choisi : ");
 			filePath.setText(fc.getSelectedFile().getPath());
 		}else if(evt.getSource() == btOK){
+			btOK.setEnabled(false);
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 			boolean mustComputeComplementary = false;
 			if(rbtMustComputeComplementary.isSelected()){
 				mustComputeComplementary = true;
 			}
 			if (result == JFileChooser.APPROVE_OPTION) 
 			{
-				try{
-					System.out.println("Lecture du fichier");
-					ArrayList<Node> nodeList = FragmentManager.readFile(fc.getSelectedFile(), mustComputeComplementary);//booleen pour savoir si il faut calculer les compl�mentaires ou non
-					System.out.println("Fin lecture du fichier");
-
-					System.out.println("Construction du graphe");
-					Graph graph = GraphManager.constructGraph(nodeList, mustComputeComplementary);
-					System.out.println("Fin construction du graphe");
-
-					System.out.println("Lancement Greedy");
-					ArrayList<Edge> edgeList = GreedyAlgo.execute(graph, mustComputeComplementary);
-					System.out.println("Fin de greedy");
-
-					System.out.println("Construction super chaine");
-					ChainManager.constructChain(edgeList, numColl.getText());	
-					System.out.println("Fin construction super chaine");
-				}catch(FragmentException e)
-				{
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur lors de la lecture du fichier", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}catch (FileNotFoundException e) 
-				{
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Fichier introuvable", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}catch (GreedyException e) 
-				{
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur dans le Greedy", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}catch (Exception e){
-					JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur inconnue", JOptionPane.ERROR_MESSAGE);
-					System.exit(0);
-				}
-				JOptionPane.showMessageDialog(null, "Traitement fini", "InfoBox: Traitement fini", JOptionPane.INFORMATION_MESSAGE);
+				bar.getTask().setFc(fc.getSelectedFile());
+				bar.getTask().setMustComputeComplementary(mustComputeComplementary);
+				bar.getTask().setNumCollection(numColl.getText());
+				bar.getTask().addPropertyChangeListener(bar);
+				bar.getTask().execute();
 			}
-			System.exit(0);
 		}else if (evt.getSource() == btCancel){
 			System.exit(0);
 		}

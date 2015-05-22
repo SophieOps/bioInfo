@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 
 import be.bioInfo.assembly.algorithm.AlignmentAlgo;
 import be.bioInfo.assembly.view.MainFrame;
+import be.bioInfo.assembly.view.ProgressBar;
+import be.bioInfo.assembly.view.ProgressBar.Task;
 
 /**
  * Construct the graph
@@ -74,7 +76,7 @@ public class GraphManager
             }
             
             System.out.println(nbDone+"/"+nbEdge+" arcs construits");
-            //MainFrame.setValueProgressBar((int)(nbDone/nbEdge)*1000);
+            //Task.str = nbDone+"/"+nbEdge+" arcs construits";
         }
 	}
 

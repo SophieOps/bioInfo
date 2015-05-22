@@ -15,7 +15,11 @@ public class Main {
 	public static void main(String[] args) 
 	{
 		System.setProperty( "file.encoding", "UTF-8" );
-		MainFrame mainFrame = new MainFrame();
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	MainFrame mainFrame = new MainFrame();
+            }
+        });
 	}
 
 }
