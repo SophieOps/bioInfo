@@ -53,7 +53,7 @@ public class ChainManager
 		boolean edgeStillNotTreated = true;
 		do
 		{
-			//Si on rentre dans le if on est dans le dernier arc à traiter
+			//Si on rentre dans le if on est dans le dernier arc ï¿½ traiter
 			if(edgeList.isEmpty())
 				edgeStillNotTreated = false;
 			
@@ -64,11 +64,11 @@ public class ChainManager
 
 			//TTTTGGGGG****  3
 			//*******GGCCCC  4
-			//Permet de se positionner sur le dï¿½but de l'alignement donc sur le premier T de 2
+			//Permet de se positionner sur le  debut de l'alignement donc sur le premier T de 2
 			//Ensuite on se positionnera sur le premier G de 4
 			sequenceIndex+=currentEdge.getAlignment().getStartIndex();
 
-			//Recherche de l'arc suivant à traiter
+			//Recherche de l'arc suivant a  traiter
 			int j;
 			for(j = 0; j < edgeList.size(); j++)
 			{
@@ -86,9 +86,9 @@ public class ChainManager
 		superChain = (constructSuperChain(values));
 		try 
 		{
-			file = new File("superChaine.fasta");
+			file = new File("superChaineColl"+numColl+"_"+superChain.length()+".fasta");
 			pw = new PrintWriter(new FileWriter(file));
-			pw.println("> Nom Watillon Thibaut, Opsommer Sophie Collection " + numColl + " Longueur "+ superChain.length() + "\n"+ superChain);
+			pw.println("> Nom : Watillon Thibaut, Opsommer Sophie - Collection : " + numColl + " - Longueur "+ superChain.length() + "\n"+ superChain);
 			pw.close();
 			
 		} catch (IOException e) 
@@ -102,13 +102,13 @@ public class ChainManager
 		
 		for (int j = 0; j < currentEdge.getAlignment().getCode1().length(); j++)
 		{
-			//Création d'un tableau contenant le nombre de A,T,C,G,- pour la currentSeqIndex position dans la super chaine
-			//On rajoute une cellule pour savoir si on est en présence d'un gap
+			//Creation d'un tableau contenant le nombre de A,T,C,G,- pour la currentSeqIndex position dans la super chaine
+			//On rajoute une cellule pour savoir si on est en prï¿½sence d'un gap
 			if(currentSeqIndex>=values.size())
 			{
 				values.add(new short[6]);
 				short[] value = values.get(currentSeqIndex);
-				addValue(value, currentEdge.getAlignment().getCode1().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 à la cellule représentant la j ème lettre de code1
+				addValue(value, currentEdge.getAlignment().getCode1().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code1
 		    }
 			
 			
@@ -116,14 +116,14 @@ public class ChainManager
 			{
 				//PROPAGATION DES GAPS VERS LE HAUT
 				short[] value = new short[6];
-				addValue(value, currentEdge.getAlignment().getCode1().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 à la cellule représentant la j ème lettre de code1
-				addValue(value, currentEdge.getAlignment().getCode2().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 à la cellule représentant la j ème lettre de code2
-				//Si on a un gap à la j ème position de code 2
+				addValue(value, currentEdge.getAlignment().getCode1().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code1
+				addValue(value, currentEdge.getAlignment().getCode2().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code2
+				//Si on a un gap ï¿½ la j ï¿½me position de code 2
 		        if (currentEdge.getAlignment().getCode2().charAt(j) == Alignment.GAP) 
 		        {
-		        	values.get(currentSeqIndex)[5] = 1;//Spécifie qu'on est en présence d'un gap
+		        	values.get(currentSeqIndex)[5] = 1;//Spï¿½cifie qu'on est en prï¿½sence d'un gap
 		        }
-				values.add(currentSeqIndex, value);//on décale le tableau à la position currentSeqIndex vers la droite et on insère le nouveau tableau à la position currentSeqIndex
+				values.add(currentSeqIndex, value);//on dï¿½cale le tableau ï¿½ la position currentSeqIndex vers la droite et on insï¿½re le nouveau tableau ï¿½ la position currentSeqIndex
 				
 			}
 			else if(currentEdge.getAlignment().getCode1().charAt(j) != Alignment.GAP && values.get(currentSeqIndex)[5] == 1)
@@ -137,9 +137,9 @@ public class ChainManager
 				short[] value = values.get(currentSeqIndex);
 				if (currentEdge.getAlignment().getCode2().charAt(j) == Alignment.GAP) 
 		        {
-		        	values.get(currentSeqIndex)[5] = 1;//Spécifie qu'on est en présence d'un gap
+		        	values.get(currentSeqIndex)[5] = 1;//Spï¿½cifie qu'on est en prï¿½sence d'un gap
 		        }
-				addValue(value, currentEdge.getAlignment().getCode2().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 à la cellule représentant la j ème lettre de code2
+				addValue(value, currentEdge.getAlignment().getCode2().charAt(j), currentEdge.getAlignment().getCost());//Ajoute 1 ï¿½ la cellule reprï¿½sentant la j ï¿½me lettre de code2
 			}
 			
 			currentSeqIndex++;

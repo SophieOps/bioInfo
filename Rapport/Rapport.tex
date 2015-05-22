@@ -79,7 +79,7 @@ Ce \emph{rapport} est rendu dans le cadre du cursus de première année de \og M
 
 \section{Introduction}
 \subsection{Problème posé}
-Ce projet%\footnote{projet détaillé dans les documents \ref{enonce} et \ref{slides} et sur base de la théorie reçue lors du cours \ref{cours}} 
+Ce projet %\footnote{projet détaillé dans les documents \ref{enonce} et \ref{slides} et sur base de la théorie reçue lors du cours \ref{cours}} 
 consiste à développer un programme informatique qui a la particularité de pouvoir, à partir d'une collection de fragments (de longueur variable), créer un contig le plus petit possible avec tous les fragments (ou leur complémentaire inversé).
 
 \subsection{Les données}
@@ -99,16 +99,16 @@ La structure d'un tel format est tel que : un fichier contient au moins 1 fragme
 \end{tabular}
 \end{table}
 
-Notons que il doit-être possible d'introduire des fichiers simplifié, c'est-à-dire des fichiers où le sens de lecture des fragments est connu. Pour ceux-ci, il ne faut donc par calculer les fragments complémentaire inversé.
+Notons que il doit-être possible d'introduire des fichiers simplifiés, c'est-à-dire des fichiers où le sens de lecture des fragments est connu. Pour ceux-ci, il ne faut donc par calculer les fragments complémentaires inversés.
 
 \subsubsection{En sortie}
-Les fichiers généré par le programme se trouve à la racine du programme. Ils sont au format : 
+Les fichiers générés par le programme se trouvent à la racine du programme. Ils sont au format : 
 
 \begin{table}[!ht]
 \centering
 \begin{tabular}{|l|}
 	\hline
-	> nom nom-etudiant Collection num-collection Longueur longueur-sequence-cible \\
+	> Nom [noms-etudiants] Collection [num-collection] Longueur [longueur-sequence-cible] \\
 	suite-de-caractères\\
 	\hline
 \end{tabular}
@@ -194,7 +194,7 @@ Une fois les arcs construits et les caractéristiques des alignements connues, l
 
 Avant d'appliquer le \textit{Greedy}, les arcs doivent tout d'abord être triés par ordre décroissant en fonction de leur coût.\medskip
 
-Pour ce faire, la méthode \textit{Collection.sort()} est utilisé sur la liste des arcs.\medskip
+Pour ce faire, la méthode \textit{Collection.sort()} est utilisés sur la liste des arcs.\medskip
 
 Le problème lors de ce tri est que les arcs ayant le même coût ont des positions à chaque fois différentes lors de l'exécution de\textit{Collection.sort()} ce qui fait que les arcs sélectionnés par \textit{Greedy} varient à chaque exécution de l'application.\medskip
 
@@ -210,7 +210,7 @@ Une fois l'algorithme du \textit{Greedy} terminé, la liste des meilleurs arcs e
 
 \subsection{Construction de la séquence}
 
-Le but est, pour une séquence de taille N, de créer N tableaux où le tableau numéro $i$ contient le nombre de fois que les nucléotïdes A, C, T, G et les gaps sont présents à la $i^{eme}$ position dans la séquence. A noter que les tableaux contiendrons une cellule permettant de savoir si à la position $i$, nous sommes en présence ou non d'un gap.  Cela permettra de propager les gaps vers le bas. La figure \ref{table} illustre cette structure de donnée.\medskip
+Le but est, pour une séquence de taille N, de créer N tableaux où le tableau numéro $i$ contient le nombre de fois que les nucléotïdes A, C, T, G et les gaps sont présents à la $i^{eme}$ position dans la séquence. A noter que les tableaux contiendront une cellule permettant de savoir si à la position $i$, nous sommes en présence ou non d'un gap.  Cela permettra de propager les gaps vers le bas. La figure \ref{table} illustre cette structure de donnée.\medskip
 
 \begin{figure}[!ht]
 \centering
@@ -249,7 +249,7 @@ Un problème équivalent survient lorsque dans l'arc $n_1$-->$n_2$, la chaîne d
 Voici les résultats obtenus : 
 
 \subsection{Collection 1}
-Les deux résultats présentés à la figure \ref{coll1} sont les deux meilleurs résultats que nous ayons obtenu au court de nos nombreux test. On y voit que l'ensemble (ou presque) de la séquence cible a été retrouvée, cependant (tel que énoncé dans les points faibles), on observe aussi que de nombreux fragment n'ont pas été compris dans la partie 'cible' de la séquence (et ont été placé avant et après).
+Les deux résultats présentés à la figure \ref{coll1} sont les deux meilleurs résultats que nous ayons obtenu au cours de nos nombreux tests. On y voit que l'ensemble (ou presque) de la séquence cible a été retrouvée, cependant (tel que énoncé dans les points faibles), on observe aussi que de nombreux fragments n'ont pas été compris dans la partie 'cible' de la séquence (et ont été placé avant et après).
 
 \begin{figure}[!ht]
 	\centering
@@ -259,7 +259,7 @@ Les deux résultats présentés à la figure \ref{coll1} sont les deux meilleurs
 \end{figure}
 
 \subsection{Collection 4}
-Les deux résultats présentés à la figure \ref{coll4} sont les deux meilleurs résultats que nous ayons obtenu au court de nos nombreux test. On y observe que les résultats sont un peu moins bons que pour la collection 1. En effet ici, la partie cible est segmentée en plus de morceaux et ces morceux sont plus éparpillé au sein du contig. Mais, notons tout de même que l'ensemble (ou presque) de la séquence cible a été retrouvée( bien que de nombreux fragment n'ont pas été compris dans la partie 'cible' de la séquence).
+Les deux résultats présentés à la figure \ref{coll4} sont les deux meilleurs résultats que nous ayons obtenu au cours de nos nombreux tests. On y observe que les résultats sont un peu moins bons que pour la collection 1. En effet ici, la partie cible est segmentée en plus de morceaux et ces morceaux sont plus éparpillés au sein du contig. Mais, notons tout de même que l'ensemble (ou presque) de la séquence cible a été retrouvée( bien que de nombreux fragments n'ont pas été compris dans la partie 'cible' de la séquence).
 
 \begin{figure}[!ht]
 	\centering
@@ -320,7 +320,7 @@ Pour la collection 3 simplifiées, 2 fichiers cibles ont été généré et sont
 
 Nous avons rencontrés de nombreux problèmes et ce à chaque étape de la réalisation de l'application.\medskip
 
-La première étant lors de l'implémentation de l'algorithme de l'alignement semi-global et la détermination du type de l'alignement.  Nous avons longuement essayer de déterminer le type de l'alignement (préfixe, suffixe, inclusion) via la matrice de l'alignement mais cette méthode donnait des mauvais résultats lorsque l'alignement contenait des gaps.  Nous nous sommes alors basé sur les chaînes de caractères représentant l'alignement et nous avons obtenus de meilleurs résultats.\medskip
+La première étant lors de l'implémentation de l'algorithme de l'alignement semi-global et la détermination du type de l'alignement.  Nous avons longuement essayé de déterminer le type de l'alignement (préfixe, suffixe, inclusion) via la matrice de l'alignement mais cette méthode donnait des mauvais résultats lorsque l'alignement contenait des gaps.  Nous nous sommes alors basé sur les chaînes de caractères représentant l'alignement et nous avons obtenus de meilleurs résultats.\medskip
 
 La seconde difficulté était au niveau de l'algorithme \textit{Greedy} et la gestion des fragments inclus.  Il nous a fallu un certains temps avant d'arriver à les gérer correctement.\medskip
 
@@ -349,7 +349,7 @@ Une erreur connue concerne la longueur de la séquence obtenue.  Nous ne savons 
 
 Un second point à soulever concerne la barre de progression. En effet, ayant 4 étapes dans le processus de résolution, chaque étape terminée fait avancer la barre de 25\%. Hors, pour une meilleur exactitude, elle devrait tenir compte du nombre d'arc et du fait que quand ce nombre augmente, le temps pour construire le graphe devient considérable et les 3 autres étapes deviennent négligeable en temps.
 
-Finalement, l'analyse par le site \url{http://emboss.bioinformatics.nl/cgi-bin/emboss/dotmatcher/} ne nous permet pas de visualiser la qualité du fichier cible. Nous déclarons ne pas en connapitre la raison.
+Finalement, l'analyse par le site \url{http://emboss.bioinformatics.nl/cgi-bin/emboss/dotmatcher/} ne nous permet pas de visualiser la qualité du fichier cible. Nous déclarons ne pas en connaître la raison.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -381,7 +381,7 @@ A travers ce problème de séquensage d'ADN, nous avons eu l'occasion de mettre 
 
 Ce projet fut une dur épreuve parce que, en plus de devoir gérer plusieurs projets en même temps avec des groupes différents (et donc des disponibilités différentes), il a fallu être très attentif à l'ensemble de la problématique à tout moment. Chaque décision avait un impact conséquent sur l'ensemble du programme et une décision prise trop vite pouvait rendre inutile de longue heures de travail.
 
-Enfin, ce projet estdifférents des autres, parce que pour une fois, malgré que le projet soit fini, il n'est tout de même pas satisfaisant. En effet, certains résultats sont bons, mais d'autres restent mauvais sans en comprendre la raison (et donc pas de possibilité d'amélioration).
+Enfin, ce projet est différents des autres, parce que pour une fois, malgré que le projet soit fini, il n'est tout de même pas satisfaisant. En effet, certains résultats sont bons, mais d'autres restent mauvais sans en comprendre la raison (et donc pas de possibilité d'amélioration).
 
 \newpage
 %\bibliographystyle{plain}

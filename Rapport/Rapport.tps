@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1105
-NormalPos.bottom=569
+NormalPos.bottom=442
 Class=LaTeXView
 Document=Rapport.tex
 
 [Frame0_View0,0]
-TopLine=52
-Cursor=1786
+TopLine=119
+Cursor=4249
 
 [Frame1]
 Flags=0
@@ -30,7 +30,7 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1105
-NormalPos.bottom=569
+NormalPos.bottom=442
 Class=BibTeXView
 Document=reference.bib
 

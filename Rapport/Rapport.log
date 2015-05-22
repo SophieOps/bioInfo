@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.1)  22 MAY 2015 12:18
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.1)  22 MAY 2015 13:00
 entering extended mode
 **Rapport.tex
 (C:\Users\Sophie\Documents\bioInfo\Rapport\Rapport.tex
@@ -739,7 +739,7 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
-Overfull \hbox (40.88092pt too wide) in paragraph at lines 109--115
+Overfull \hbox (72.00653pt too wide) in paragraph at lines 109--115
  [][] 
  []
 
@@ -1020,7 +1020,7 @@ m/cmmi8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
 .9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/ur
 w/helvetic/uhvro8a.pfb>
-Output written on Rapport.pdf (20 pages, 919883 bytes).
+Output written on Rapport.pdf (20 pages, 919928 bytes).
 PDF statistics:
  701 PDF objects out of 1000 (max. 8388607)
  68 named destinations out of 1000 (max. 500000)
